@@ -3,1522 +3,912 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>GOMUTION — Global Student &amp; Inventor Stream</title>
+  <title>GOMUTION — Global Student & Inventor Project Stream</title>
   <style>
     :root {
-      --bg-canvas: #060911;
-      --bg-surface: #0d1320;
-      --bg-elevated: #131b2e;
-      --bg-input: #090e18;
-      --border-subtle: rgba(148, 163, 184, 0.14);
-      --border-strong: rgba(56, 189, 248, 0.35);
-      --brand-primary: red;
-      --brand-secondary: black;
-      --brand-gradient: linear-gradient(135deg, red 0%, black 100%);
-      --brand-glow: rgba(56, 189, 248, 0.22);
-      --text-main: #f8fafc;
-      --text-body: #cbd5e1;
-      --text-muted: #64748b;
-      --success: #10b981;
-      --warning: #f59e0b;
+      --bg-dark: #070b14;
+      --bg-card: rgba(17, 25, 46, 0.72);
+      --bg-glass: rgba(255, 255, 255, 0.05);
+      --border-glass: rgba(125, 211, 252, 0.18);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --neon-cyan: #22d3ee;
+      --neon-violet: #a855f7;
+      --neon-emerald: #10b981;
       --danger: #f43f5e;
-      --radius-xl: 18px;
-      --radius-lg: 14px;
-      --radius-md: 10px;
-      --radius-sm: 7px;
-      --shadow-card: 0 12px 32px -8px rgba(0, 0, 0, 0.55);
+      --radius: 18px;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       -webkit-tap-highlight-color: transparent;
     }
 
     body {
-      background-color: var(--bg-canvas);
-      background-image:
-        radial-gradient(circle at 15% 0%, rgba(56, 189, 248, 0.08) 0%, transparent 42%),
-        radial-gradient(circle at 85% 10%, rgba(99, 102, 241, 0.08) 0%, transparent 40%);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(34, 211, 238, 0.14), transparent 40%),
+        radial-gradient(circle at 85% 20%, rgba(168, 85, 247, 0.14), transparent 42%),
+        var(--bg-dark);
       color: var(--text-main);
-      min-height: 100vh;
-      line-height: 1.55;
-      overflow-x: hidden;
+      min-height: 100dvh;
+      padding-bottom: 48px;
+      line-height: 1.5;
     }
 
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 6px; height: 4px; }
-    ::-webkit-scrollbar-track { background: var(--bg-canvas); }
-    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 99px; }
-    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 16px;
+    }
 
-    /* Top Glass Header */
-    header {
-      position: fixed;
-      top: 0;
-      z-index: 100;
-      background: rgba(6, 9, 17, 0.82);
+    .glass {
+      background: var(--bg-card);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border-subtle);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 34px rgba(0, 0, 0, 0.45);
     }
 
-    .nav-inner {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 12px 18px;
+    header.top-bar {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      border-color: rgba(34, 211, 238, 0.28);
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
+    .brand h1 {
+      font-size: 1.5rem;
+      letter-spacing: 0.08em;
+      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-violet));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    .brand-mark {
-      width: 38px;
-      height: 38px;
-      border-radius: 11px;
-      background: var(--brand-gradient);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 900;
-      font-size: 16px;
-      color: black;
-      letter-spacing: -0.5px;
-      box-shadow: 0 4px 18px var(--brand-glow);
+    .brand p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
     }
 
-    .brand-info h1 {
-      font-size: 18px;
-      font-weight: 800;
-      letter-spacing: 1.2px;
-      color: var(--text-main);
-      line-height: 1.1;
-    }
-
-    .brand-info span {
-      display: block;
-      font-size: 11px;
-      color: var(--brand-primary);
-      font-weight: 500;
-      letter-spacing: 0.2px;
-    }
-
-    .nav-right {
+    .status-row {
       display: flex;
       align-items: center;
       gap: 10px;
+      flex-wrap: wrap;
     }
 
-    .user-chip {
-      display: none;
-      align-items: center;
-      gap: 7px;
-      background: var(--bg-elevated);
-      border: 1px solid var(--border-subtle);
-      padding: 5px 11px;
-      border-radius: 99px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-body);
+    .badge {
+      font-size: 0.76rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--bg-glass);
+      border: 1px solid var(--border-glass);
+      color: var(--neon-cyan);
     }
 
-    .user-chip-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--success);
+    .badge.warn {
+      color: #fbbf24;
+      border-color: rgba(251, 191, 36, 0.35);
     }
 
-    /* Buttons */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .panel {
+      padding: 18px;
+    }
+
+    .panel h2 {
+      font-size: 1.05rem;
+      margin-bottom: 12px;
+      color: var(--neon-cyan);
+    }
+
+    .field {
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="file"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 11px 13px;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      background: rgba(9, 14, 28, 0.85);
+      color: var(--text-main);
+      font-size: 0.92rem;
+      outline: none;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.16);
+    }
+
+    select {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: linear-gradient(45deg, transparent 50%, var(--neon-cyan) 50%),
+        linear-gradient(135deg, var(--neon-cyan) 50%, transparent 50%);
+      background-position: calc(100% - 18px) calc(50% - 2px), calc(100% - 12px) calc(50% - 2px);
+      background-size: 6px 6px, 6px 6px;
+      background-repeat: no-repeat;
+      padding-right: 34px;
+    }
+
+    textarea {
+      min-height: 88px;
+      resize: vertical;
+    }
+
     .btn {
-      border: none;
-      border-radius: var(--radius-sm);
-      padding: 8px 15px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
-      white-space: nowrap;
+      padding: 10px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(34, 211, 238, 0.4);
+      background: linear-gradient(135deg, rgba(34, 211, 238, 0.22), rgba(168, 85, 247, 0.22));
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
     }
 
-    .btn-primary {
-      background: var(--brand-gradient);
-      color: #030712;
-      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.25);
+    .btn:hover {
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 18px rgba(34, 211, 238, 0.25);
     }
 
-    .btn-primary:hover:not(:disabled) {
-      filter: brightness(1.08);
-      transform: translateY(-1px);
-    }
-
-    .btn-primary:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .btn-ghost {
-      background: var(--bg-elevated);
+    .btn.secondary {
+      background: var(--bg-glass);
+      border-color: rgba(148, 163, 184, 0.28);
       color: var(--text-main);
-      border: 1px solid var(--border-subtle);
     }
 
-    .btn-ghost:hover {
-      border-color: var(--brand-primary);
-      background: rgba(56, 189, 248, 0.08);
-    }
-
-    .btn-danger-soft {
-      background: rgba(244, 63, 94, 0.12);
+    .btn.danger {
+      background: rgba(244, 63, 94, 0.16);
+      border-color: rgba(244, 63, 94, 0.45);
       color: #fda4af;
-      border: 1px solid rgba(244, 63, 94, 0.28);
+      padding: 6px 11px;
+      font-size: 0.78rem;
     }
 
-    .btn-danger-soft:hover {
-      background: rgba(244, 63, 94, 0.2);
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
-    /* Main Workspace Grid */
-    .workspace {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 20px 18px 90px;
+    .msg {
+      margin-top: 10px;
+      font-size: 0.84rem;
+      min-height: 18px;
+    }
+
+    .msg.ok { color: var(--neon-emerald); }
+    .msg.err { color: var(--danger); }
+
+    .filter-bar {
       display: grid;
-      grid-template-columns: 1fr 310px;
-      gap: 22px;
-      align-items: start;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 10px;
+      padding: 14px;
+      margin-bottom: 16px;
     }
 
-    @media (max-width: 900px) {
-      .workspace {
+    @media (max-width: 640px) {
+      .filter-bar {
         grid-template-columns: 1fr;
       }
-      .sidebar-panel {
-        order: -1;
-      }
     }
 
-    /* Cards & Surfaces */
-    .panel {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-xl);
-      padding: 18px;
-      box-shadow: var(--shadow-card);
-    }
-
-    /* Composer */
-    .composer-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 14px;
-      gap: 8px;
-    }
-
-    .composer-top h2 {
-      font-size: 15.5px;
-      font-weight: 700;
-      letter-spacing: -0.2px;
-    }
-
-    .pill-tag {
-      font-size: 11px;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 99px;
-      background: rgba(56, 189, 248, 0.1);
-      color: var(--brand-primary);
-      border: 1px solid rgba(56, 189, 248, 0.22);
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1.4fr 1fr;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-
-    @media (max-width: 580px) {
-      .form-row { grid-template-columns: 1fr; }
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 12px;
-    }
-
-    .field label {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-body);
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .char-hint {
-      font-weight: 400;
-      color: var(--text-muted);
-    }
-
-    .control {
-      width: 100%;
-      background: var(--bg-input);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 10px 13px;
-      color: var(--text-main);
-      font-size: 14px;
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-
-    .control:focus {
-      border-color: var(--brand-primary);
-      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.12);
-    }
-
-    textarea.control {
-      min-height: 96px;
-      resize: vertical;
-    }
-
-    /* Dropzone */
-    .dropzone {
-      border: 1.5px dashed rgba(148, 163, 184, 0.28);
-      border-radius: var(--radius-lg);
-      padding: 16px;
-      text-align: center;
-      background: rgba(9, 14, 24, 0.65);
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .dropzone:hover, .dropzone.dragover {
-      border-color: var(--brand-primary);
-      background: rgba(56, 189, 248, 0.05);
-    }
-
-    .dropzone-icon {
-      font-size: 20px;
-      margin-bottom: 4px;
-      color: var(--brand-primary);
-    }
-
-    .dropzone p {
-      font-size: 13px;
-      color: var(--text-body);
-    }
-
-    .dropzone small {
-      display: block;
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
-    .status-strip {
-      display: none;
-      margin-top: 10px;
-      padding: 10px 13px;
-      border-radius: var(--radius-md);
-      font-size: 12.5px;
-      font-weight: 500;
-      line-height: 1.4;
-    }
-
-    .status-strip.error {
-      display: block;
-      background: rgba(244, 63, 94, 0.12);
-      border: 1px solid rgba(244, 63, 94, 0.35);
-      color: #fda4af;
-    }
-
-    .status-strip.ok {
-      display: block;
-      background: rgba(16, 185, 129, 0.12);
-      border: 1px solid rgba(16, 185, 129, 0.35);
-      color: #6ee7b7;
-    }
-
-    .media-stage {
-      display: none;
-      margin-top: 12px;
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      border: 1px solid var(--border-subtle);
-      background: #020408;
-    }
-
-    .media-stage img, .media-stage video {
-      width: 100%;
-      max-height: 310px;
-      object-fit: contain;
-      display: block;
-    }
-
-    .composer-bottom {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 14px;
-      padding-top: 12px;
-      border-top: 1px solid var(--border-subtle);
-    }
-
-    .stamp-label {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    /* Filter Toolbar */
-    .toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 20px 0 16px;
-    }
-
-    .toolbar .search-box {
-      flex: 1;
-      min-width: 210px;
-    }
-
-    .toolbar select {
-      width: auto;
-      min-width: 145px;
-    }
-
-    /* Feed Stream */
-    .feed-stream {
+    .feed {
       display: flex;
       flex-direction: column;
       gap: 16px;
     }
 
     .post-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-xl);
       padding: 18px;
-      box-shadow: var(--shadow-card);
-      transition: border-color 0.2s ease, transform 0.2s ease;
+      border-color: rgba(168, 85, 247, 0.24);
     }
 
-    .post-card:hover {
-      border-color: rgba(56, 189, 248, 0.3);
-    }
-
-    .post-header {
+    .post-meta {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .tag {
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(34, 211, 238, 0.12);
+      color: var(--neon-cyan);
+      border: 1px solid rgba(34, 211, 238, 0.28);
+      font-weight: 600;
+    }
+
+    .post-title {
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+    }
+
+    .post-notes {
+      white-space: pre-wrap;
+      color: #cbd5e1;
+      font-size: 0.92rem;
       margin-bottom: 12px;
     }
 
-    .creator-wrap {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-    }
-
-    .creator-avatar {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-      border: 1px solid var(--border-strong);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 14px;
-      color: var(--brand-primary);
-      flex-shrink: 0;
-    }
-
-    .creator-meta h3 {
-      font-size: 14.5px;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-
-    .creator-meta time {
-      display: block;
-      font-size: 11.5px;
-      color: var(--text-muted);
-    }
-
-    .post-heading {
-      font-size: 17px;
-      font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 8px;
-      letter-spacing: -0.2px;
-    }
-
-    .post-body {
-      font-size: 14px;
-      color: var(--text-body);
-      white-space: pre-wrap;
-      margin-bottom: 14px;
-    }
-
-    .post-frame {
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      background: #020409;
-      border: 1px solid var(--border-subtle);
-      margin-bottom: 14px;
-    }
-
-    .post-frame img, .post-frame video {
+    .media-box img,
+    .media-box video {
       width: 100%;
-      max-height: 450px;
+      max-height: 420px;
+      border-radius: 14px;
+      background: #020617;
       display: block;
-      object-fit: contain;
     }
 
-    .post-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 12px;
-      border-top: 1px solid var(--border-subtle);
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    .applaud-btn {
-      background: var(--bg-elevated);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-body);
-      padding: 6px 12px;
-      border-radius: 99px;
-      font-size: 12.5px;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.15s ease;
-    }
-
-    .applaud-btn:hover {
-      border-color: var(--brand-primary);
-      color: var(--brand-primary);
-    }
-
-    .applaud-btn.active {
-      background: rgba(56, 189, 248, 0.14);
-      border-color: var(--brand-primary);
-      color: var(--brand-primary);
-    }
-
-    /* Sidebar Panel */
-    .sidebar-panel {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      position: relative;
-      top: 76px;
-    }
-
-    .stat-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-    .stat-box {
-      background: var(--bg-input);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 10px 12px;
-    }
-
-    .stat-box strong {
-      display: block;
-      font-size: 18px;
-      font-weight: 800;
-      color: var(--brand-primary);
-    }
-
-    .stat-box span {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .rule-list {
-      list-style: none;
-      margin-top: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      font-size: 12.5px;
-      color: var(--text-body);
-    }
-
-    .rule-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-    }
-
-    .rule-check {
-      color: var(--success);
-      font-weight: 800;
-    }
-
-    /* Sync Indicator */
-    .sync-pill {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      color: var(--text-body);
-      background: var(--bg-input);
-      padding: 8px 11px;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border-subtle);
-    }
-
-    .pulse-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--success);
-      box-shadow: 0 0 8px var(--success);
-      flex-shrink: 0;
-    }
-
-    .pulse-dot.standby {
-      background: var(--warning);
-      box-shadow: 0 0 8px var(--warning);
-    }
-
-    /* Toast Notification */
-    .toast {
-      position: relative;
-      bottom: 20px;
-      right: 20px;
-      z-index: 300;
-      background: var(--bg-elevated);
-      border: 1px solid var(--border-strong);
-      color: var(--text-main);
-      padding: 12px 16px;
-      border-radius: var(--radius-md);
-      font-size: 13px;
-      font-weight: 500;
-      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.6);
-      transform: translateY(120%);
-      opacity: 0;
-      transition: all 0.25s ease;
-      max-width: 340px;
-    }
-
-    .toast.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    /* Modal */
-    .modal-overlay {
-      position: relative;
-      inset: 0;
-      background: rgba(2, 5, 11, 0.82);
-      backdrop-filter: blur(8px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 250;
-      padding: 16px;
-    }
-
-    .modal-overlay.open {
-      display: flex;
-    }
-
-    .modal-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-xl);
-      width: 100%;
-      max-width: 410px;
-      padding: 22px;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
-    }
-
-    .modal-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .modal-top h3 {
-      font-size: 16.5px;
-      font-weight: 700;
-    }
-
-    .icon-close {
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      font-size: 22px;
-      cursor: pointer;
-    }
-
-    .empty-card {
+    .empty-state {
       text-align: center;
-      padding: 52px 20px;
-      background: var(--bg-surface);
-      border: 1px dashed var(--border-subtle);
-      border-radius: var(--radius-xl);
+      padding: 36px 18px;
       color: var(--text-muted);
     }
-
-    .spinner {
-      width: 14px;
-      height: 14px;
-      border: 2px solid rgba(3, 7, 18, 0.3);
-      border-top-color: #030712;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
-
-  <!-- Header -->
-  <header>
-    <div class="nav-inner">
-      <a href="#" class="brand">
-        <div class="brand-mark">GM</div>
-        <div class="brand-info">
-          <h1>GOMUTION</h1>
-          <span>Global Student &amp; Inventor Stream</span>
-        </div>
-      </a>
-      <div class="nav-right">
-        <div id="userChip" class="user-chip">
-          <span class="user-chip-dot"></span>
-          <span id="userChipName">Inventor</span>
-        </div>
-        <button id="openAuthBtn" class="btn btn-ghost">Sign In</button>
-        <button id="signOutBtn" class="btn btn-danger-soft" style="display:none;">Sign Out</button>
+  <div class="container">
+    <header class="top-bar glass">
+      <div class="brand">
+        <h1>GOMUTION</h1>
+        <p>Lightweight Student & Inventor Project Stream • Text-Serialized Payload Engine</p>
       </div>
-    </div>
-  </header>
+      <div class="status-row">
+        <span id="dbStatusBadge" class="badge warn">Connecting /config...</span>
+        <span id="sessionBadge" class="badge">Guest</span>
+        <button id="logoutBtn" class="btn secondary" style="display:none;" type="button">Log Out</button>
+      </div>
+    </header>
 
-  <!-- Main Workspace -->
-  <div class="workspace">
-    <!-- Left Column: Composer + Feed -->
-    <div>
-      <section class="panel">
-        <div class="composer-top">
-          <h2>Share a Build or Invention</h2>
-          <span class="pill-tag">Text-Encoded Cloud Sync</span>
-        </div>
-
-        <div class="form-row">
-          <div class="field" style="margin-bottom:0;">
-            <label for="titleInput">
-              Project Title *
-              <span class="char-hint" id="titleCount">0/90</span>
-            </label>
-            <input type="text" id="titleInput" class="control" maxlength="90" placeholder="e.g., Inductive Wireless Power Coil Prototype" />
-          </div>
-          <div class="field" style="margin-bottom:0;">
-            <label for="categoryInput">Engineering Field</label>
-            <select id="categoryInput" class="control">
-              <option value="Electronics & Robotics">Electronics &amp; Robotics</option>
-              <option value="Software & AI">Software &amp; AI</option>
-              <option value="Mechanical & DIY">Mechanical &amp; DIY</option>
-              <option value="Science & Research">Science &amp; Research</option>
-              <option value="General Invention">General Invention</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="field" style="margin-top:12px;">
-          <label for="explanationInput">
-            Technical Explanation &amp; Notes *
-            <span class="char-hint" id="descCount">0/1500</span>
-          </label>
-          <textarea id="explanationInput" class="control" maxlength="1500" placeholder="Describe how your invention works, components or code used, and what you discovered..."></textarea>
-        </div>
-
+    <div class="grid-2">
+      <!-- Custom RTDB Auth Panel (No Firebase Auth / Email Verification) -->
+      <section id="authSection" class="panel glass">
+        <h2>Inventor Account (RTDB Custom Auth)</h2>
         <div class="field">
-          <label>Project Video or Image (Optional)</label>
-          <div class="dropzone" id="dropzone">
-            <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp,video/mp4,video/webm,video/ogg" hidden />
-            <div class="dropzone-icon">⬆</div>
-            <p>Click or drop a <strong>Project Image</strong> or <strong>Demonstration Video</strong></p>
-            <small>Strict Rule: Videos must be 3m–20m long. Movies, series, and pirated files are automatically blocked.</small>
-          </div>
-          <div id="mediaStatus" class="status-strip"></div>
-          <div id="mediaStage" class="media-stage"></div>
+          <label for="authUsername">Inventor Handle / Username</label>
+          <input id="authUsername" type="text" placeholder="e.g. scientist_godfrey" autocomplete="off" />
         </div>
-
-        <div class="composer-bottom">
-          <span class="stamp-label" id="clockDisplay"></span>
-          <div style="display:flex; gap:8px;">
-            <button type="button" id="resetMediaBtn" class="btn btn-ghost" style="display:none;">Remove Media</button>
-            <button type="button" id="submitPostBtn" class="btn btn-primary">Publish to GOMUTION</button>
-          </div>
+        <div class="field">
+          <label for="authPasscode">Passcode</label>
+          <input id="authPasscode" type="password" placeholder="Enter passcode (min 4 chars)" />
         </div>
+        <div class="btn-row">
+          <button id="loginBtn" class="btn" type="button">Sign In</button>
+          <button id="registerBtn" class="btn secondary" type="button">Create Account</button>
+        </div>
+        <div id="authMsg" class="msg"></div>
       </section>
 
-      <!-- Search, Category & Sort Controls -->
-      <div class="toolbar">
-        <input type="text" id="searchBox" class="control search-box" placeholder="Search inventions, creators, circuits, or ideas..." />
-        <select id="filterCategory" class="control">
-          <option value="ALL">All Fields</option>
-          <option value="Electronics & Robotics">Electronics &amp; Robotics</option>
-          <option value="Software & AI">Software &amp; AI</option>
-          <option value="Mechanical & DIY">Mechanical &amp; DIY</option>
-          <option value="Science & Research">Science &amp; Research</option>
-          <option value="General Invention">General Invention</option>
-        </select>
-        <select id="sortOrder" class="control">
-          <option value="NEWEST">Newest First</option>
-          <option value="POPULAR">Most Applauded</option>
-        </select>
-      </div>
-
-      <!-- Feed Stream -->
-      <section id="feedStream" class="feed-stream"></section>
+      <!-- Project Submission Panel -->
+      <section class="panel glass">
+        <h2>Publish Project Build</h2>
+        <form id="postForm">
+          <div class="field">
+            <label for="postTitle">Project Title</label>
+            <input id="postTitle" type="text" placeholder="e.g. Dual-Motor PVC Chassis & Coil Rig" required />
+          </div>
+          <div class="grid-2" style="gap:10px; margin-bottom:0;">
+            <div class="field">
+              <label for="postCategory">Engineering Track</label>
+              <select id="postCategory">
+                <option value="Robotics & Mechanics">Robotics & Mechanics</option>
+                <option value="Electronics & Circuits">Electronics & Circuits</option>
+                <option value="Software & AI">Software & AI</option>
+                <option value="Renewable & Physics">Renewable & Physics</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="postMediaFile">Image (≤3MB) or Video (3–20m, ≤45MB)</label>
+              <input id="postMediaFile" type="file" accept="image/*,video/*" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="postNotes">Technical Notes & Build Breakdown</label>
+            <textarea id="postNotes" placeholder="Share schematics, materials, observations, and next steps..."></textarea>
+          </div>
+          <button id="publishBtn" class="btn" type="submit">Serialize & Publish</button>
+          <div id="postMsg" class="msg"></div>
+        </form>
+      </section>
     </div>
 
-    <!-- Right Column: Platform Telemetry & Rules -->
-    <aside class="sidebar-panel">
-      <div class="panel">
-        <div class="sync-pill">
-          <span id="syncLed" class="pulse-dot"></span>
-          <span id="syncLabel">Initializing Engine...</span>
-        </div>
+    <!-- Search, Filter & Sort -->
+    <section class="filter-bar glass">
+      <input id="searchInput" type="text" placeholder="Search projects, inventors, or notes..." />
+      <select id="categoryFilter">
+        <option value="ALL">All Tracks</option>
+        <option value="Robotics & Mechanics">Robotics & Mechanics</option>
+        <option value="Electronics & Circuits">Electronics & Circuits</option>
+        <option value="Software & AI">Software & AI</option>
+        <option value="Renewable & Physics">Renewable & Physics</option>
+      </select>
+      <select id="sortSelect">
+        <option value="NEWEST">Newest First</option>
+        <option value="OLDEST">Oldest First</option>
+        <option value="TITLE">Title (A–Z)</option>
+      </select>
+    </section>
 
-        <div class="stat-grid">
-          <div class="stat-box">
-            <strong id="statTotalPosts">0</strong>
-            <span>Projects Shared</span>
-          </div>
-          <div class="stat-box">
-            <strong id="statTotalApplauds">0</strong>
-            <span>Total Applause</span>
-          </div>
-        </div>
-      </div>
-
-  
-    </aside>
+    <main id="feedContainer" class="feed">
+      <div class="empty-state glass">Loading projects...</div>
+    </main>
   </div>
 
-  <!-- Toast Banner -->
-  <div id="toast" class="toast"></div>
+  <!-- Firebase Compat SDKs for lightweight single-file browser execution -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
-  <!-- Auth Modal -->
-  <div id="authOverlay" class="modal-overlay">
-    <div class="modal-card">
-      <div class="modal-top">
-        <h3>GOMUTION Inventor Account</h3>
-        <button class="icon-close" id="closeAuthBtn">&times;</button>
-      </div>
-      <div class="field">
-        <label for="regName">Display Name (Required to Register)</label>
-        <input type="text" id="regName" class="control" placeholder="e.g., Godfrey Anthony" />
-      </div>
-      <div class="field">
-        <label for="authEmail">Email Address</label>
-        <input type="email" id="authEmail" class="control" placeholder="inventor@gomution.com" />
-      </div>
-      <div class="field">
-        <label for="authPass">Password</label>
-        <input type="password" id="authPass" class="control" placeholder="Minimum 6 characters" />
-      </div>
-      <div id="authAlert" class="status-strip error" style="margin-bottom:12px;"></div>
-      <div style="display:flex; gap:8px; justify-content:flex-end;">
-        <button type="button" id="createAccBtn" class="btn btn-ghost">Create Account</button>
-        <button type="button" id="signInBtn" class="btn btn-primary">Sign In</button>
-      </div>
-    </div>
-  </div>
+  <script>
+    (() => {
+      const MAX_IMAGE_BYTES = 3 * 1024 * 1024;      // 3 MB
+      const MAX_VIDEO_BYTES = 45 * 1024 * 1024;     // 45 MB
+      const MIN_VIDEO_SECONDS = 3 * 60;             // 3 minutes (180s)
+      const MAX_VIDEO_SECONDS = 20 * 60;            // 20 minutes (1200s)
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import {
-      getAuth,
-      signInWithEmailAndPassword,
-      createUserWithEmailAndPassword,
-      updateProfile,
-      onAuthStateChanged,
-      signOut
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import {
-      getDatabase,
-      ref,
-      push,
-      set,
-      onValue,
-      update,
-      query,
-      limitToLast
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+      // Strict anti-movie / anti-piracy keyword blocklist
+      const PIRACY_BLOCKLIST = /\b(full\s*movie|movie\s*download|camrip|hdcam|webrip|bluray|dvdrip|torrent|yts|123movies|fmovies|soap2day|netflix|season\s*\d+\s*ep(isode)?\s*\d+|official\s*film|cinema\s*cam|bootleg)\b/i;
 
-    /**
-     * =========================================================================
-     * 1. CLOUDFLARE ENV-READY FIREBASE CONFIG
-     * Ready to receive injected environment variables from Cloudflare Pages/Workers
-     * =========================================================================
-     */
-    const ENV = window.__ENV__ || {};
-    const firebaseConfig = {
-      apiKey: ENV.FIREBASE_API_KEY || "YOUR_FIREBASE_API_KEY",
-      authDomain: ENV.FIREBASE_AUTH_DOMAIN || "YOUR_PROJECT_ID.firebaseapp.com",
-      databaseURL: ENV.FIREBASE_DATABASE_URL || "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
-      projectId: ENV.FIREBASE_PROJECT_ID || "YOUR_PROJECT_ID",
-      storageBucket: ENV.FIREBASE_STORAGE_BUCKET || "YOUR_PROJECT_ID.appspot.com",
-      messagingSenderId: ENV.FIREBASE_MESSAGING_ID || "YOUR_SENDER_ID",
-      appId: ENV.FIREBASE_APP_ID || "YOUR_APP_ID"
-    };
+      const LOCAL_POSTS_KEY = "gomution_text_posts_v1";
+      const LOCAL_USERS_KEY = "gomution_text_users_v1";
+      const LOCAL_SESSION_KEY = "gomution_active_user_v1";
 
-    const isCloudReady = Boolean(firebaseConfig.apiKey && !firebaseConfig.apiKey.includes("YOUR_FIREBASE"));
-    const app = isCloudReady ? initializeApp(firebaseConfig) : null;
-    const auth = app ? getAuth(app) : null;
-    const db = app ? getDatabase(app) : null;
+      let db = null;
+      let usingFirebase = false;
+      let postsCache = [];
+      let currentUser = localStorage.getItem(LOCAL_SESSION_KEY) || "";
 
-    /**
-     * =========================================================================
-     * 2. STRICT ENGINE POLICIES (Duration, Anti-Movie & Payload Guards)
-     * =========================================================================
-     */
-    const ENGINE_POLICY = Object.freeze({
-      MIN_VIDEO_SEC: 180,          // 3 minutes
-      MAX_VIDEO_SEC: 1200,         // 20 minutes
-      MAX_IMAGE_BYTES: 3 * 1024 * 1024,
-      MAX_VIDEO_BYTES: 45 * 1024 * 1024,
-      IMAGE_MIMES: new Set(["image/jpeg", "image/png", "image/webp"]),
-      VIDEO_MIMES: new Set(["video/mp4", "video/webm", "video/ogg"]),
-      ANTI_MOVIE_REGEX: /\b(1080p|720p|480p|2160p|4k|bluray|brrip|bdrip|webrip|web-dl|hdrip|dvdrip|camrip|hdcam|telesync|ts|hdtc|x264|x265|hevc|aac5\.1|yify|rarbg|fzmovies|netnaija|waploaded|toxicwap|nkiri|season\s?\d+|s\d{2}e\d{2}|episode\s?\d+|full\s?movie|dual\s?audio|subbed|dubbed|extended\s?cut|director'?s\s?cut)\b/i
-    });
-
-    const store = {
-      user: null,
-      stagedMedia: null,
-      posts: [],
-      likedIds: new Set(JSON.parse(localStorage.getItem("gomution_liked_ids") || "[]")),
-      search: "",
-      category: "ALL",
-      sort: "NEWEST"
-    };
-
-    const el = {
-      syncLed: document.getElementById("syncLed"),
-      syncLabel: document.getElementById("syncLabel"),
-      statTotalPosts: document.getElementById("statTotalPosts"),
-      statTotalApplauds: document.getElementById("statTotalApplauds"),
-      userChip: document.getElementById("userChip"),
-      userChipName: document.getElementById("userChipName"),
-      openAuthBtn: document.getElementById("openAuthBtn"),
-      signOutBtn: document.getElementById("signOutBtn"),
-      titleInput: document.getElementById("titleInput"),
-      titleCount: document.getElementById("titleCount"),
-      categoryInput: document.getElementById("categoryInput"),
-      explanationInput: document.getElementById("explanationInput"),
-      descCount: document.getElementById("descCount"),
-      dropzone: document.getElementById("dropzone"),
-      fileInput: document.getElementById("fileInput"),
-      mediaStatus: document.getElementById("mediaStatus"),
-      mediaStage: document.getElementById("mediaStage"),
-      resetMediaBtn: document.getElementById("resetMediaBtn"),
-      submitPostBtn: document.getElementById("submitPostBtn"),
-      clockDisplay: document.getElementById("clockDisplay"),
-      searchBox: document.getElementById("searchBox"),
-      filterCategory: document.getElementById("filterCategory"),
-      sortOrder: document.getElementById("sortOrder"),
-      feedStream: document.getElementById("feedStream"),
-      toast: document.getElementById("toast"),
-      authOverlay: document.getElementById("authOverlay"),
-      closeAuthBtn: document.getElementById("closeAuthBtn"),
-      regName: document.getElementById("regName"),
-      authEmail: document.getElementById("authEmail"),
-      authPass: document.getElementById("authPass"),
-      authAlert: document.getElementById("authAlert"),
-      createAccBtn: document.getElementById("createAccBtn"),
-      signInBtn: document.getElementById("signInBtn")
-    };
-
-    /**
-     * =========================================================================
-     * 3. UTILITIES (Toast, Clock, Sanitization, Debounce)
-     * =========================================================================
-     */
-    let toastTimer = null;
-    function notify(msg) {
-      el.toast.textContent = msg;
-      el.toast.classList.add("show");
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => el.toast.classList.remove("show"), 3400);
-    }
-
-    function escapeHTML(value) {
-      return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-    }
-
-    function formatStamp(ms = Date.now()) {
-      const d = new Date(ms);
-      const day = d.toLocaleDateString("en-US", { weekday: "long" });
-      const date = d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
-      const time = d.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" });
-      return { day, date, fullLabel: `${day}, ${date} • ${time}` };
-    }
-
-    function debounce(fn, delay = 180) {
-      let timer = null;
-      return (...args) => {
-        clearTimeout(timer);
-        timer = setTimeout(() => fn(...args), delay);
+      const els = {
+        dbStatusBadge: document.getElementById("dbStatusBadge"),
+        sessionBadge: document.getElementById("sessionBadge"),
+        logoutBtn: document.getElementById("logoutBtn"),
+        authSection: document.getElementById("authSection"),
+        authUsername: document.getElementById("authUsername"),
+        authPasscode: document.getElementById("authPasscode"),
+        loginBtn: document.getElementById("loginBtn"),
+        registerBtn: document.getElementById("registerBtn"),
+        authMsg: document.getElementById("authMsg"),
+        postForm: document.getElementById("postForm"),
+        postTitle: document.getElementById("postTitle"),
+        postCategory: document.getElementById("postCategory"),
+        postMediaFile: document.getElementById("postMediaFile"),
+        postNotes: document.getElementById("postNotes"),
+        publishBtn: document.getElementById("publishBtn"),
+        postMsg: document.getElementById("postMsg"),
+        searchInput: document.getElementById("searchInput"),
+        categoryFilter: document.getElementById("categoryFilter"),
+        sortSelect: document.getElementById("sortSelect"),
+        feedContainer: document.getElementById("feedContainer"),
       };
-    }
 
-    /**
-     * =========================================================================
-     * 4. MEDIA VALIDATION & PURE TEXT CONVERSION ENGINE
-     * =========================================================================
-     */
-    function setMediaFeedback(type, text) {
-      el.mediaStatus.className = `status-strip ${type}`;
-      el.mediaStatus.textContent = text;
-    }
-
-    function resetMedia() {
-      store.stagedMedia = null;
-      el.fileInput.value = "";
-      el.mediaStage.innerHTML = "";
-      el.mediaStage.style.display = "none";
-      el.mediaStatus.className = "status-strip";
-      el.mediaStatus.textContent = "";
-      el.resetMediaBtn.style.display = "none";
-    }
-
-    function compressImageToText(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onerror = () => reject(new Error("Could not read image file."));
-        reader.onload = (ev) => {
-          const img = new Image();
-          img.onerror = () => reject(new Error("Invalid or corrupted image file."));
-          img.onload = () => {
-            const MAX_W = 1024;
-            let w = img.width;
-            let h = img.height;
-            if (w > MAX_W) {
-              h = Math.round((h * MAX_W) / w);
-              w = MAX_W;
-            }
-            const canvas = document.createElement("canvas");
-            canvas.width = w;
-            canvas.height = h;
-            const ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0, w, h);
-            resolve(canvas.toDataURL("image/jpeg", 0.8));
-          };
-          img.src = ev.target.result;
-        };
-        reader.readAsDataURL(file);
-      });
-    }
-
-    function inspectAndEncodeVideo(file) {
-      return new Promise((resolve, reject) => {
-        if (ENGINE_POLICY.ANTI_MOVIE_REGEX.test(file.name)) {
-          reject(new Error("Blocked by Anti-Movie Guard: Filename matches commercial movie, series, or rip tags."));
-          return;
+      // --- Lightweight Text Serialization & Deserialization Helpers ---
+      function encodeTextPayload(obj) {
+        const jsonStr = JSON.stringify(obj);
+        const bytes = new TextEncoder().encode(jsonStr);
+        let binary = "";
+        const chunkSize = 0x8000;
+        for (let i = 0; i < bytes.length; i += chunkSize) {
+          binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunkSize));
         }
-        if (file.size > ENGINE_POLICY.MAX_VIDEO_BYTES) {
-          reject(new Error("Video exceeds 45MB lightweight limit. Compress your project clip before uploading."));
-          return;
-        }
-
-        const tempUrl = URL.createObjectURL(file);
-        const probe = document.createElement("video");
-        probe.preload = "metadata";
-
-        probe.onerror = () => {
-          URL.revokeObjectURL(tempUrl);
-          reject(new Error("Corrupted video stream. Please use standard MP4, WebM, or OGG."));
-        };
-
-        probe.onloadedmetadata = () => {
-          const dur = probe.duration;
-          URL.revokeObjectURL(tempUrl);
-
-          if (!Number.isFinite(dur) || dur <= 0) {
-            reject(new Error("Unreadable video duration."));
-            return;
-          }
-          if (dur < ENGINE_POLICY.MIN_VIDEO_SEC) {
-            reject(new Error(`Clip is ${(dur / 60).toFixed(1)} min. Minimum project demonstration length is 3 minutes (180s).`));
-            return;
-          }
-          if (dur > ENGINE_POLICY.MAX_VIDEO_SEC) {
-            reject(new Error(`Clip is ${(dur / 60).toFixed(1)} min. Maximum allowed length is 20 minutes to block movies.`));
-            return;
-          }
-
-          const reader = new FileReader();
-          reader.onerror = () => reject(new Error("Failed to encode video into text payload."));
-          reader.onload = () => resolve({ textPayload: String(reader.result), durationSec: Math.round(dur) });
-          reader.readAsDataURL(file);
-        };
-
-        probe.src = tempUrl;
-      });
-    }
-
-    async function processSelectedFile(file) {
-      if (!file) return;
-      resetMedia();
-
-      try {
-        if (ENGINE_POLICY.IMAGE_MIMES.has(file.type)) {
-          if (file.size > ENGINE_POLICY.MAX_IMAGE_BYTES) {
-            throw new Error("Image exceeds 3MB limit. Select a smaller diagram or photo.");
-          }
-          setMediaFeedback("ok", "Compressing and encoding image into text payload...");
-          const textPayload = await compressImageToText(file);
-          store.stagedMedia = { type: "image", textPayload, durationSec: 0 };
-
-          el.mediaStage.innerHTML = `<img src="${textPayload}" alt="Staged preview" />`;
-          el.mediaStage.style.display = "block";
-          el.resetMediaBtn.style.display = "inline-flex";
-          setMediaFeedback("ok", `Image verified & converted to text string (${Math.round(textPayload.length / 1024)} KB).`);
-
-        } else if (ENGINE_POLICY.VIDEO_MIMES.has(file.type)) {
-          setMediaFeedback("ok", "Verifying 3m–20m duration rule and converting video to text payload...");
-          const { textPayload, durationSec } = await inspectAndEncodeVideo(file);
-          store.stagedMedia = { type: "video", textPayload, durationSec };
-
-          const label = `${Math.floor(durationSec / 60)}m ${durationSec % 60}s`;
-          el.mediaStage.innerHTML = `<video src="${textPayload}" controls playsinline></video>`;
-          el.mediaStage.style.display = "block";
-          el.resetMediaBtn.style.display = "inline-flex";
-          setMediaFeedback("ok", `Project video verified (${label}) & converted to text format.`);
-
-        } else {
-          throw new Error("Invalid file type. Allowed: JPG, PNG, WEBP, MP4, WebM, OGG.");
-        }
-      } catch (err) {
-        resetMedia();
-        setMediaFeedback("error", err.message);
-      }
-    }
-
-    /**
-     * =========================================================================
-     * 5. MEMORY-SAFE FEED RENDERER & AUTO-PAUSE OBSERVER
-     * =========================================================================
-     */
-    const videoVisibilityObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting && !entry.target.paused) {
-            entry.target.pause();
-          }
-        });
-      },
-      { threshold: 0.25 }
-    );
-
-    function updateTelemetry() {
-      el.statTotalPosts.textContent = String(store.posts.length);
-      const totalLikes = store.posts.reduce((acc, item) => acc + Number(item.likes || 0), 0);
-      el.statTotalApplauds.textContent = String(totalLikes);
-    }
-
-    function renderFeed() {
-      updateTelemetry();
-      const term = store.search.trim().toLowerCase();
-
-      let list = store.posts.filter((p) => {
-        const catOk = store.category === "ALL" || p.category === store.category;
-        const textOk =
-          !term ||
-          p.title.toLowerCase().includes(term) ||
-          p.explanation.toLowerCase().includes(term) ||
-          p.authorName.toLowerCase().includes(term);
-        return catOk && textOk;
-      });
-
-      if (store.sort === "POPULAR") {
-        list = [...list].sort((a, b) => Number(b.likes || 0) - Number(a.likes || 0));
-      } else {
-        list = [...list].sort((a, b) => Number(b.timestamp || 0) - Number(a.timestamp || 0));
+        return btoa(binary);
       }
 
-      if (list.length === 0) {
-        el.feedStream.innerHTML = `
-          <div class="empty-card">
-            <h3 style="color:var(--text-main); font-size:15px;">No projects found</h3>
-            <p style="font-size:13px; margin-top:5px;">Publish the first project or clear your active search filter.</p>
-          </div>
-        `;
-        return;
-      }
-
-      el.feedStream.innerHTML = list.map((post) => {
-        const initials = (post.authorName || "IN").slice(0, 2).toUpperCase();
-        const isLiked = store.likedIds.has(post.id);
-        let mediaHTML = "";
-
-        if (post.mediaType === "image" && post.mediaText.startsWith("data:image/")) {
-          mediaHTML = `<div class="post-frame"><img src="${post.mediaText}" alt="${escapeHTML(post.title)}" loading="lazy" /></div>`;
-        } else if (post.mediaType === "video" && post.mediaText.startsWith("data:video/")) {
-          mediaHTML = `<div class="post-frame"><video src="${post.mediaText}" controls preload="metadata" playsinline></video></div>`;
-        }
-
-        return `
-          <article class="post-card">
-            <div class="post-header">
-              <div class="creator-wrap">
-                <div class="creator-avatar">${escapeHTML(initials)}</div>
-                <div class="creator-meta">
-                  <h3>${escapeHTML(post.authorName)}</h3>
-                  <time>${escapeHTML(post.dateLabel)}</time>
-                </div>
-              </div>
-              <span class="pill-tag">${escapeHTML(post.category)}</span>
-            </div>
-
-            <h4 class="post-heading">${escapeHTML(post.title)}</h4>
-            <p class="post-body">${escapeHTML(post.explanation)}</p>
-            ${mediaHTML}
-
-            <div class="post-footer">
-              <button type="button" class="applaud-btn ${isLiked ? "active" : ""}" data-like-id="${escapeHTML(post.id)}">
-                ▲ Applaud (${Number(post.likes || 0)})
-              </button>
-              <span>${post.mediaType !== "none" ? `${post.mediaType.toUpperCase()} • Text-Synced` : "TEXT POST"}</span>
-            </div>
-          </article>
-        `;
-      }).join("");
-
-      el.feedStream.querySelectorAll("video").forEach((vid) => videoVisibilityObserver.observe(vid));
-    }
-
-    /**
-     * =========================================================================
-     * 6. FIREBASE REALTIME DATABASE & AUTH ENGINE
-     * =========================================================================
-     */
-    const CACHE_KEY = "gomution_cache_v2";
-
-    function loadCache() {
-      try {
-        const saved = JSON.parse(localStorage.getItem(CACHE_KEY) || "[]");
-        if (Array.isArray(saved) && saved.length) {
-          store.posts = saved;
-          renderFeed();
-        }
-      } catch { /* ignore */ }
-    }
-
-    function saveCache() {
-      try {
-        localStorage.setItem(CACHE_KEY, JSON.stringify(store.posts.slice(0, 30)));
-      } catch { /* ignore quota limits */ }
-    }
-
-    function initSync() {
-      loadCache();
-
-      if (!isCloudReady || !db) {
-        el.syncLed.classList.add("standby");
-        el.syncLabel.textContent = "Standby Mode • Ready for Cloudflare Env Keys";
-        renderFeed();
-        return;
-      }
-
-      const feedQuery = query(ref(db, "gomution_posts"), limitToLast(60));
-      onValue(
-        feedQuery,
-        (snap) => {
-          el.syncLed.classList.remove("standby");
-          el.syncLabel.textContent = "Live Cloud Sync • Connected";
-
-          const raw = snap.val();
-          if (!raw) {
-            store.posts = [];
-            renderFeed();
-            return;
-          }
-
-          store.posts = Object.entries(raw).map(([id, v]) => ({
-            id,
-            authorId: String(v.authorId || ""),
-            authorName: String(v.authorName || "Inventor"),
-            title: String(v.title || ""),
-            category: String(v.category || "General Invention"),
-            explanation: String(v.explanation || ""),
-            mediaType: String(v.mediaType || "none"),
-            mediaText: String(v.mediaText || ""),
-            dayName: String(v.dayName || ""),
-            dateString: String(v.dateString || ""),
-            dateLabel: String(v.dateLabel || formatStamp(v.timestamp).fullLabel),
-            timestamp: Number(v.timestamp || 0),
-            likes: Number(v.likes || 0),
-            verified: Boolean(v.verified)
-          }));
-
-          saveCache();
-          renderFeed();
-        },
-        (err) => {
-          el.syncLed.classList.add("standby");
-          el.syncLabel.textContent = `Sync Notice: ${err.message}`;
-        }
-      );
-    }
-
-    async function handlePublish() {
-      const title = el.titleInput.value.trim();
-      const category = el.categoryInput.value;
-      const explanation = el.explanationInput.value.trim();
-
-      if (title.length < 4) {
-        notify("Please provide a project title (at least 4 characters).");
-        el.titleInput.focus();
-        return;
-      }
-      if (explanation.length < 15) {
-        notify("Please write a clear explanation (at least 15 characters).");
-        el.explanationInput.focus();
-        return;
-      }
-      if (isCloudReady && !store.user) {
-        el.authAlert.style.display = "block";
-        el.authAlert.textContent = "Sign in to your GOMUTION account to publish globally.";
-        el.authOverlay.classList.add("open");
-        return;
-      }
-
-      el.submitPostBtn.disabled = true;
-      el.submitPostBtn.innerHTML = `<span class="spinner"></span> Publishing...`;
-
-      try {
-        const now = Date.now();
-        const stamp = formatStamp(now);
-
-        const payload = {
-          authorId: store.user ? store.user.uid : "local_inventor",
-          authorName: store.user?.displayName || store.user?.email?.split("@")[0] || "Inventor",
-          title: String(title),
-          category: String(category),
-          explanation: String(explanation),
-          mediaType: store.stagedMedia ? String(store.stagedMedia.type) : "none",
-          mediaText: store.stagedMedia ? String(store.stagedMedia.textPayload) : "",
-          dayName: String(stamp.day),
-          dateString: String(stamp.date),
-          dateLabel: String(stamp.fullLabel),
-          timestamp: Number(now),
-          likes: Number(0),
-          verified: Boolean(true)
-        };
-
-        if (isCloudReady && db) {
-          await set(push(ref(db, "gomution_posts")), payload);
-        } else {
-          store.posts.unshift({ id: `local_${now}`, ...payload });
-          saveCache();
-          renderFeed();
-        }
-
-        el.titleInput.value = "";
-        el.explanationInput.value = "";
-        el.titleCount.textContent = "0/90";
-        el.descCount.textContent = "0/1500";
-        resetMedia();
-        notify("Project published to GOMUTION!");
-      } catch (err) {
-        notify(`Publish failed: ${err.message}`);
-      } finally {
-        el.submitPostBtn.disabled = false;
-        el.submitPostBtn.textContent = "Publish to GOMUTION";
-      }
-    }
-
-    function initAuthentication() {
-      if (!isCloudReady || !auth) return;
-
-      onAuthStateChanged(auth, (user) => {
-        store.user = user;
-        if (user) {
-          el.userChipName.textContent = user.displayName || user.email;
-          el.userChip.style.display = "inline-flex";
-          el.openAuthBtn.style.display = "none";
-          el.signOutBtn.style.display = "inline-flex";
-          el.authOverlay.classList.remove("open");
-        } else {
-          el.userChip.style.display = "none";
-          el.openAuthBtn.style.display = "inline-flex";
-          el.signOutBtn.style.display = "none";
-        }
-      });
-    }
-
-    /**
-     * =========================================================================
-     * 7. EVENT BINDINGS & BOOT
-     * =========================================================================
-     */
-    el.titleInput.addEventListener("input", () => {
-      el.titleCount.textContent = `${el.titleInput.value.length}/90`;
-    });
-
-    el.explanationInput.addEventListener("input", () => {
-      el.descCount.textContent = `${el.explanationInput.value.length}/1500`;
-    });
-
-    el.dropzone.addEventListener("click", () => el.fileInput.click());
-    el.dropzone.addEventListener("dragover", (e) => {
-      e.preventDefault();
-      el.dropzone.classList.add("dragover");
-    });
-    el.dropzone.addEventListener("dragleave", () => el.dropzone.classList.remove("dragover"));
-    el.dropzone.addEventListener("drop", (e) => {
-      e.preventDefault();
-      el.dropzone.classList.remove("dragover");
-      if (e.dataTransfer.files?.[0]) processSelectedFile(e.dataTransfer.files[0]);
-    });
-
-    el.fileInput.addEventListener("change", (e) => processSelectedFile(e.target.files[0]));
-    el.resetMediaBtn.addEventListener("click", resetMedia);
-    el.submitPostBtn.addEventListener("click", handlePublish);
-
-    el.searchBox.addEventListener("input", debounce((e) => {
-      store.search = e.target.value;
-      renderFeed();
-    }, 150));
-
-    el.filterCategory.addEventListener("change", (e) => {
-      store.category = e.target.value;
-      renderFeed();
-    });
-
-    el.sortOrder.addEventListener("change", (e) => {
-      store.sort = e.target.value;
-      renderFeed();
-    });
-
-    el.feedStream.addEventListener("click", async (e) => {
-      const btn = e.target.closest("[data-like-id]");
-      if (!btn) return;
-      const id = btn.getAttribute("data-like-id");
-      const post = store.posts.find((p) => p.id === id);
-      if (!post || store.likedIds.has(id)) {
-        notify("You already applauded this invention.");
-        return;
-      }
-
-      store.likedIds.add(id);
-      localStorage.setItem("gomution_liked_ids", JSON.stringify([...store.likedIds]));
-      post.likes = Number(post.likes || 0) + 1;
-      renderFeed();
-
-      if (isCloudReady && db && !id.startsWith("local_")) {
+      function decodeTextPayload(encodedStr) {
+        if (typeof encodedStr !== "string" || !encodedStr.trim()) return null;
         try {
-          await update(ref(db, `gomution_posts/${id}`), { likes: post.likes });
-        } catch (err) {
-          console.error("Like sync error:", err);
+          const binary = atob(encodedStr.trim());
+          const bytes = new Uint8Array(binary.length);
+          for (let i = 0; i < binary.length; i++) {
+            bytes[i] = binary.charCodeAt(i);
+          }
+          const jsonStr = new TextDecoder().decode(bytes);
+          return JSON.parse(jsonStr);
+        } catch {
+          try {
+            return JSON.parse(encodedStr);
+          } catch {
+            return null;
+          }
         }
-      } else {
-        saveCache();
       }
-    });
 
-    el.openAuthBtn.addEventListener("click", () => {
-      el.authAlert.style.display = "none";
-      el.authOverlay.classList.add("open");
-    });
-    el.closeAuthBtn.addEventListener("click", () => el.authOverlay.classList.remove("open"));
-
-    el.signInBtn.addEventListener("click", async () => {
-      if (!isCloudReady || !auth) {
-        el.authAlert.style.display = "block";
-        el.authAlert.textContent = "Connect your Cloudflare Firebase environment variables to enable live sign-in.";
-        return;
+      function hashPasscode(handle, pass) {
+        const raw = `${handle.toLowerCase()}::${pass}`;
+        let h = 2166136261;
+        for (let i = 0; i < raw.length; i++) {
+          h ^= raw.charCodeAt(i);
+          h = Math.imul(h, 16777619);
+        }
+        return (h >>> 0).toString(16);
       }
-      try {
-        await signInWithEmailAndPassword(auth, el.authEmail.value.trim(), el.authPass.value);
-        notify("Signed in to GOMUTION.");
-      } catch (err) {
-        el.authAlert.style.display = "block";
-        el.authAlert.textContent = err.message;
-      }
-    });
 
-    el.createAccBtn.addEventListener("click", async () => {
-      if (!isCloudReady || !auth) {
-        el.authAlert.style.display = "block";
-        el.authAlert.textContent = "Connect your Cloudflare Firebase environment variables to create accounts.";
-        return;
+      function formatDayStamp(ts) {
+        const d = new Date(ts);
+        const dayName = d.toLocaleDateString(undefined, { weekday: "short" });
+        const dateStr = d.toLocaleDateString(undefined, {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        });
+        return `${dayName}, ${dateStr}`;
       }
-      const name = el.regName.value.trim();
-      if (!name) {
-        el.authAlert.style.display = "block";
-        el.authAlert.textContent = "Please enter your display name.";
-        return;
+
+      function setMsg(el, text, isError = false) {
+        el.textContent = text;
+        el.className = `msg ${text ? (isError ? "err" : "ok") : ""}`;
       }
-      try {
-        const cred = await createUserWithEmailAndPassword(auth, el.authEmail.value.trim(), el.authPass.value);
-        await updateProfile(cred.user, { displayName: name });
-        el.userChipName.textContent = name;
-        notify(`Welcome to GOMUTION, ${name}!`);
-      } catch (err) {
-        el.authAlert.style.display = "block";
-        el.authAlert.textContent = err.message;
+
+      function updateSessionUI() {
+        if (currentUser) {
+          els.sessionBadge.textContent = `@${currentUser}`;
+          els.logoutBtn.style.display = "inline-flex";
+        } else {
+          els.sessionBadge.textContent = "Guest";
+          els.logoutBtn.style.display = "none";
+        }
       }
-    });
 
-    el.signOutBtn.addEventListener("click", () => auth && signOut(auth));
+      // --- Initialize Firebase via Cloudflare Pages Function (/config) ---
+      async function initFirebaseFromEndpoint() {
+        try {
+          const res = await fetch("/config", { cache: "no-store" });
+          const data = await res.json();
 
-    // Start live stamp clock & boot engines
-    const tickClock = () => { el.clockDisplay.textContent = `Stamp: ${formatStamp().fullLabel}`; };
-    tickClock();
-    setInterval(tickClock, 15000);
+          let cfg = data && data.firebaseConfig ? data.firebaseConfig : null;
+          if (!cfg && data && typeof data.rawText === "string") {
+            const match = data.rawText.match(/\{[\s\S]*\}/);
+            if (match) {
+              const normalized = match[0].replace(/([{,]\s*)([A-Za-z0-9_$]+)\s*:/g, '$1"$2":');
+              cfg = JSON.parse(normalized);
+            }
+          }
 
-    initAuthentication();
-    initSync();
+          if (!cfg || !cfg.databaseURL) {
+            throw new Error("Missing databaseURL in /config payload");
+          }
+
+          if (!firebase.apps.length) {
+            firebase.initializeApp(cfg);
+          }
+          db = firebase.database();
+          usingFirebase = true;
+          els.dbStatusBadge.textContent = "Firebase RTDB Connected";
+          els.dbStatusBadge.className = "badge";
+
+          db.ref("gomution/textPosts").on("value", (snapshot) => {
+            const rawMap = snapshot.val() || {};
+            const list = [];
+            Object.entries(rawMap).forEach(([id, entry]) => {
+              const serialized = typeof entry === "string" ? entry : entry && entry.payload;
+              const decoded = decodeTextPayload(serialized);
+              if (decoded && decoded.title) {
+                list.push({ id, ...decoded });
+              }
+            });
+            postsCache = list;
+            renderFeed();
+          });
+        } catch (err) {
+          usingFirebase = false;
+          els.dbStatusBadge.textContent = "Local Text Mode (/config offline)";
+          els.dbStatusBadge.className = "badge warn";
+          loadLocalPosts();
+          renderFeed();
+        }
+      }
+
+      function loadLocalPosts() {
+        const rawList = JSON.parse(localStorage.getItem(LOCAL_POSTS_KEY) || "[]");
+        postsCache = rawList
+          .map((item) => {
+            const decoded = decodeTextPayload(item.payload || "");
+            return decoded ? { id: item.id, ...decoded } : null;
+          })
+          .filter(Boolean);
+      }
+
+      function saveLocalPostsList(list) {
+        const encodedList = list.map((p) => {
+          const { id, ...rest } = p;
+          return { id, payload: encodeTextPayload(rest) };
+        });
+        localStorage.setItem(LOCAL_POSTS_KEY, JSON.stringify(encodedList));
+      }
+
+      // --- Custom RTDB Auth (Username + Passcode) ---
+      async function getUsersMap() {
+        if (usingFirebase && db) {
+          const snap = await db.ref("gomution/textUsers").get();
+          return snap.val() || {};
+        }
+        return JSON.parse(localStorage.getItem(LOCAL_USERS_KEY) || "{}");
+      }
+
+      async function saveUserRecord(cleanHandle, encodedRecord) {
+        if (usingFirebase && db) {
+          await db.ref(`gomution/textUsers/${cleanHandle}`).set(encodedRecord);
+        } else {
+          const map = JSON.parse(localStorage.getItem(LOCAL_USERS_KEY) || "{}");
+          map[cleanHandle] = encodedRecord;
+          localStorage.setItem(LOCAL_USERS_KEY, JSON.stringify(map));
+        }
+      }
+
+      els.registerBtn.addEventListener("click", async () => {
+        const handle = els.authUsername.value.trim().toLowerCase().replace(/[^a-z0-9_]/g, "");
+        const pass = els.authPasscode.value;
+        if (handle.length < 3) {
+          return setMsg(els.authMsg, "Handle must be at least 3 letters/numbers/underscores.", true);
+        }
+        if (pass.length < 4) {
+          return setMsg(els.authMsg, "Passcode must be at least 4 characters.", true);
+        }
+
+        const users = await getUsersMap();
+        if (users[handle]) {
+          return setMsg(els.authMsg, "That inventor handle is already taken. Try Sign In.", true);
+        }
+
+        const record = {
+          handle,
+          passHash: hashPasscode(handle, pass),
+          createdAt: Date.now(),
+        };
+        await saveUserRecord(handle, encodeTextPayload(record));
+        currentUser = handle;
+        localStorage.setItem(LOCAL_SESSION_KEY, currentUser);
+        updateSessionUI();
+        setMsg(els.authMsg, `Account created for @${handle}. Ready to post!`);
+      });
+
+      els.loginBtn.addEventListener("click", async () => {
+        const handle = els.authUsername.value.trim().toLowerCase().replace(/[^a-z0-9_]/g, "");
+        const pass = els.authPasscode.value;
+        if (!handle || !pass) {
+          return setMsg(els.authMsg, "Enter both handle and passcode.", true);
+        }
+
+        const users = await getUsersMap();
+        const rawEntry = users[handle];
+        if (!rawEntry) {
+          return setMsg(els.authMsg, "Account not found. Create an account first.", true);
+        }
+        const decoded = decodeTextPayload(typeof rawEntry === "string" ? rawEntry : rawEntry.payload);
+        if (!decoded || decoded.passHash !== hashPasscode(handle, pass)) {
+          return setMsg(els.authMsg, "Incorrect passcode.", true);
+        }
+
+        currentUser = handle;
+        localStorage.setItem(LOCAL_SESSION_KEY, currentUser);
+        updateSessionUI();
+        setMsg(els.authMsg, `Signed in as @${handle}.`);
+      });
+
+      els.logoutBtn.addEventListener("click", () => {
+        currentUser = "";
+        localStorage.removeItem(LOCAL_SESSION_KEY);
+        updateSessionUI();
+        setMsg(els.authMsg, "Signed out.");
+      });
+
+      // --- Media Validation & Client-Side Compression ---
+      function compressImageToDataUrl(file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onerror = () => reject(new Error("Could not read image file."));
+          reader.onload = () => {
+            const img = new Image();
+            img.onerror = () => reject(new Error("Invalid image data."));
+            img.onload = () => {
+              const maxDim = 1080;
+              let { width, height } = img;
+              if (width > maxDim || height > maxDim) {
+                if (width >= height) {
+                  height = Math.round((height * maxDim) / width);
+                  width = maxDim;
+                } else {
+                  width = Math.round((width * maxDim) / height);
+                  height = maxDim;
+                }
+              }
+              const canvas = document.createElement("canvas");
+              canvas.width = width;
+              canvas.height = height;
+              const ctx = canvas.getContext("2d");
+              ctx.drawImage(img, 0, 0, width, height);
+
+              let quality = 0.78;
+              let dataUrl = canvas.toDataURL("image/jpeg", quality);
+              while (dataUrl.length * 0.75 > MAX_IMAGE_BYTES && quality > 0.25) {
+                quality -= 0.1;
+                dataUrl = canvas.toDataURL("image/jpeg", quality);
+              }
+              if (dataUrl.length * 0.75 > MAX_IMAGE_BYTES) {
+                return reject(new Error("Compressed image still exceeds 3MB limit."));
+              }
+              resolve({ mime: "image/jpeg", dataUrl });
+            };
+            img.src = reader.result;
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+
+      function validateAndReadVideo(file) {
+        return new Promise((resolve, reject) => {
+          if (file.size > MAX_VIDEO_BYTES) {
+            return reject(new Error("Video exceeds the 45MB maximum size limit."));
+          }
+          const objectUrl = URL.createObjectURL(file);
+          const vid = document.createElement("video");
+          vid.preload = "metadata";
+          vid.onloadedmetadata = () => {
+            const duration = vid.duration;
+            URL.revokeObjectURL(objectUrl);
+            if (!Number.isFinite(duration) || duration < MIN_VIDEO_SECONDS || duration > MAX_VIDEO_SECONDS) {
+              return reject(new Error("Video duration must be between 3 minutes and 20 minutes."));
+            }
+            const reader = new FileReader();
+            reader.onerror = () => reject(new Error("Could not read video file."));
+            reader.onload = () => resolve({
+              mime: file.type || "video/mp4",
+              dataUrl: reader.result,
+              durationSec: Math.round(duration),
+            });
+            reader.readAsDataURL(file);
+          };
+          vid.onerror = () => {
+            URL.revokeObjectURL(objectUrl);
+            reject(new Error("Could not inspect video metadata."));
+          };
+          vid.src = objectUrl;
+        });
+      }
+
+      // --- Publish Project ---
+      els.postForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const title = els.postTitle.value.trim();
+        const notes = els.postNotes.value.trim();
+        const category = els.postCategory.value;
+        const file = els.postMediaFile.files[0] || null;
+
+        if (!title) {
+          return setMsg(els.postMsg, "Please enter a project title.", true);
+        }
+
+        const combinedText = `${title} ${notes} ${file ? file.name : ""}`;
+        if (PIRACY_BLOCKLIST.test(combinedText)) {
+          return setMsg(
+            els.postMsg,
+            "Blocked: Content appears to match movie/piracy keywords. GOMUTION is strictly for original student & inventor builds.",
+            true
+          );
+        }
+
+        els.publishBtn.disabled = true;
+        setMsg(els.postMsg, "Validating & serializing payload...");
+
+        try {
+          let mediaPayload = null;
+          if (file) {
+            if (file.type.startsWith("image/")) {
+              if (file.size > MAX_IMAGE_BYTES * 2.5) {
+                throw new Error("Original image is too large to compress under 3MB.");
+              }
+              mediaPayload = await compressImageToDataUrl(file);
+            } else if (file.type.startsWith("video/")) {
+              mediaPayload = await validateAndReadVideo(file);
+            } else {
+              throw new Error("Only image or video files are supported.");
+            }
+          }
+
+          const now = Date.now();
+          const postObj = {
+            author: currentUser || "inventor_guest",
+            title,
+            category,
+            notes,
+            media: mediaPayload,
+            createdAt: now,
+            dayStamp: formatDayStamp(now),
+          };
+
+          const serializedPayload = encodeTextPayload(postObj);
+          const newId = `post_${now}_${Math.random().toString(36).slice(2, 7)}`;
+
+          if (usingFirebase && db) {
+            await db.ref(`gomution/textPosts/${newId}`).set(serializedPayload);
+          } else {
+            const nextList = [{ id: newId, ...postObj }, ...postsCache];
+            postsCache = nextList;
+            saveLocalPostsList(nextList);
+            renderFeed();
+          }
+
+          els.postForm.reset();
+          setMsg(els.postMsg, "Project serialized as lightweight text and published!");
+        } catch (err) {
+          setMsg(els.postMsg, err.message || "Failed to publish project.", true);
+        } finally {
+          els.publishBtn.disabled = false;
+        }
+      });
+
+      // --- Render Feed + IntersectionObserver Video Auto-Pause ---
+      let videoObserver = null;
+
+      function setupVideoAutoPause() {
+        if (videoObserver) videoObserver.disconnect();
+        const videos = document.querySelectorAll("video.auto-pause-video");
+        if (!videos.length || !("IntersectionObserver" in window)) return;
+
+        videoObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              const vid = entry.target;
+              if (!entry.isIntersecting && !vid.paused) {
+                vid.pause();
+              }
+            });
+          },
+          { threshold: 0.35 }
+        );
+
+        videos.forEach((v) => videoObserver.observe(v));
+      }
+
+      async function deletePost(postId) {
+        if (usingFirebase && db) {
+          await db.ref(`gomution/textPosts/${postId}`).remove();
+        } else {
+          postsCache = postsCache.filter((p) => p.id !== postId);
+          saveLocalPostsList(postsCache);
+          renderFeed();
+        }
+      }
+
+      function renderFeed() {
+        const query = els.searchInput.value.trim().toLowerCase();
+        const cat = els.categoryFilter.value;
+        const sort = els.sortSelect.value;
+
+        let filtered = postsCache.filter((p) => {
+          const matchesCat = cat === "ALL" || p.category === cat;
+          const haystack = `${p.title} ${p.notes} ${p.author} ${p.category}`.toLowerCase();
+          const matchesQuery = !query || haystack.includes(query);
+          return matchesCat && matchesQuery;
+        });
+
+        filtered.sort((a, b) => {
+          if (sort === "OLDEST") return (a.createdAt || 0) - (b.createdAt || 0);
+          if (sort === "TITLE") return String(a.title).localeCompare(String(b.title));
+          return (b.createdAt || 0) - (a.createdAt || 0);
+        });
+
+        els.feedContainer.innerHTML = "";
+        if (!filtered.length) {
+          els.feedContainer.innerHTML = `<div class="empty-state glass">No matching projects yet. Publish the first build above!</div>`;
+          return;
+        }
+
+        filtered.forEach((post) => {
+          const card = document.createElement("article");
+          card.className = "post-card glass";
+
+          const meta = document.createElement("div");
+          meta.className = "post-meta";
+
+          const leftMeta = document.createElement("span");
+          leftMeta.textContent = `@${post.author || "inventor_guest"} • ${post.dayStamp || formatDayStamp(post.createdAt || Date.now())}`;
+
+          const rightMeta = document.createElement("div");
+          rightMeta.style.display = "flex";
+          rightMeta.style.alignItems = "center";
+          rightMeta.style.gap = "8px";
+
+          const tag = document.createElement("span");
+          tag.className = "tag";
+          tag.textContent = post.category || "Build";
+          rightMeta.appendChild(tag);
+
+          if (currentUser && post.author === currentUser) {
+            const delBtn = document.createElement("button");
+            delBtn.type = "button";
+            delBtn.className = "btn danger";
+            delBtn.textContent = "Delete";
+            delBtn.addEventListener("click", () => deletePost(post.id));
+            rightMeta.appendChild(delBtn);
+          }
+
+          meta.appendChild(leftMeta);
+          meta.appendChild(rightMeta);
+
+          const titleEl = document.createElement("h3");
+          titleEl.className = "post-title";
+          titleEl.textContent = post.title;
+
+          const notesEl = document.createElement("p");
+          notesEl.className = "post-notes";
+          notesEl.textContent = post.notes || "";
+
+          card.appendChild(meta);
+          card.appendChild(titleEl);
+          if (post.notes) card.appendChild(notesEl);
+
+          if (post.media && post.media.dataUrl) {
+            const mediaBox = document.createElement("div");
+            mediaBox.className = "media-box";
+            if (String(post.media.mime).startsWith("image/")) {
+              const img = document.createElement("img");
+              img.src = post.media.dataUrl;
+              img.alt = post.title;
+              img.loading = "lazy";
+              mediaBox.appendChild(img);
+            } else if (String(post.media.mime).startsWith("video/")) {
+              const vid = document.createElement("video");
+              vid.className = "auto-pause-video";
+              vid.src = post.media.dataUrl;
+              vid.controls = true;
+              vid.playsInline = true;
+              mediaBox.appendChild(vid);
+            }
+            card.appendChild(mediaBox);
+          }
+
+          els.feedContainer.appendChild(card);
+        });
+
+        setupVideoAutoPause();
+      }
+
+      els.searchInput.addEventListener("input", renderFeed);
+      els.categoryFilter.addEventListener("change", renderFeed);
+      els.sortSelect.addEventListener("change", renderFeed);
+
+      updateSessionUI();
+      initFirebaseFromEndpoint();
+    })();
   </script>
 </body>
 </html>
