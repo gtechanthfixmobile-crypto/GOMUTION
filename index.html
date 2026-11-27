@@ -2,845 +2,857 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>GOMUTION — Global Student & Inventor Project Stream</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GOMUTION — Global Student &amp; Inventor Build Stream</title>
   <style>
     :root {
-      --bg-dark: #070b14;
-      --bg-card: rgba(17, 25, 46, 0.72);
-      --bg-glass: rgba(255, 255, 255, 0.05);
-      --border-glass: rgba(125, 211, 252, 0.18);
-      --text-main: #f1f5f9;
-      --text-muted: #94a3b8;
-      --neon-cyan: #22d3ee;
-      --neon-violet: #a855f7;
-      --neon-emerald: #10b981;
-      --danger: #f43f5e;
-      --radius: 18px;
+      --bg-0: #070b14;
+      --bg-1: #0d1424;
+      --bg-2: #131d33;
+      --card: rgba(17, 26, 46, 0.92);
+      --border: rgba(148, 163, 184, 0.18);
+      --border-strong: rgba(56, 189, 248, 0.45);
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-2: #818cf8;
+      --ok: #34d399;
+      --warn: #fbbf24;
+      --err: #f87171;
+      --err-bg: rgba(127, 29, 29, 0.45);
+      --err-border: rgba(248, 113, 113, 0.65);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      -webkit-tap-highlight-color: transparent;
     }
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background:
-        radial-gradient(circle at 15% 10%, rgba(34, 211, 238, 0.14), transparent 40%),
-        radial-gradient(circle at 85% 20%, rgba(168, 85, 247, 0.14), transparent 42%),
-        var(--bg-dark);
-      color: var(--text-main);
-      min-height: 100dvh;
-      padding-bottom: 48px;
+        radial-gradient(circle at 15% 10%, rgba(56, 189, 248, 0.14), transparent 45%),
+        radial-gradient(circle at 85% 0%, rgba(129, 140, 248, 0.14), transparent 45%),
+        var(--bg-0);
+      color: var(--text);
+      min-height: 100vh;
       line-height: 1.5;
-    }
-
-    .container {
-      max-width: 920px;
-      margin: 0 auto;
       padding: 16px;
     }
 
-    .glass {
-      background: var(--bg-card);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--border-glass);
-      border-radius: var(--radius);
-      box-shadow: 0 12px 34px rgba(0, 0, 0, 0.45);
-    }
-
-    header.top-bar {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 16px 20px;
-      margin-bottom: 16px;
-      border-color: rgba(34, 211, 238, 0.28);
-    }
-
-    .brand h1 {
-      font-size: 1.5rem;
-      letter-spacing: 0.08em;
-      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-violet));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .brand p {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .status-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .badge {
-      font-size: 0.76rem;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: var(--bg-glass);
-      border: 1px solid var(--border-glass);
-      color: var(--neon-cyan);
-    }
-
-    .badge.warn {
-      color: #fbbf24;
-      border-color: rgba(251, 191, 36, 0.35);
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-
-    .panel {
-      padding: 18px;
-    }
-
-    .panel h2 {
-      font-size: 1.05rem;
-      margin-bottom: 12px;
-      color: var(--neon-cyan);
-    }
-
-    .field {
-      margin-bottom: 12px;
-    }
-
-    label {
-      display: block;
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      margin-bottom: 5px;
-    }
-
-    input[type="text"],
-    input[type="password"],
-    input[type="file"],
-    textarea,
-    select {
-      width: 100%;
-      padding: 11px 13px;
-      border-radius: 12px;
-      border: 1px solid rgba(148, 163, 184, 0.25);
-      background: rgba(9, 14, 28, 0.85);
-      color: var(--text-main);
-      font-size: 0.92rem;
-      outline: none;
-    }
-
-    input:focus,
-    textarea:focus,
-    select:focus {
-      border-color: var(--neon-cyan);
-      box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.16);
-    }
-
-    select {
-      appearance: none;
-      -webkit-appearance: none;
-      background-image: linear-gradient(45deg, transparent 50%, var(--neon-cyan) 50%),
-        linear-gradient(135deg, var(--neon-cyan) 50%, transparent 50%);
-      background-position: calc(100% - 18px) calc(50% - 2px), calc(100% - 12px) calc(50% - 2px);
-      background-size: 6px 6px, 6px 6px;
-      background-repeat: no-repeat;
-      padding-right: 34px;
-    }
-
-    textarea {
-      min-height: 88px;
-      resize: vertical;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 10px 16px;
-      border-radius: 12px;
-      border: 1px solid rgba(34, 211, 238, 0.4);
-      background: linear-gradient(135deg, rgba(34, 211, 238, 0.22), rgba(168, 85, 247, 0.22));
-      color: #fff;
-      font-weight: 600;
-      font-size: 0.88rem;
-      cursor: pointer;
-    }
-
-    .btn:hover {
-      border-color: var(--neon-cyan);
-      box-shadow: 0 0 18px rgba(34, 211, 238, 0.25);
-    }
-
-    .btn.secondary {
-      background: var(--bg-glass);
-      border-color: rgba(148, 163, 184, 0.28);
-      color: var(--text-main);
-    }
-
-    .btn.danger {
-      background: rgba(244, 63, 94, 0.16);
-      border-color: rgba(244, 63, 94, 0.45);
-      color: #fda4af;
-      padding: 6px 11px;
-      font-size: 0.78rem;
-    }
-
-    .btn-row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .msg {
-      margin-top: 10px;
-      font-size: 0.84rem;
-      min-height: 18px;
-    }
-
-    .msg.ok { color: var(--neon-emerald); }
-    .msg.err { color: var(--danger); }
-
-    .filter-bar {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr;
-      gap: 10px;
-      padding: 14px;
-      margin-bottom: 16px;
-    }
-
-    @media (max-width: 640px) {
-      .filter-bar {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .feed {
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
       display: flex;
       flex-direction: column;
       gap: 16px;
     }
 
-    .post-card {
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
       padding: 18px;
-      border-color: rgba(168, 85, 247, 0.24);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+    }
+
+    .header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand h1 {
+      font-size: 1.65rem;
+      letter-spacing: 0.06em;
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand p {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .status-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: var(--bg-2);
+      color: var(--muted);
+    }
+
+    .pill.live {
+      color: var(--ok);
+      border-color: rgba(52, 211, 153, 0.45);
+      background: rgba(16, 185, 129, 0.12);
+    }
+
+    .pill.error {
+      color: var(--err);
+      border-color: var(--err-border);
+      background: var(--err-bg);
+    }
+
+    .error-banner {
+      display: none;
+      background: var(--err-bg);
+      border: 1px solid var(--err-border);
+      color: #fecaca;
+      border-radius: 14px;
+      padding: 14px 16px;
+      font-size: 0.92rem;
+    }
+
+    .error-banner.visible {
+      display: block;
+    }
+
+    .error-banner strong {
+      display: block;
+      color: #ffffff;
+      font-size: 0.98rem;
+      margin-bottom: 4px;
+    }
+
+    .notice-banner {
+      display: none;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(52, 211, 153, 0.45);
+      color: #a7f3d0;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 0.88rem;
+      margin-top: 10px;
+    }
+
+    .notice-banner.visible {
+      display: block;
+    }
+
+    h2 {
+      font-size: 1.12rem;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    label {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      background: var(--bg-1);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 12px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.15s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--border-strong);
+    }
+
+    textarea {
+      min-height: 105px;
+      resize: vertical;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      transition: transform 0.1s ease, opacity 0.15s ease;
+    }
+
+    button:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+
+    button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #061021;
+    }
+
+    .btn-secondary {
+      background: var(--bg-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.18);
+      color: #fca5a5;
+      border: 1px solid rgba(248, 113, 113, 0.4);
+      padding: 6px 12px;
+      font-size: 0.82rem;
+    }
+
+    .feed-controls {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    @media (max-width: 640px) {
+      .feed-controls {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .post-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .post-card {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .post-meta {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
       flex-wrap: wrap;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-bottom: 8px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 0.84rem;
+      color: var(--muted);
     }
 
     .tag {
+      display: inline-block;
       padding: 3px 10px;
       border-radius: 999px;
-      background: rgba(34, 211, 238, 0.12);
-      color: var(--neon-cyan);
-      border: 1px solid rgba(34, 211, 238, 0.28);
-      font-weight: 600;
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: rgba(56, 189, 248, 0.14);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.3);
     }
 
     .post-title {
       font-size: 1.15rem;
-      margin-bottom: 8px;
+      font-weight: 700;
     }
 
     .post-notes {
       white-space: pre-wrap;
       color: #cbd5e1;
-      font-size: 0.92rem;
-      margin-bottom: 12px;
+      font-size: 0.93rem;
     }
 
-    .media-box img,
-    .media-box video {
+    .post-media {
       width: 100%;
       max-height: 420px;
-      border-radius: 14px;
-      background: #020617;
-      display: block;
+      object-fit: contain;
+      border-radius: 10px;
+      background: #050811;
+      border: 1px solid var(--border);
     }
 
     .empty-state {
       text-align: center;
-      padding: 36px 18px;
-      color: var(--text-muted);
+      color: var(--muted);
+      padding: 28px 14px;
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      font-size: 0.92rem;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header class="top-bar glass">
+  <main class="container">
+    <header class="card header">
       <div class="brand">
         <h1>GOMUTION</h1>
-        <p>Lightweight Student & Inventor Project Stream • Text-Serialized Payload Engine</p>
+        <p>Public Engineering &amp; Inventor Build Feed — Powered by Firebase Realtime Database</p>
       </div>
       <div class="status-row">
-        <span id="dbStatusBadge" class="badge warn">Connecting /config...</span>
-        <span id="sessionBadge" class="badge">Guest</span>
-        <button id="logoutBtn" class="btn secondary" style="display:none;" type="button">Log Out</button>
+        <span id="dbStatusPill" class="pill">Connecting to RTDB...</span>
+        <span id="sessionPill" class="pill">Signed Out</span>
       </div>
     </header>
 
-    <div class="grid-2">
-      <!-- Custom RTDB Auth Panel (No Firebase Auth / Email Verification) -->
-      <section id="authSection" class="panel glass">
-        <h2>Inventor Account (RTDB Custom Auth)</h2>
-        <div class="field">
-          <label for="authUsername">Inventor Handle / Username</label>
-          <input id="authUsername" type="text" placeholder="e.g. scientist_godfrey" autocomplete="off" />
-        </div>
-        <div class="field">
-          <label for="authPasscode">Passcode</label>
-          <input id="authPasscode" type="password" placeholder="Enter passcode (min 4 chars)" />
-        </div>
-        <div class="btn-row">
-          <button id="loginBtn" class="btn" type="button">Sign In</button>
-          <button id="registerBtn" class="btn secondary" type="button">Create Account</button>
-        </div>
-        <div id="authMsg" class="msg"></div>
-      </section>
-
-      <!-- Project Submission Panel -->
-      <section class="panel glass">
-        <h2>Publish Project Build</h2>
-        <form id="postForm">
-          <div class="field">
-            <label for="postTitle">Project Title</label>
-            <input id="postTitle" type="text" placeholder="e.g. Dual-Motor PVC Chassis & Coil Rig" required />
-          </div>
-          <div class="grid-2" style="gap:10px; margin-bottom:0;">
-            <div class="field">
-              <label for="postCategory">Engineering Track</label>
-              <select id="postCategory">
-                <option value="Robotics & Mechanics">Robotics & Mechanics</option>
-                <option value="Electronics & Circuits">Electronics & Circuits</option>
-                <option value="Software & AI">Software & AI</option>
-                <option value="Renewable & Physics">Renewable & Physics</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="postMediaFile">Image (≤3MB) or Video (3–20m, ≤45MB)</label>
-              <input id="postMediaFile" type="file" accept="image/*,video/*" />
-            </div>
-          </div>
-          <div class="field">
-            <label for="postNotes">Technical Notes & Build Breakdown</label>
-            <textarea id="postNotes" placeholder="Share schematics, materials, observations, and next steps..."></textarea>
-          </div>
-          <button id="publishBtn" class="btn" type="submit">Serialize & Publish</button>
-          <div id="postMsg" class="msg"></div>
-        </form>
-      </section>
-    </div>
-
-    <!-- Search, Filter & Sort -->
-    <section class="filter-bar glass">
-      <input id="searchInput" type="text" placeholder="Search projects, inventors, or notes..." />
-      <select id="categoryFilter">
-        <option value="ALL">All Tracks</option>
-        <option value="Robotics & Mechanics">Robotics & Mechanics</option>
-        <option value="Electronics & Circuits">Electronics & Circuits</option>
-        <option value="Software & AI">Software & AI</option>
-        <option value="Renewable & Physics">Renewable & Physics</option>
-      </select>
-      <select id="sortSelect">
-        <option value="NEWEST">Newest First</option>
-        <option value="OLDEST">Oldest First</option>
-        <option value="TITLE">Title (A–Z)</option>
-      </select>
+    <section id="prodErrorBanner" class="error-banner" role="alert" aria-live="assertive">
+      <strong>Production Service Error</strong>
+      <span id="prodErrorText"></span>
     </section>
 
-    <main id="feedContainer" class="feed">
-      <div class="empty-state glass">Loading projects...</div>
-    </main>
-  </div>
+    <section class="card" id="authSection">
+      <h2>Inventor Account (Firebase Realtime Database)</h2>
+      <div class="grid-2">
+        <div class="field">
+          <label for="handleInput">Inventor Handle / Username</label>
+          <input id="handleInput" type="text" placeholder="e.g. scientist_godfrey" autocomplete="username" />
+        </div>
+        <div class="field">
+          <label for="passcodeInput">Passcode (min 4 characters)</label>
+          <input id="passcodeInput" type="password" placeholder="Enter passcode" autocomplete="current-password" />
+        </div>
+      </div>
+      <div class="btn-row">
+        <button id="signInBtn" class="btn-primary" type="button" disabled>Sign In</button>
+        <button id="createAccountBtn" class="btn-secondary" type="button" disabled>Create Account</button>
+        <button id="signOutBtn" class="btn-secondary" type="button" style="display:none;">Sign Out</button>
+      </div>
+      <div id="authNotice" class="notice-banner" role="status" aria-live="polite"></div>
+    </section>
 
-  <!-- Firebase Compat SDKs for lightweight single-file browser execution -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+    <section class="card" id="publishSection">
+      <h2>Publish Project Build</h2>
+      <form id="publishForm">
+        <div class="grid-2">
+          <div class="field">
+            <label for="projectTitleInput">Project Title</label>
+            <input id="projectTitleInput" type="text" placeholder="e.g. Dual-Motor PVC Chassis &amp; Coil Rig" required />
+          </div>
+          <div class="field">
+            <label for="trackSelect">Engineering Track</label>
+            <select id="trackSelect">
+              <option value="Robotics &amp; Mechanics">Robotics &amp; Mechanics</option>
+              <option value="Electronics &amp; Power">Electronics &amp; Power</option>
+              <option value="Software &amp; AI">Software &amp; AI</option>
+              <option value="Wireless &amp; RF">Wireless &amp; RF</option>
+              <option value="General Engineering">General Engineering</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="mediaInput">Image (&le; 2 MB) or Short Video (&le; 4 MB)</label>
+          <input id="mediaInput" type="file" accept="image/*,video/mp4,video/webm,video/quicktime" />
+        </div>
+
+        <div class="field">
+          <label for="notesInput">Technical Notes &amp; Build Breakdown</label>
+          <textarea id="notesInput" placeholder="Share schematics, components, measurements, test results, and next steps..." required></textarea>
+        </div>
+
+        <div class="btn-row">
+          <button id="publishBtn" class="btn-primary" type="submit" disabled>Publish to Firebase RTDB</button>
+        </div>
+      </form>
+      <div id="publishNotice" class="notice-banner" role="status" aria-live="polite"></div>
+    </section>
+
+    <section class="card" id="feedSection">
+      <h2>Live Public Build Stream</h2>
+      <div class="feed-controls">
+        <input id="searchInput" type="search" placeholder="Search builds, handles, or technical notes..." />
+        <select id="filterTrackSelect">
+          <option value="ALL">All Tracks</option>
+          <option value="Robotics &amp; Mechanics">Robotics &amp; Mechanics</option>
+          <option value="Electronics &amp; Power">Electronics &amp; Power</option>
+          <option value="Software &amp; AI">Software &amp; AI</option>
+          <option value="Wireless &amp; RF">Wireless &amp; RF</option>
+          <option value="General Engineering">General Engineering</option>
+        </select>
+        <select id="sortSelect">
+          <option value="NEWEST">Newest First</option>
+          <option value="OLDEST">Oldest First</option>
+        </select>
+      </div>
+
+      <div id="postsContainer" class="post-list">
+        <div class="empty-state">Waiting for live connection to Firebase Realtime Database...</div>
+      </div>
+    </section>
+  </main>
 
   <script>
-    (() => {
-      const MAX_IMAGE_BYTES = 3 * 1024 * 1024;      // 3 MB
-      const MAX_VIDEO_BYTES = 45 * 1024 * 1024;     // 45 MB
-      const MIN_VIDEO_SECONDS = 3 * 60;             // 3 minutes (180s)
-      const MAX_VIDEO_SECONDS = 20 * 60;            // 20 minutes (1200s)
+    (function () {
+      "use strict";
 
-      // Strict anti-movie / anti-piracy keyword blocklist
-      const PIRACY_BLOCKLIST = /\b(full\s*movie|movie\s*download|camrip|hdcam|webrip|bluray|dvdrip|torrent|yts|123movies|fmovies|soap2day|netflix|season\s*\d+\s*ep(isode)?\s*\d+|official\s*film|cinema\s*cam|bootleg)\b/i;
-
-      const LOCAL_POSTS_KEY = "gomution_text_posts_v1";
-      const LOCAL_USERS_KEY = "gomution_text_users_v1";
-      const LOCAL_SESSION_KEY = "gomution_active_user_v1";
-
-      let db = null;
-      let usingFirebase = false;
-      let postsCache = [];
-      let currentUser = localStorage.getItem(LOCAL_SESSION_KEY) || "";
+      // Strict policy: zero localStorage / browser storage usage.
+      let activeUser = null; // In-memory session only (resets on reload; never saved to localStorage)
+      let firebaseConfig = null;
+      let databaseURL = null;
+      let allPosts = [];
+      let isReady = false;
 
       const els = {
-        dbStatusBadge: document.getElementById("dbStatusBadge"),
-        sessionBadge: document.getElementById("sessionBadge"),
-        logoutBtn: document.getElementById("logoutBtn"),
-        authSection: document.getElementById("authSection"),
-        authUsername: document.getElementById("authUsername"),
-        authPasscode: document.getElementById("authPasscode"),
-        loginBtn: document.getElementById("loginBtn"),
-        registerBtn: document.getElementById("registerBtn"),
-        authMsg: document.getElementById("authMsg"),
-        postForm: document.getElementById("postForm"),
-        postTitle: document.getElementById("postTitle"),
-        postCategory: document.getElementById("postCategory"),
-        postMediaFile: document.getElementById("postMediaFile"),
-        postNotes: document.getElementById("postNotes"),
+        dbStatusPill: document.getElementById("dbStatusPill"),
+        sessionPill: document.getElementById("sessionPill"),
+        prodErrorBanner: document.getElementById("prodErrorBanner"),
+        prodErrorText: document.getElementById("prodErrorText"),
+        handleInput: document.getElementById("handleInput"),
+        passcodeInput: document.getElementById("passcodeInput"),
+        signInBtn: document.getElementById("signInBtn"),
+        createAccountBtn: document.getElementById("createAccountBtn"),
+        signOutBtn: document.getElementById("signOutBtn"),
+        authNotice: document.getElementById("authNotice"),
+        publishForm: document.getElementById("publishForm"),
+        projectTitleInput: document.getElementById("projectTitleInput"),
+        trackSelect: document.getElementById("trackSelect"),
+        mediaInput: document.getElementById("mediaInput"),
+        notesInput: document.getElementById("notesInput"),
         publishBtn: document.getElementById("publishBtn"),
-        postMsg: document.getElementById("postMsg"),
+        publishNotice: document.getElementById("publishNotice"),
         searchInput: document.getElementById("searchInput"),
-        categoryFilter: document.getElementById("categoryFilter"),
+        filterTrackSelect: document.getElementById("filterTrackSelect"),
         sortSelect: document.getElementById("sortSelect"),
-        feedContainer: document.getElementById("feedContainer"),
+        postsContainer: document.getElementById("postsContainer")
       };
 
-      // --- Lightweight Text Serialization & Deserialization Helpers ---
-      function encodeTextPayload(obj) {
-        const jsonStr = JSON.stringify(obj);
-        const bytes = new TextEncoder().encode(jsonStr);
-        let binary = "";
-        const chunkSize = 0x8000;
-        for (let i = 0; i < bytes.length; i += chunkSize) {
-          binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunkSize));
-        }
-        return btoa(binary);
+      function showProdError(message) {
+        els.prodErrorText.textContent = message;
+        els.prodErrorBanner.classList.add("visible");
+        els.dbStatusPill.textContent = "RTDB Error";
+        els.dbStatusPill.className = "pill error";
       }
 
-      function decodeTextPayload(encodedStr) {
-        if (typeof encodedStr !== "string" || !encodedStr.trim()) return null;
-        try {
-          const binary = atob(encodedStr.trim());
-          const bytes = new Uint8Array(binary.length);
-          for (let i = 0; i < binary.length; i++) {
-            bytes[i] = binary.charCodeAt(i);
-          }
-          const jsonStr = new TextDecoder().decode(bytes);
-          return JSON.parse(jsonStr);
-        } catch {
-          try {
-            return JSON.parse(encodedStr);
-          } catch {
-            return null;
-          }
-        }
+      function clearProdError() {
+        els.prodErrorText.textContent = "";
+        els.prodErrorBanner.classList.remove("visible");
       }
 
-      function hashPasscode(handle, pass) {
-        const raw = `${handle.toLowerCase()}::${pass}`;
-        let h = 2166136261;
-        for (let i = 0; i < raw.length; i++) {
-          h ^= raw.charCodeAt(i);
-          h = Math.imul(h, 16777619);
-        }
-        return (h >>> 0).toString(16);
+      function showNotice(targetEl, message) {
+        targetEl.textContent = message;
+        targetEl.classList.add("visible");
       }
 
-      function formatDayStamp(ts) {
-        const d = new Date(ts);
-        const dayName = d.toLocaleDateString(undefined, { weekday: "short" });
-        const dateStr = d.toLocaleDateString(undefined, {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-        });
-        return `${dayName}, ${dateStr}`;
+      function hideNotice(targetEl) {
+        targetEl.textContent = "";
+        targetEl.classList.remove("visible");
       }
 
-      function setMsg(el, text, isError = false) {
-        el.textContent = text;
-        el.className = `msg ${text ? (isError ? "err" : "ok") : ""}`;
+      function sanitizeHandle(raw) {
+        return String(raw || "").trim().toLowerCase().replace(/[^a-z0-9_]/g, "");
       }
 
       function updateSessionUI() {
-        if (currentUser) {
-          els.sessionBadge.textContent = `@${currentUser}`;
-          els.logoutBtn.style.display = "inline-flex";
+        if (activeUser) {
+          els.sessionPill.textContent = "Signed in as @" + activeUser.handle;
+          els.sessionPill.className = "pill live";
+          els.signOutBtn.style.display = "inline-block";
+          els.publishBtn.disabled = !isReady;
         } else {
-          els.sessionBadge.textContent = "Guest";
-          els.logoutBtn.style.display = "none";
+          els.sessionPill.textContent = "Signed Out";
+          els.sessionPill.className = "pill";
+          els.signOutBtn.style.display = "none";
+          els.publishBtn.disabled = true;
         }
       }
 
-      // --- Initialize Firebase via Cloudflare Pages Function (/config) ---
-      async function initFirebaseFromEndpoint() {
+      // Parses FIREBASE_Config whether provided as a JSON string or JS object literal
+      // (without `const firebaseConfig =` or trailing semicolon).
+      function parseConfigValue(rawValue) {
+        if (!rawValue) {
+          throw new Error("FIREBASE_Config is empty in deployment environment variables.");
+        }
+
+        if (typeof rawValue === "object") {
+          return rawValue;
+        }
+
+        let cleaned = String(rawValue).trim();
+
+        // Strip optional `const firebaseConfig =` or `let/var firebaseConfig =` prefix if present
+        cleaned = cleaned.replace(/^(?:const|let|var)\s+firebaseConfig\s*=\s*/i, "");
+
+        // Strip leading JS comments or trailing semicolon
+        cleaned = cleaned.replace(/^\/\/[^\n]*\n?/gm, "").trim();
+        if (cleaned.endsWith(";")) {
+          cleaned = cleaned.slice(0, -1).trim();
+        }
+
+        // First attempt strict JSON.parse
         try {
-          const res = await fetch("/config", { cache: "no-store" });
-          const data = await res.json();
-
-          let cfg = data && data.firebaseConfig ? data.firebaseConfig : null;
-          if (!cfg && data && typeof data.rawText === "string") {
-            const match = data.rawText.match(/\{[\s\S]*\}/);
-            if (match) {
-              const normalized = match[0].replace(/([{,]\s*)([A-Za-z0-9_$]+)\s*:/g, '$1"$2":');
-              cfg = JSON.parse(normalized);
-            }
-          }
-
-          if (!cfg || !cfg.databaseURL) {
-            throw new Error("Missing databaseURL in /config payload");
-          }
-
-          if (!firebase.apps.length) {
-            firebase.initializeApp(cfg);
-          }
-          db = firebase.database();
-          usingFirebase = true;
-          els.dbStatusBadge.textContent = "Firebase RTDB Connected";
-          els.dbStatusBadge.className = "badge";
-
-          db.ref("gomution/textPosts").on("value", (snapshot) => {
-            const rawMap = snapshot.val() || {};
-            const list = [];
-            Object.entries(rawMap).forEach(([id, entry]) => {
-              const serialized = typeof entry === "string" ? entry : entry && entry.payload;
-              const decoded = decodeTextPayload(serialized);
-              if (decoded && decoded.title) {
-                list.push({ id, ...decoded });
-              }
-            });
-            postsCache = list;
-            renderFeed();
-          });
-        } catch (err) {
-          usingFirebase = false;
-          els.dbStatusBadge.textContent = "Local Text Mode (/config offline)";
-          els.dbStatusBadge.className = "badge warn";
-          loadLocalPosts();
-          renderFeed();
+          return JSON.parse(cleaned);
+        } catch (_jsonErr) {
+          // Normalize unquoted object keys (e.g., apiKey: "..." -> "apiKey": "...")
+          const normalized = cleaned.replace(/([{,]\s*)([A-Za-z0-9_]+)\s*:/g, '$1"$2":');
+          return JSON.parse(normalized);
         }
       }
 
-      function loadLocalPosts() {
-        const rawList = JSON.parse(localStorage.getItem(LOCAL_POSTS_KEY) || "[]");
-        postsCache = rawList
-          .map((item) => {
-            const decoded = decodeTextPayload(item.payload || "");
-            return decoded ? { id: item.id, ...decoded } : null;
-          })
-          .filter(Boolean);
+      async function loadRuntimeConfig() {
+        let response;
+        try {
+          response = await fetch("/config", { cache: "no-store" });
+        } catch (networkErr) {
+          throw new Error(
+            "Unable to reach /config endpoint on this deployment. Public database access is unavailable (" +
+              networkErr.message +
+              ")."
+          );
+        }
+
+        if (!response.ok) {
+          throw new Error(
+            "/config returned HTTP " +
+              response.status +
+              ". Ensure your server endpoint serves FIREBASE_Config for production traffic."
+          );
+        }
+
+        let payload;
+        try {
+          payload = await response.json();
+        } catch (_parseErr) {
+          throw new Error("/config did not return valid JSON.");
+        }
+
+        const rawConfig =
+          (payload && (payload.FIREBASE_Config ?? payload.FIREBASE_CONFIG ?? payload.firebaseConfig)) ||
+          null;
+
+        const parsed = parseConfigValue(rawConfig);
+
+        if (!parsed || typeof parsed !== "object" || !parsed.databaseURL) {
+          throw new Error(
+            "FIREBASE_Config is missing a valid databaseURL. Check your production environment settings."
+          );
+        }
+
+        const normalizedUrl = String(parsed.databaseURL).trim().replace(/\/+$/, "");
+        if (!/^https?:\/\//i.test(normalizedUrl)) {
+          throw new Error("databaseURL in FIREBASE_Config must start with https://.");
+        }
+
+        return { config: parsed, databaseURL: normalizedUrl };
       }
 
-      function saveLocalPostsList(list) {
-        const encodedList = list.map((p) => {
-          const { id, ...rest } = p;
-          return { id, payload: encodeTextPayload(rest) };
-        });
-        localStorage.setItem(LOCAL_POSTS_KEY, JSON.stringify(encodedList));
-      }
-
-      // --- Custom RTDB Auth (Username + Passcode) ---
-      async function getUsersMap() {
-        if (usingFirebase && db) {
-          const snap = await db.ref("gomution/textUsers").get();
-          return snap.val() || {};
-        }
-        return JSON.parse(localStorage.getItem(LOCAL_USERS_KEY) || "{}");
-      }
-
-      async function saveUserRecord(cleanHandle, encodedRecord) {
-        if (usingFirebase && db) {
-          await db.ref(`gomution/textUsers/${cleanHandle}`).set(encodedRecord);
-        } else {
-          const map = JSON.parse(localStorage.getItem(LOCAL_USERS_KEY) || "{}");
-          map[cleanHandle] = encodedRecord;
-          localStorage.setItem(LOCAL_USERS_KEY, JSON.stringify(map));
-        }
-      }
-
-      els.registerBtn.addEventListener("click", async () => {
-        const handle = els.authUsername.value.trim().toLowerCase().replace(/[^a-z0-9_]/g, "");
-        const pass = els.authPasscode.value;
-        if (handle.length < 3) {
-          return setMsg(els.authMsg, "Handle must be at least 3 letters/numbers/underscores.", true);
-        }
-        if (pass.length < 4) {
-          return setMsg(els.authMsg, "Passcode must be at least 4 characters.", true);
+      async function rtdbRequest(path, method = "GET", body = null) {
+        if (!databaseURL) {
+          throw new Error("Firebase Realtime Database URL is not initialized.");
         }
 
-        const users = await getUsersMap();
-        if (users[handle]) {
-          return setMsg(els.authMsg, "That inventor handle is already taken. Try Sign In.", true);
-        }
+        const cleanPath = String(path).replace(/^\/+/, "");
+        const url = `${databaseURL}/${cleanPath}.json`;
 
-        const record = {
-          handle,
-          passHash: hashPasscode(handle, pass),
-          createdAt: Date.now(),
+        const options = {
+          method,
+          headers: { "Content-Type": "application/json" }
         };
-        await saveUserRecord(handle, encodeTextPayload(record));
-        currentUser = handle;
-        localStorage.setItem(LOCAL_SESSION_KEY, currentUser);
-        updateSessionUI();
-        setMsg(els.authMsg, `Account created for @${handle}. Ready to post!`);
-      });
 
-      els.loginBtn.addEventListener("click", async () => {
-        const handle = els.authUsername.value.trim().toLowerCase().replace(/[^a-z0-9_]/g, "");
-        const pass = els.authPasscode.value;
-        if (!handle || !pass) {
-          return setMsg(els.authMsg, "Enter both handle and passcode.", true);
+        if (body !== null && method !== "GET") {
+          options.body = JSON.stringify(body);
         }
 
-        const users = await getUsersMap();
-        const rawEntry = users[handle];
-        if (!rawEntry) {
-          return setMsg(els.authMsg, "Account not found. Create an account first.", true);
+        const res = await fetch(url, options);
+        let data = null;
+
+        try {
+          data = await res.json();
+        } catch (_e) {
+          data = null;
         }
-        const decoded = decodeTextPayload(typeof rawEntry === "string" ? rawEntry : rawEntry.payload);
-        if (!decoded || decoded.passHash !== hashPasscode(handle, pass)) {
-          return setMsg(els.authMsg, "Incorrect passcode.", true);
+
+        if (!res.ok) {
+          const detail = data && data.error ? data.error : `HTTP ${res.status}`;
+          throw new Error(`Firebase Realtime Database rejected the ${method} request (${detail}).`);
         }
 
-        currentUser = handle;
-        localStorage.setItem(LOCAL_SESSION_KEY, currentUser);
-        updateSessionUI();
-        setMsg(els.authMsg, `Signed in as @${handle}.`);
-      });
+        if (data && typeof data === "object" && typeof data.error === "string") {
+          throw new Error(`Firebase Realtime Database error: ${data.error}`);
+        }
 
-      els.logoutBtn.addEventListener("click", () => {
-        currentUser = "";
-        localStorage.removeItem(LOCAL_SESSION_KEY);
-        updateSessionUI();
-        setMsg(els.authMsg, "Signed out.");
-      });
+        return data;
+      }
 
-      // --- Media Validation & Client-Side Compression ---
-      function compressImageToDataUrl(file) {
+      async function hashPasscode(handle, passcode) {
+        const enc = new TextEncoder();
+        const digest = await crypto.subtle.digest("SHA-256", enc.encode(`${handle}:${passcode}`));
+        return Array.from(new Uint8Array(digest))
+          .map((b) => b.toString(16).padStart(2, "0"))
+          .join("");
+      }
+
+      async function handleCreateAccount() {
+        hideNotice(els.authNotice);
+        clearProdError();
+
+        const handle = sanitizeHandle(els.handleInput.value);
+        const passcode = els.passcodeInput.value;
+
+        if (handle.length < 3) {
+          showNotice(els.authNotice, "Handle must be at least 3 letters, numbers, or underscores.");
+          return;
+        }
+        if (passcode.length < 4) {
+          showNotice(els.authNotice, "Passcode must be at least 4 characters.");
+          return;
+        }
+
+        els.createAccountBtn.disabled = true;
+        els.signInBtn.disabled = true;
+
+        try {
+          const existing = await rtdbRequest(`users/${handle}`, "GET");
+          if (existing) {
+            showNotice(els.authNotice, `Handle @${handle} is already registered. Tap Sign In instead.`);
+            return;
+          }
+
+          const passHash = await hashPasscode(handle, passcode);
+          const userRecord = {
+            handle,
+            passHash,
+            createdAt: Date.now()
+          };
+
+          await rtdbRequest(`users/${handle}`, "PUT", userRecord);
+          activeUser = { handle };
+          updateSessionUI();
+          showNotice(els.authNotice, `Account @${handle} created and active for this session.`);
+        } catch (err) {
+          showProdError(
+            "Unable to register account in Firebase Realtime Database. " + err.message
+          );
+        } finally {
+          els.createAccountBtn.disabled = !isReady;
+          els.signInBtn.disabled = !isReady;
+        }
+      }
+
+      async function handleSignIn() {
+        hideNotice(els.authNotice);
+        clearProdError();
+
+        const handle = sanitizeHandle(els.handleInput.value);
+        const passcode = els.passcodeInput.value;
+
+        if (!handle || !passcode) {
+          showNotice(els.authNotice, "Enter both your handle and passcode.");
+          return;
+        }
+
+        els.signInBtn.disabled = true;
+        els.createAccountBtn.disabled = true;
+
+        try {
+          const record = await rtdbRequest(`users/${handle}`, "GET");
+          if (!record) {
+            showNotice(els.authNotice, `No account found for @${handle}.`);
+            return;
+          }
+
+          const passHash = await hashPasscode(handle, passcode);
+          if (record.passHash !== passHash) {
+            showNotice(els.authNotice, "Incorrect passcode.");
+            return;
+          }
+
+          activeUser = { handle };
+          updateSessionUI();
+          showNotice(els.authNotice, `Signed in as @${handle}.`);
+        } catch (err) {
+          showProdError(
+            "Unable to sign in against Firebase Realtime Database. " + err.message
+          );
+        } finally {
+          els.signInBtn.disabled = !isReady;
+          els.createAccountBtn.disabled = !isReady;
+        }
+      }
+
+      function handleSignOut() {
+        activeUser = null;
+        els.passcodeInput.value = "";
+        updateSessionUI();
+        showNotice(els.authNotice, "Signed out.");
+      }
+
+      function readFileAsDataUrl(file) {
         return new Promise((resolve, reject) => {
           const reader = new FileReader();
-          reader.onerror = () => reject(new Error("Could not read image file."));
-          reader.onload = () => {
-            const img = new Image();
-            img.onerror = () => reject(new Error("Invalid image data."));
-            img.onload = () => {
-              const maxDim = 1080;
-              let { width, height } = img;
-              if (width > maxDim || height > maxDim) {
-                if (width >= height) {
-                  height = Math.round((height * maxDim) / width);
-                  width = maxDim;
-                } else {
-                  width = Math.round((width * maxDim) / height);
-                  height = maxDim;
-                }
-              }
-              const canvas = document.createElement("canvas");
-              canvas.width = width;
-              canvas.height = height;
-              const ctx = canvas.getContext("2d");
-              ctx.drawImage(img, 0, 0, width, height);
-
-              let quality = 0.78;
-              let dataUrl = canvas.toDataURL("image/jpeg", quality);
-              while (dataUrl.length * 0.75 > MAX_IMAGE_BYTES && quality > 0.25) {
-                quality -= 0.1;
-                dataUrl = canvas.toDataURL("image/jpeg", quality);
-              }
-              if (dataUrl.length * 0.75 > MAX_IMAGE_BYTES) {
-                return reject(new Error("Compressed image still exceeds 3MB limit."));
-              }
-              resolve({ mime: "image/jpeg", dataUrl });
-            };
-            img.src = reader.result;
-          };
+          reader.onload = () => resolve(String(reader.result || ""));
+          reader.onerror = () => reject(new Error("Failed to read selected media file."));
           reader.readAsDataURL(file);
         });
       }
 
-      function validateAndReadVideo(file) {
-        return new Promise((resolve, reject) => {
-          if (file.size > MAX_VIDEO_BYTES) {
-            return reject(new Error("Video exceeds the 45MB maximum size limit."));
-          }
-          const objectUrl = URL.createObjectURL(file);
-          const vid = document.createElement("video");
-          vid.preload = "metadata";
-          vid.onloadedmetadata = () => {
-            const duration = vid.duration;
-            URL.revokeObjectURL(objectUrl);
-            if (!Number.isFinite(duration) || duration < MIN_VIDEO_SECONDS || duration > MAX_VIDEO_SECONDS) {
-              return reject(new Error("Video duration must be between 3 minutes and 20 minutes."));
-            }
-            const reader = new FileReader();
-            reader.onerror = () => reject(new Error("Could not read video file."));
-            reader.onload = () => resolve({
-              mime: file.type || "video/mp4",
-              dataUrl: reader.result,
-              durationSec: Math.round(duration),
-            });
-            reader.readAsDataURL(file);
-          };
-          vid.onerror = () => {
-            URL.revokeObjectURL(objectUrl);
-            reject(new Error("Could not inspect video metadata."));
-          };
-          vid.src = objectUrl;
-        });
-      }
+      async function handlePublish(event) {
+        event.preventDefault();
+        hideNotice(els.publishNotice);
+        clearProdError();
 
-      // --- Publish Project ---
-      els.postForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const title = els.postTitle.value.trim();
-        const notes = els.postNotes.value.trim();
-        const category = els.postCategory.value;
-        const file = els.postMediaFile.files[0] || null;
-
-        if (!title) {
-          return setMsg(els.postMsg, "Please enter a project title.", true);
-        }
-
-        const combinedText = `${title} ${notes} ${file ? file.name : ""}`;
-        if (PIRACY_BLOCKLIST.test(combinedText)) {
-          return setMsg(
-            els.postMsg,
-            "Blocked: Content appears to match movie/piracy keywords. GOMUTION is strictly for original student & inventor builds.",
-            true
-          );
-        }
-
-        els.publishBtn.disabled = true;
-        setMsg(els.postMsg, "Validating & serializing payload...");
-
-        try {
-          let mediaPayload = null;
-          if (file) {
-            if (file.type.startsWith("image/")) {
-              if (file.size > MAX_IMAGE_BYTES * 2.5) {
-                throw new Error("Original image is too large to compress under 3MB.");
-              }
-              mediaPayload = await compressImageToDataUrl(file);
-            } else if (file.type.startsWith("video/")) {
-              mediaPayload = await validateAndReadVideo(file);
-            } else {
-              throw new Error("Only image or video files are supported.");
-            }
-          }
-
-          const now = Date.now();
-          const postObj = {
-            author: currentUser || "inventor_guest",
-            title,
-            category,
-            notes,
-            media: mediaPayload,
-            createdAt: now,
-            dayStamp: formatDayStamp(now),
-          };
-
-          const serializedPayload = encodeTextPayload(postObj);
-          const newId = `post_${now}_${Math.random().toString(36).slice(2, 7)}`;
-
-          if (usingFirebase && db) {
-            await db.ref(`gomution/textPosts/${newId}`).set(serializedPayload);
-          } else {
-            const nextList = [{ id: newId, ...postObj }, ...postsCache];
-            postsCache = nextList;
-            saveLocalPostsList(nextList);
-            renderFeed();
-          }
-
-          els.postForm.reset();
-          setMsg(els.postMsg, "Project serialized as lightweight text and published!");
-        } catch (err) {
-          setMsg(els.postMsg, err.message || "Failed to publish project.", true);
-        } finally {
-          els.publishBtn.disabled = false;
-        }
-      });
-
-      // --- Render Feed + IntersectionObserver Video Auto-Pause ---
-      let videoObserver = null;
-
-      function setupVideoAutoPause() {
-        if (videoObserver) videoObserver.disconnect();
-        const videos = document.querySelectorAll("video.auto-pause-video");
-        if (!videos.length || !("IntersectionObserver" in window)) return;
-
-        videoObserver = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              const vid = entry.target;
-              if (!entry.isIntersecting && !vid.paused) {
-                vid.pause();
-              }
-            });
-          },
-          { threshold: 0.35 }
-        );
-
-        videos.forEach((v) => videoObserver.observe(v));
-      }
-
-      async function deletePost(postId) {
-        if (usingFirebase && db) {
-          await db.ref(`gomution/textPosts/${postId}`).remove();
-        } else {
-          postsCache = postsCache.filter((p) => p.id !== postId);
-          saveLocalPostsList(postsCache);
-          renderFeed();
-        }
-      }
-
-      function renderFeed() {
-        const query = els.searchInput.value.trim().toLowerCase();
-        const cat = els.categoryFilter.value;
-        const sort = els.sortSelect.value;
-
-        let filtered = postsCache.filter((p) => {
-          const matchesCat = cat === "ALL" || p.category === cat;
-          const haystack = `${p.title} ${p.notes} ${p.author} ${p.category}`.toLowerCase();
-          const matchesQuery = !query || haystack.includes(query);
-          return matchesCat && matchesQuery;
-        });
-
-        filtered.sort((a, b) => {
-          if (sort === "OLDEST") return (a.createdAt || 0) - (b.createdAt || 0);
-          if (sort === "TITLE") return String(a.title).localeCompare(String(b.title));
-          return (b.createdAt || 0) - (a.createdAt || 0);
-        });
-
-        els.feedContainer.innerHTML = "";
-        if (!filtered.length) {
-          els.feedContainer.innerHTML = `<div class="empty-state glass">No matching projects yet. Publish the first build above!</div>`;
+        if (!activeUser) {
+          showNotice(els.publishNotice, "Sign in or create an account above before publishing.");
           return;
         }
 
-        filtered.forEach((post) => {
+        const title = els.projectTitleInput.value.trim();
+        const track = els.trackSelect.value;
+        const notes = els.notesInput.value.trim();
+        const file = els.mediaInput.files && els.mediaInput.files[0] ? els.mediaInput.files[0] : null;
+
+        if (!title || !notes) {
+          showNotice(els.publishNotice, "Project title and technical notes are required.");
+          return;
+        }
+
+        let mediaDataUrl = "";
+        let mediaType = "";
+
+        if (file) {
+          const isImage = file.type.startsWith("image/");
+          const isVideo = file.type.startsWith("video/");
+
+          if (!isImage && !isVideo) {
+            showNotice(els.publishNotice, "Only image or video files are supported.");
+            return;
+          }
+
+          const maxBytes = isImage ? 2 * 1024 * 1024 : 4 * 1024 * 1024;
+          if (file.size > maxBytes) {
+            showNotice(
+              els.publishNotice,
+              isImage
+                ? "Image must be 2 MB or smaller for Realtime Database storage."
+                : "Video must be 4 MB or smaller for Realtime Database storage."
+            );
+            return;
+          }
+
+          try {
+            mediaDataUrl = await readFileAsDataUrl(file);
+            mediaType = isImage ? "image" : "video";
+          } catch (fileErr) {
+            showProdError(fileErr.message);
+            return;
+          }
+        }
+
+        els.publishBtn.disabled = true;
+
+        try {
+          const postId = "post_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7);
+          const postPayload = {
+            id: postId,
+            author: activeUser.handle,
+            title,
+            track,
+            notes,
+            mediaType,
+            mediaDataUrl,
+            createdAt: Date.now()
+          };
+
+          await rtdbRequest(`gomution/posts/${postId}`, "PUT", postPayload);
+
+          els.projectTitleInput.value = "";
+          els.notesInput.value = "";
+          els.mediaInput.value = "";
+          showNotice(els.publishNotice, "Build published directly to Firebase Realtime Database.");
+          await refreshPosts();
+        } catch (err) {
+          showProdError(
+            "Failed to publish project build to Firebase Realtime Database. " + err.message
+          );
+        } finally {
+          els.publishBtn.disabled = !isReady || !activeUser;
+        }
+      }
+
+      async function deletePost(postId) {
+        if (!activeUser) return;
+        clearProdError();
+
+        try {
+          await rtdbRequest(`gomution/posts/${postId}`, "DELETE");
+          await refreshPosts();
+        } catch (err) {
+          showProdError("Could not delete post from Firebase Realtime Database. " + err.message);
+        }
+      }
+
+      function renderPosts() {
+        const query = els.searchInput.value.trim().toLowerCase();
+        const trackFilter = els.filterTrackSelect.value;
+        const sortOrder = els.sortSelect.value;
+
+        let filtered = allPosts.filter((p) => {
+          const matchesTrack = trackFilter === "ALL" || p.track === trackFilter;
+          const haystack = `${p.title || ""} ${p.author || ""} ${p.notes || ""} ${p.track || ""}`.toLowerCase();
+          const matchesQuery = !query || haystack.includes(query);
+          return matchesTrack && matchesQuery;
+        });
+
+        filtered.sort((a, b) =>
+          sortOrder === "OLDEST" ? (a.createdAt || 0) - (b.createdAt || 0) : (b.createdAt || 0) - (a.createdAt || 0)
+        );
+
+        els.postsContainer.innerHTML = "";
+
+        if (filtered.length === 0) {
+          const empty = document.createElement("div");
+          empty.className = "empty-state";
+          empty.textContent = "No matching builds found in Firebase Realtime Database.";
+          els.postsContainer.appendChild(empty);
+          return;
+        }
+
+        for (const post of filtered) {
           const card = document.createElement("article");
-          card.className = "post-card glass";
+          card.className = "post-card";
 
           const meta = document.createElement("div");
           meta.className = "post-meta";
 
-          const leftMeta = document.createElement("span");
-          leftMeta.textContent = `@${post.author || "inventor_guest"} • ${post.dayStamp || formatDayStamp(post.createdAt || Date.now())}`;
+          const authorSpan = document.createElement("span");
+          const dateStr = post.createdAt ? new Date(post.createdAt).toLocaleString() : "Unknown date";
+          authorSpan.textContent = `@${post.author || "unknown"} • ${dateStr}`;
 
           const rightMeta = document.createElement("div");
           rightMeta.style.display = "flex";
@@ -849,24 +861,24 @@
 
           const tag = document.createElement("span");
           tag.className = "tag";
-          tag.textContent = post.category || "Build";
+          tag.textContent = post.track || "General Engineering";
           rightMeta.appendChild(tag);
 
-          if (currentUser && post.author === currentUser) {
+          if (activeUser && activeUser.handle === post.author) {
             const delBtn = document.createElement("button");
             delBtn.type = "button";
-            delBtn.className = "btn danger";
+            delBtn.className = "btn-danger";
             delBtn.textContent = "Delete";
             delBtn.addEventListener("click", () => deletePost(post.id));
             rightMeta.appendChild(delBtn);
           }
 
-          meta.appendChild(leftMeta);
+          meta.appendChild(authorSpan);
           meta.appendChild(rightMeta);
 
           const titleEl = document.createElement("h3");
           titleEl.className = "post-title";
-          titleEl.textContent = post.title;
+          titleEl.textContent = post.title || "Untitled Build";
 
           const notesEl = document.createElement("p");
           notesEl.className = "post-notes";
@@ -874,40 +886,80 @@
 
           card.appendChild(meta);
           card.appendChild(titleEl);
-          if (post.notes) card.appendChild(notesEl);
+          card.appendChild(notesEl);
 
-          if (post.media && post.media.dataUrl) {
-            const mediaBox = document.createElement("div");
-            mediaBox.className = "media-box";
-            if (String(post.media.mime).startsWith("image/")) {
-              const img = document.createElement("img");
-              img.src = post.media.dataUrl;
-              img.alt = post.title;
-              img.loading = "lazy";
-              mediaBox.appendChild(img);
-            } else if (String(post.media.mime).startsWith("video/")) {
-              const vid = document.createElement("video");
-              vid.className = "auto-pause-video";
-              vid.src = post.media.dataUrl;
-              vid.controls = true;
-              vid.playsInline = true;
-              mediaBox.appendChild(vid);
-            }
-            card.appendChild(mediaBox);
+          if (post.mediaDataUrl && post.mediaType === "image") {
+            const img = document.createElement("img");
+            img.className = "post-media";
+            img.src = post.mediaDataUrl;
+            img.alt = post.title || "Build image";
+            img.loading = "lazy";
+            card.appendChild(img);
+          } else if (post.mediaDataUrl && post.mediaType === "video") {
+            const vid = document.createElement("video");
+            vid.className = "post-media";
+            vid.src = post.mediaDataUrl;
+            vid.controls = true;
+            vid.playsInline = true;
+            card.appendChild(vid);
           }
 
-          els.feedContainer.appendChild(card);
-        });
-
-        setupVideoAutoPause();
+          els.postsContainer.appendChild(card);
+        }
       }
 
-      els.searchInput.addEventListener("input", renderFeed);
-      els.categoryFilter.addEventListener("change", renderFeed);
-      els.sortSelect.addEventListener("change", renderFeed);
+      async function refreshPosts() {
+        const raw = await rtdbRequest("gomution/posts", "GET");
+        if (!raw || typeof raw !== "object") {
+          allPosts = [];
+        } else {
+          allPosts = Object.entries(raw).map(([key, val]) => ({
+            id: (val && val.id) || key,
+            ...(val || {})
+          }));
+        }
+        renderPosts();
+      }
 
-      updateSessionUI();
-      initFirebaseFromEndpoint();
+      async function initApp() {
+        try {
+          const runtime = await loadRuntimeConfig();
+          firebaseConfig = runtime.config;
+          databaseURL = runtime.databaseURL;
+
+          await refreshPosts();
+
+          isReady = true;
+          clearProdError();
+          els.dbStatusPill.textContent = "RTDB Connected";
+          els.dbStatusPill.className = "pill live";
+          els.signInBtn.disabled = false;
+          els.createAccountBtn.disabled = false;
+          updateSessionUI();
+        } catch (err) {
+          isReady = false;
+          els.signInBtn.disabled = true;
+          els.createAccountBtn.disabled = true;
+          els.publishBtn.disabled = true;
+          els.postsContainer.innerHTML =
+            '<div class="empty-state">Public build feed unavailable until configuration and Realtime Database connection succeed.</div>';
+          showProdError(
+            "GOMUTION cannot connect to the public database. " +
+              err.message +
+              " Please verify your deployment environment configuration and Firebase Realtime Database rules."
+          );
+        }
+      }
+
+      els.createAccountBtn.addEventListener("click", handleCreateAccount);
+      els.signInBtn.addEventListener("click", handleSignIn);
+      els.signOutBtn.addEventListener("click", handleSignOut);
+      els.publishForm.addEventListener("submit", handlePublish);
+      els.searchInput.addEventListener("input", renderPosts);
+      els.filterTrackSelect.addEventListener("change", renderPosts);
+      els.sortSelect.addEventListener("change", renderPosts);
+
+      initApp();
     })();
   </script>
 </body>
