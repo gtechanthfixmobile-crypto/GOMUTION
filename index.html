@@ -6,21 +6,29 @@
   <title>GOMUTION — Global Student &amp; Inventor Build Stream</title>
   <style>
     :root {
-      --bg-0: #070b14;
-      --bg-1: #0d1424;
-      --bg-2: #131d33;
-      --card: rgba(17, 26, 46, 0.92);
-      --border: rgba(148, 163, 184, 0.18);
-      --border-strong: rgba(56, 189, 248, 0.45);
-      --text: #f1f5f9;
+      --bg-0: #050811;
+      --bg-1: #0b1120;
+      --bg-2: #111a2e;
+      --bg-3: #182540;
+      --surface: rgba(13, 20, 36, 0.92);
+      --border: rgba(148, 163, 184, 0.16);
+      --border-glow: rgba(56, 189, 248, 0.48);
+      --text: #f8fafc;
+      --text-soft: #cbd5e1;
       --muted: #94a3b8;
       --accent: #38bdf8;
       --accent-2: #818cf8;
-      --ok: #34d399;
-      --warn: #fbbf24;
-      --err: #f87171;
+      --ok: #10b981;
+      --warn: #f59e0b;
+      --err: #ef4444;
       --err-bg: rgba(127, 29, 29, 0.45);
       --err-border: rgba(248, 113, 113, 0.65);
+      --bubble-me: #0c4a6e;
+      --bubble-other: #152036;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 11px;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
     }
 
     * {
@@ -32,54 +40,105 @@
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background:
-        radial-gradient(circle at 15% 10%, rgba(56, 189, 248, 0.14), transparent 45%),
-        radial-gradient(circle at 85% 0%, rgba(129, 140, 248, 0.14), transparent 45%),
+        radial-gradient(ellipse at 15% 0%, rgba(56, 189, 248, 0.16), transparent 45%),
+        radial-gradient(ellipse at 85% 0%, rgba(129, 140, 248, 0.15), transparent 45%),
         var(--bg-0);
       color: var(--text);
       min-height: 100vh;
-      line-height: 1.5;
-      padding: 16px;
+      line-height: 1.55;
+      padding-bottom: 56px;
     }
 
-    .container {
-      max-width: 860px;
+    /* Sticky Top Navigation */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      background: rgba(5, 8, 17, 0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 20px;
+    }
+
+    .topbar-inner {
+      max-width: 1180px;
       margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 18px;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
-    }
-
-    .header {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 14px;
     }
 
-    .brand h1 {
-      font-size: 1.65rem;
-      letter-spacing: 0.06em;
-      font-weight: 800;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      cursor: pointer;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #040914;
+      font-weight: 900;
+      font-size: 1.2rem;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 0 22px rgba(56, 189, 248, 0.35);
+    }
+
+    .brand-title h1 {
+      font-size: 1.32rem;
+      letter-spacing: 0.08em;
+      font-weight: 900;
       background: linear-gradient(90deg, var(--accent), var(--accent-2));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      line-height: 1.1;
     }
 
-    .brand p {
+    .brand-title span {
+      display: block;
+      font-size: 0.74rem;
       color: var(--muted);
-      font-size: 0.9rem;
     }
 
-    .status-row {
+    .nav-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      background: var(--bg-1);
+      padding: 4px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+    }
+
+    .nav-btn {
+      background: transparent;
+      color: var(--muted);
+      border: none;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.16s ease, color 0.16s ease;
+    }
+
+    .nav-btn:hover {
+      color: var(--text);
+    }
+
+    .nav-btn.active {
+      background: var(--bg-3);
+      color: var(--accent);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .status-cluster {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
@@ -90,86 +149,303 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 6px 12px;
+      padding: 5px 12px;
       border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      border: 1px solid var(--border);
+      font-size: 0.78rem;
+      font-weight: 700;
       background: var(--bg-2);
       color: var(--muted);
+      border: 1px solid var(--border);
     }
 
     .pill.live {
-      color: var(--ok);
-      border-color: rgba(52, 211, 153, 0.45);
+      color: #6ee7b7;
+      border-color: rgba(16, 185, 129, 0.45);
       background: rgba(16, 185, 129, 0.12);
     }
 
-    .pill.error {
-      color: var(--err);
-      border-color: var(--err-border);
-      background: var(--err-bg);
+    .pill.warn {
+      color: #fcd34d;
+      border-color: rgba(245, 158, 11, 0.45);
+      background: rgba(245, 158, 11, 0.12);
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .dot.pulse {
+      animation: pulse 1.8s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.82); }
+    }
+
+    /* Full-Page Stage Container */
+    .stage {
+      max-width: 1180px;
+      margin: 22px auto 0;
+      padding: 0 18px;
+    }
+
+    .page-view {
+      display: none;
+      animation: fadeSlide 0.22s ease;
+    }
+
+    .page-view.active {
+      display: block;
+    }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .surface-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow);
     }
 
     .error-banner {
       display: none;
+      margin-bottom: 18px;
       background: var(--err-bg);
       border: 1px solid var(--err-border);
       color: #fecaca;
-      border-radius: 14px;
-      padding: 14px 16px;
-      font-size: 0.92rem;
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      font-size: 0.9rem;
     }
 
     .error-banner.visible {
       display: block;
     }
 
-    .error-banner strong {
-      display: block;
-      color: #ffffff;
-      font-size: 0.98rem;
-      margin-bottom: 4px;
-    }
-
-    .notice-banner {
+    .notice {
       display: none;
+      margin-top: 12px;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.86rem;
       background: rgba(16, 185, 129, 0.12);
       border: 1px solid rgba(52, 211, 153, 0.45);
       color: #a7f3d0;
-      border-radius: 12px;
-      padding: 10px 14px;
-      font-size: 0.88rem;
-      margin-top: 10px;
     }
 
-    .notice-banner.visible {
+    .notice.visible {
       display: block;
     }
 
-    h2 {
-      font-size: 1.12rem;
+    .notice.error {
+      background: var(--err-bg);
+      border-color: var(--err-border);
+      color: #fecaca;
+    }
+
+    /* 1. Full-Page Introduction & Top Hierarchy */
+    .intro-hero {
+      background:
+        linear-gradient(150deg, rgba(15, 25, 48, 0.96), rgba(10, 17, 34, 0.96));
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-lg);
+      padding: 48px 32px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .intro-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .intro-hero h2 {
+      font-size: clamp(1.9rem, 4.2vw, 2.9rem);
+      font-weight: 900;
+      line-height: 1.15;
+      max-width: 820px;
+      margin: 0 auto 16px;
+      background: linear-gradient(90deg, #ffffff, #bae6fd, #c7d2fe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .intro-hero p {
+      max-width: 720px;
+      margin: 0 auto 28px;
+      color: var(--muted);
+      font-size: 1.04rem;
+    }
+
+    .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 34px;
+    }
+
+    .metrics-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+      gap: 14px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .metric-tile {
+      background: rgba(5, 8, 17, 0.65);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+
+    .metric-num {
+      font-size: 1.55rem;
+      font-weight: 900;
+      color: var(--accent);
+    }
+
+    .metric-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .feature-showcase {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .feature-box {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+    }
+
+    .feature-badge {
+      display: inline-grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 0.9rem;
       margin-bottom: 12px;
+    }
+
+    .feature-box h3 {
+      font-size: 1.02rem;
+      margin-bottom: 6px;
+    }
+
+    .feature-box p {
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .section-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .section-head h3 {
+      font-size: 1.2rem;
+      font-weight: 800;
+    }
+
+    .section-head p {
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    /* 2. Full-Page Build Stream & Workspace (Sub-mode switching so nothing crowds) */
+    .subnav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding: 8px 12px;
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+
+    .subnav-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .subnav-btn {
+      background: transparent;
+      color: var(--muted);
+      border: none;
+      padding: 8px 14px;
+      border-radius: 9px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .subnav-btn.active {
+      background: var(--bg-3);
       color: var(--text);
     }
 
-    .grid-2 {
+    .workspace-panel {
+      display: none;
+    }
+
+    .workspace-panel.active {
+      display: block;
+    }
+
+    .two-col-account {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
     }
 
     .field {
       display: flex;
       flex-direction: column;
       gap: 6px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     label {
-      font-size: 0.85rem;
-      color: var(--muted);
+      font-size: 0.82rem;
       font-weight: 600;
+      color: var(--muted);
     }
 
     input, select, textarea {
@@ -177,36 +453,91 @@
       background: var(--bg-1);
       color: var(--text);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 11px 12px;
-      font-size: 0.95rem;
+      border-radius: var(--radius-sm);
+      padding: 11px 13px;
+      font-size: 0.92rem;
       font-family: inherit;
       outline: none;
-      transition: border-color 0.15s ease;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
     }
 
     input:focus, select:focus, textarea:focus {
-      border-color: var(--border-strong);
+      border-color: var(--border-glow);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.12);
     }
 
     textarea {
-      min-height: 105px;
+      min-height: 110px;
       resize: vertical;
+    }
+
+    .password-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .password-wrap input {
+      padding-right: 42px;
+    }
+
+    .eye-btn {
+      position: absolute;
+      right: 8px;
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      padding: 6px;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+
+    .eye-btn:hover {
+      color: var(--text);
+    }
+
+    .strength-track {
+      height: 5px;
+      border-radius: 999px;
+      background: var(--bg-2);
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .strength-bar {
+      height: 100%;
+      width: 0%;
+      background: var(--err);
+      transition: width 0.2s ease, background 0.2s ease;
+    }
+
+    .req-grid {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      font-size: 0.76rem;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .req-grid li.met {
+      color: var(--ok);
     }
 
     .btn-row {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 4px;
+      margin-top: 6px;
     }
 
     button {
       cursor: pointer;
       border: none;
-      border-radius: 10px;
+      border-radius: var(--radius-sm);
       padding: 10px 16px;
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       font-weight: 700;
       transition: transform 0.1s ease, opacity 0.15s ease;
     }
@@ -222,7 +553,7 @@
 
     .btn-primary {
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: #061021;
+      color: #040914;
     }
 
     .btn-secondary {
@@ -231,23 +562,123 @@
       border: 1px solid var(--border);
     }
 
-    .btn-danger {
-      background: rgba(239, 68, 68, 0.18);
-      color: #fca5a5;
-      border: 1px solid rgba(248, 113, 113, 0.4);
-      padding: 6px 12px;
-      font-size: 0.82rem;
+    .btn-secondary:hover:not(:disabled) {
+      border-color: var(--border-glow);
     }
 
-    .feed-controls {
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.16);
+      color: #fca5a5;
+      border: 1px solid rgba(248, 113, 113, 0.35);
+      padding: 7px 12px;
+      font-size: 0.8rem;
+    }
+
+    .btn-sm {
+      padding: 7px 12px;
+      font-size: 0.8rem;
+    }
+
+    /* Quota Card */
+    .quota-box {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-top: 12px;
+    }
+
+    .quota-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.84rem;
+      margin-bottom: 8px;
+    }
+
+    .quota-track {
+      height: 8px;
+      border-radius: 999px;
+      background: var(--bg-3);
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+
+    .quota-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--ok), var(--accent));
+      transition: width 0.25s ease;
+    }
+
+    .quota-fill.warn {
+      background: var(--warn);
+    }
+
+    .quota-fill.danger {
+      background: var(--err);
+    }
+
+    .quota-foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* Synchronized GOMUTION Spinner */
+    .upload-spinner {
+      display: none;
+      align-items: center;
+      gap: 12px;
+      margin-top: 14px;
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+    }
+
+    .upload-spinner.visible {
+      display: flex;
+    }
+
+    .ring {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 3px solid rgba(56, 189, 248, 0.22);
+      border-top-color: var(--accent);
+      border-right-color: var(--accent-2);
+      animation: spin 0.9s linear infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .ring-copy strong {
+      display: block;
+      font-size: 0.86rem;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+    }
+
+    .ring-copy span {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* Build Feed */
+    .filter-bar {
       display: grid;
       grid-template-columns: 1fr auto auto;
       gap: 10px;
-      margin-bottom: 14px;
+      margin-bottom: 18px;
     }
 
-    @media (max-width: 640px) {
-      .feed-controls {
+    @media (max-width: 660px) {
+      .filter-bar {
         grid-template-columns: 1fr;
       }
     }
@@ -255,711 +686,2319 @@
     .post-list {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 16px;
     }
 
     .post-card {
       background: var(--bg-1);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px;
+      border-radius: var(--radius-md);
+      padding: 18px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
-    .post-meta {
+    .post-head {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
-      font-size: 0.84rem;
+      gap: 10px;
+    }
+
+    .author-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0284c7, #4f46e5);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.86rem;
+      display: grid;
+      place-items: center;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .presence {
+      position: absolute;
+      bottom: -1px;
+      right: -1px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 2px solid var(--bg-1);
+      background: #64748b;
+    }
+
+    .presence.online {
+      background: var(--ok);
+    }
+
+    .author-meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .author-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .author-sub {
+      font-size: 0.76rem;
       color: var(--muted);
     }
 
     .tag {
       display: inline-block;
-      padding: 3px 10px;
+      padding: 4px 10px;
       border-radius: 999px;
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 700;
       background: rgba(56, 189, 248, 0.14);
       color: var(--accent);
       border: 1px solid rgba(56, 189, 248, 0.3);
     }
 
+    .rank-tag {
+      display: inline-flex;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 800;
+      background: rgba(245, 158, 11, 0.16);
+      color: #fcd34d;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+
     .post-title {
-      font-size: 1.15rem;
-      font-weight: 700;
+      font-size: 1.16rem;
+      font-weight: 800;
     }
 
     .post-notes {
       white-space: pre-wrap;
-      color: #cbd5e1;
+      color: var(--text-soft);
       font-size: 0.93rem;
+    }
+
+    .bom-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .bom-pill {
+      font-size: 0.75rem;
+      padding: 3px 10px;
+      border-radius: 6px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      color: #bae6fd;
+      cursor: pointer;
+    }
+
+    .bom-pill:hover {
+      border-color: var(--accent);
     }
 
     .post-media {
       width: 100%;
       max-height: 420px;
       object-fit: contain;
-      border-radius: 10px;
-      background: #050811;
+      border-radius: var(--radius-sm);
+      background: #04070e;
       border: 1px solid var(--border);
     }
 
-    .empty-state {
+    .pdf-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-2);
+      border: 1px solid var(--border-glow);
+    }
+
+    .post-foot {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+
+    .foot-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .spark-btn {
+      background: var(--bg-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+    }
+
+    .spark-btn.active {
+      background: rgba(56, 189, 248, 0.18);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* 3. Full-Stage Inventor Lounge */
+    .lounge-shell {
+      display: grid;
+      grid-template-columns: 310px 1fr;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--bg-1);
+      min-height: 580px;
+      box-shadow: var(--shadow);
+    }
+
+    @media (max-width: 800px) {
+      .lounge-shell {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .roster-col {
+      background: var(--bg-2);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .roster-head {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .roster-head h3 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .roster-scroll {
+      flex: 1;
+      overflow-y: auto;
+      max-height: 510px;
+    }
+
+    .roster-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+      cursor: pointer;
+    }
+
+    .roster-row:hover, .roster-row.active {
+      background: rgba(56, 189, 248, 0.12);
+    }
+
+    .roster-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .roster-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    .roster-sub {
+      font-size: 0.75rem;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .roster-sub.online {
+      color: var(--ok);
+    }
+
+    .thread-col {
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-0);
+    }
+
+    .thread-head {
+      padding: 14px 18px;
+      background: var(--bg-2);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .thread-feed {
+      flex: 1;
+      padding: 18px;
+      overflow-y: auto;
+      max-height: 430px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .bubble {
+      max-width: 78%;
+      padding: 10px 14px;
+      border-radius: 14px;
+      background: var(--bubble-other);
+      border: 1px solid var(--border);
+      align-self: flex-start;
+      font-size: 0.9rem;
+    }
+
+    .bubble.me {
+      background: var(--bubble-me);
+      border-color: rgba(56, 189, 248, 0.35);
+      align-self: flex-end;
+    }
+
+    .bubble-sender {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 2px;
+    }
+
+    .bubble-quote {
+      background: rgba(0, 0, 0, 0.28);
+      border-left: 3px solid var(--accent);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.76rem;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+
+    .bubble-meta {
+      display: flex;
+      justify-content: flex-end;
+      gap: 6px;
+      margin-top: 4px;
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .ticks {
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .bubble-actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .link-btn {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: 0.74rem;
+      padding: 2px 4px;
+      cursor: pointer;
+    }
+
+    .link-btn:hover {
+      color: var(--accent);
+    }
+
+    .reply-bar {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 16px;
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .reply-bar.visible {
+      display: flex;
+    }
+
+    .thread-form {
+      display: flex;
+      gap: 8px;
+      padding: 12px;
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+    }
+
+    /* 4. Full-Stage Settings & GoMotion AI */
+    .split-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .pref-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pref-row:last-of-type {
+      border-bottom: none;
+    }
+
+    .ai-stream {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 380px;
+      overflow-y: auto;
+      padding: 14px;
+      background: var(--bg-0);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: 12px;
+    }
+
+    .ai-bubble {
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+    }
+
+    .ai-bubble.user {
+      background: var(--bg-3);
+      align-self: flex-end;
+      max-width: 82%;
+    }
+
+    .ai-bubble.bot {
+      background: var(--bg-2);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      align-self: flex-start;
+      max-width: 92%;
+    }
+
+    /* Storage Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      background: rgba(3, 6, 14, 0.84);
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    .modal-overlay.visible {
+      display: flex;
+    }
+
+    .modal-card {
+      max-width: 480px;
+      width: 100%;
+      background: var(--bg-1);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .plan-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    .plan-box {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .plan-box.pro {
+      border-color: var(--accent);
+      background: rgba(56, 189, 248, 0.08);
+    }
+
+    .empty-msg {
       text-align: center;
       color: var(--muted);
-      padding: 28px 14px;
+      padding: 32px 16px;
       border: 1px dashed var(--border);
-      border-radius: 12px;
-      font-size: 0.92rem;
+      border-radius: var(--radius-md);
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
-  <main class="container">
-    <header class="card header">
-      <div class="brand">
-        <h1>GOMUTION</h1>
-        <p>Public Engineering &amp; Inventor Build Feed — Powered by Firebase Realtime Database</p>
-      </div>
-      <div class="status-row">
-        <span id="dbStatusPill" class="pill">Connecting to RTDB...</span>
-        <span id="sessionPill" class="pill">Signed Out</span>
-      </div>
-    </header>
-
-    <section id="prodErrorBanner" class="error-banner" role="alert" aria-live="assertive">
-      <strong>Production Service Error</strong>
-      <span id="prodErrorText"></span>
-    </section>
-
-    <section class="card" id="authSection">
-      <h2>Inventor Account (Firebase Realtime Database)</h2>
-      <div class="grid-2">
-        <div class="field">
-          <label for="handleInput">Inventor Handle / Username</label>
-          <input id="handleInput" type="text" placeholder="e.g. scientist_godfrey" autocomplete="username" />
-        </div>
-        <div class="field">
-          <label for="passcodeInput">Passcode (min 4 characters)</label>
-          <input id="passcodeInput" type="password" placeholder="Enter passcode" autocomplete="current-password" />
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand" id="homeBrand">
+        <div class="brand-mark">G</div>
+        <div class="brand-title">
+          <h1>GOMUTION</h1>
+          <span>Global Student &amp; Inventor Build Stream</span>
         </div>
       </div>
-      <div class="btn-row">
-        <button id="signInBtn" class="btn-primary" type="button" disabled>Sign In</button>
-        <button id="createAccountBtn" class="btn-secondary" type="button" disabled>Create Account</button>
-        <button id="signOutBtn" class="btn-secondary" type="button" style="display:none;">Sign Out</button>
+
+      <nav class="nav-pills" aria-label="Primary Pages">
+        <button class="nav-btn active" data-page="pageIntro" type="button">Introduction</button>
+        <button class="nav-btn" data-page="pageWorkspace" type="button">Build Stream</button>
+        <button class="nav-btn" data-page="pageLounge" type="button">Inventor Lounge</button>
+        <button class="nav-btn" data-page="pageSettingsAi" type="button">Settings &amp; GoMotion AI</button>
+      </nav>
+
+      <div class="status-cluster">
+        <span class="pill live"><span class="dot pulse"></span><span id="onlineCountLabel">1 Online</span></span>
+        <span class="pill" id="sessionBadge">Guest Explorer</span>
       </div>
-      <div id="authNotice" class="notice-banner" role="status" aria-live="polite"></div>
+    </div>
+  </header>
+
+  <main class="stage">
+    <section id="errorBanner" class="error-banner" role="alert" aria-live="assertive">
+      <strong>Connection Notice</strong>
+      <div id="errorBannerText"></div>
     </section>
 
-    <section class="card" id="publishSection">
-      <h2>Publish Project Build</h2>
-      <form id="publishForm">
-        <div class="grid-2">
-          <div class="field">
-            <label for="projectTitleInput">Project Title</label>
-            <input id="projectTitleInput" type="text" placeholder="e.g. Dual-Motor PVC Chassis &amp; Coil Rig" required />
+    <!-- FULL PAGE 1: INTRODUCTION & TOP INVENTOR HIERARCHY -->
+    <section id="pageIntro" class="page-view active">
+      <div class="intro-hero">
+        <div class="intro-kicker"><span class="dot pulse"></span> Student &amp; Educator Invention Showcase</div>
+        <h2>Where Student Inventors &amp; Educators Publish Real Builds and Rise Together</h2>
+        <p>
+          Explore hands-on prototypes, circuits, robotics builds, and technical notes from student makers and educators worldwide. Top-rated inventions climb the live hierarchy, while members publish projects, chat in real time, and consult GoMotion AI.
+        </p>
+        <div class="cta-group">
+          <button id="introCreateBtn" class="btn-primary" type="button">Create Inventor Account</button>
+          <button id="introStreamBtn" class="btn-secondary" type="button">Enter Build Stream</button>
+        </div>
+
+        <div class="metrics-bar">
+          <div class="metric-tile">
+            <div class="metric-num" id="metricBuilds">0</div>
+            <div class="metric-label">Published Builds</div>
           </div>
-          <div class="field">
-            <label for="trackSelect">Engineering Track</label>
-            <select id="trackSelect">
-              <option value="Robotics &amp; Mechanics">Robotics &amp; Mechanics</option>
-              <option value="Electronics &amp; Power">Electronics &amp; Power</option>
-              <option value="Software &amp; AI">Software &amp; AI</option>
-              <option value="Wireless &amp; RF">Wireless &amp; RF</option>
-              <option value="General Engineering">General Engineering</option>
-            </select>
+          <div class="metric-tile">
+            <div class="metric-num" id="metricInventors">0</div>
+            <div class="metric-label">Registered Inventors</div>
+          </div>
+          <div class="metric-tile">
+            <div class="metric-num" id="metricSparks">0</div>
+            <div class="metric-label">Community Sparks</div>
+          </div>
+          <div class="metric-tile">
+            <div class="metric-num" id="metricOnline">1</div>
+            <div class="metric-label">Active Online</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-showcase">
+        <div class="feature-box">
+          <div class="feature-badge">01</div>
+          <h3>Top Inventor Hierarchy</h3>
+          <p>Top student and educator builds are ranked live by community sparks so standout engineering gets recognized.</p>
+        </div>
+        <div class="feature-box">
+          <div class="feature-badge">02</div>
+          <h3>Validated Media &amp; Schematics</h3>
+          <p>Upload verified images, short demo clips, or PDFs with strict format checks and a live GOMUTION progress spinner.</p>
+        </div>
+        <div class="feature-box">
+          <div class="feature-badge">03</div>
+          <h3>Live Inventor Lounge</h3>
+          <p>Switch to a full-screen chat lounge with online presence indicators, direct messages, build threads, and replies.</p>
+        </div>
+        <div class="feature-box">
+          <div class="feature-badge">04</div>
+          <h3>GoMotion AI Assistant</h3>
+          <p>Ask GoMotion AI to summarize live build activity or pull up-to-date online reference explanations on demand.</p>
+        </div>
+      </div>
+
+      <div class="surface-card" style="margin-top: 20px;">
+        <div class="section-head">
+          <div>
+            <h3>Top-Rated Student &amp; Educator Hierarchy</h3>
+            <p>Top 5 highest-rated inventions ranked by community sparks</p>
+          </div>
+          <button id="introSeeAllBtn" class="btn-secondary btn-sm" type="button">Browse Full Build Stream &rarr;</button>
+        </div>
+        <div id="hierarchyList" class="post-list">
+          <div class="empty-msg">Loading top-rated inventions...</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FULL PAGE 2: BUILD STREAM WORKSPACE (CLEAN SUB-TABS: FEED | PUBLISH | ACCOUNT & QUOTA) -->
+    <section id="pageWorkspace" class="page-view">
+      <div class="subnav-bar">
+        <div class="subnav-tabs">
+          <button class="subnav-btn active" data-subtab="subFeed" type="button">Live Build Stream</button>
+          <button class="subnav-btn" data-subtab="subPublish" type="button">Publish a Build</button>
+          <button class="subnav-btn" data-subtab="subAccount" type="button">Account &amp; Storage</button>
+        </div>
+        <button id="refreshStreamBtn" class="btn-secondary btn-sm" type="button">Refresh Stream</button>
+      </div>
+
+      <!-- Sub-View A: Full-Width Build Stream -->
+      <div id="subFeed" class="workspace-panel active surface-card">
+        <div class="section-head">
+          <div>
+            <h3>Live Global Build Stream</h3>
+            <p>Search projects, filter by track, endorse builds with sparks, or open discussions</p>
           </div>
         </div>
 
-        <div class="field">
-          <label for="mediaInput">Image (&le; 2 MB) or Short Video (&le; 4 MB)</label>
-          <input id="mediaInput" type="file" accept="image/*,video/mp4,video/webm,video/quicktime" />
+        <div class="filter-bar">
+          <input id="streamSearchInput" type="search" placeholder="Search builds, handles, components, or notes..." />
+          <select id="streamTrackFilter">
+            <option value="ALL">All Tracks</option>
+            <option value="Robotics &amp; Mechanics">Robotics &amp; Mechanics</option>
+            <option value="Electronics &amp; Power">Electronics &amp; Power</option>
+            <option value="Software &amp; AI">Software &amp; AI</option>
+            <option value="Wireless &amp; RF">Wireless &amp; RF</option>
+            <option value="General Engineering">General Engineering</option>
+          </select>
+          <select id="streamSortSelect">
+            <option value="TOP">Top Rated (Sparks)</option>
+            <option value="NEWEST">Newest First</option>
+            <option value="OLDEST">Oldest First</option>
+          </select>
         </div>
 
-        <div class="field">
-          <label for="notesInput">Technical Notes &amp; Build Breakdown</label>
-          <textarea id="notesInput" placeholder="Share schematics, components, measurements, test results, and next steps..." required></textarea>
+        <div id="streamList" class="post-list">
+          <div class="empty-msg">Connecting to live build stream...</div>
         </div>
-
-        <div class="btn-row">
-          <button id="publishBtn" class="btn-primary" type="submit" disabled>Publish to Firebase RTDB</button>
-        </div>
-      </form>
-      <div id="publishNotice" class="notice-banner" role="status" aria-live="polite"></div>
-    </section>
-
-    <section class="card" id="feedSection">
-      <h2>Live Public Build Stream</h2>
-      <div class="feed-controls">
-        <input id="searchInput" type="search" placeholder="Search builds, handles, or technical notes..." />
-        <select id="filterTrackSelect">
-          <option value="ALL">All Tracks</option>
-          <option value="Robotics &amp; Mechanics">Robotics &amp; Mechanics</option>
-          <option value="Electronics &amp; Power">Electronics &amp; Power</option>
-          <option value="Software &amp; AI">Software &amp; AI</option>
-          <option value="Wireless &amp; RF">Wireless &amp; RF</option>
-          <option value="General Engineering">General Engineering</option>
-        </select>
-        <select id="sortSelect">
-          <option value="NEWEST">Newest First</option>
-          <option value="OLDEST">Oldest First</option>
-        </select>
       </div>
 
-      <div id="postsContainer" class="post-list">
-        <div class="empty-state">Waiting for live connection to Firebase Realtime Database...</div>
+      <!-- Sub-View B: Focused Publish Composer -->
+      <div id="subPublish" class="workspace-panel surface-card">
+        <div class="section-head">
+          <div>
+            <h3>Publish a Project Build</h3>
+            <p>Share your invention with verified images, short videos, PDFs, or component notes</p>
+          </div>
+          <span class="pill" id="publishAuthStatus">Sign in required</span>
+        </div>
+
+        <form id="buildForm">
+          <div class="two-col-account">
+            <div class="field">
+              <label for="buildTitle">Project Title</label>
+              <input id="buildTitle" type="text" placeholder="e.g. Dual-Motor PVC Chassis &amp; Copper Coil Rig" required />
+            </div>
+            <div class="field">
+              <label for="buildTrack">Engineering Track</label>
+              <select id="buildTrack">
+                <option value="Robotics &amp; Mechanics">Robotics &amp; Mechanics</option>
+                <option value="Electronics &amp; Power">Electronics &amp; Power</option>
+                <option value="Software &amp; AI">Software &amp; AI</option>
+                <option value="Wireless &amp; RF">Wireless &amp; RF</option>
+                <option value="General Engineering">General Engineering</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="two-col-account">
+            <div class="field">
+              <label for="buildMediaCategory">Attachment Type</label>
+              <select id="buildMediaCategory">
+                <option value="auto">Auto-Detect (Image, Video, or PDF)</option>
+                <option value="image">Image (Photo / Schematic)</option>
+                <option value="video">Video (Demo Clip &le; 350 KB)</option>
+                <option value="pdf">PDF (Document &le; 350 KB)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="buildFileInput">Select File (Image, Video, or PDF)</label>
+              <input id="buildFileInput" type="file" accept="image/*,video/mp4,video/webm,video/quicktime,application/pdf" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="buildComponents">Key Components (comma-separated)</label>
+            <input id="buildComponents" type="text" placeholder="e.g. 18650 Li-ion, 12V DC Motor, 10uF Capacitor, Copper Coil" />
+          </div>
+
+          <div class="field">
+            <label for="buildNotes">Technical Notes &amp; Build Breakdown</label>
+            <textarea id="buildNotes" placeholder="Describe how you built it, parts used, test results, and improvements..." required></textarea>
+          </div>
+
+          <button id="submitBuildBtn" class="btn-primary" type="submit" disabled>Publish Build</button>
+        </form>
+
+        <div id="uploadSpinner" class="upload-spinner" aria-live="polite">
+          <div class="ring"></div>
+          <div class="ring-copy">
+            <strong>GOMUTION</strong>
+            <span id="uploadSpinnerText">Validating file type &amp; synchronizing GOMUTION...</span>
+          </div>
+        </div>
+
+        <div id="publishNotice" class="notice" role="status" aria-live="polite"></div>
+      </div>
+
+      <!-- Sub-View C: Focused Account & Storage Management -->
+      <div id="subAccount" class="workspace-panel surface-card">
+        <div class="two-col-account">
+          <div>
+            <div class="section-head" style="margin-bottom: 12px;">
+              <div>
+                <h3 id="accountTitle">Inventor Sign In</h3>
+                <p id="accountSubtitle">Sign in or create an account to publish builds and chat</p>
+              </div>
+              <span class="tag" id="accountPlanTag">Free Tier</span>
+            </div>
+
+            <div id="accountLoggedOutBox">
+              <div class="field">
+                <label for="authHandle">Inventor Handle</label>
+                <input id="authHandle" type="text" placeholder="e.g. scientist_godfrey" autocomplete="username" />
+              </div>
+
+              <div class="field" id="authRoleGroup" style="display:none;">
+                <label for="authRole">Role</label>
+                <select id="authRole">
+                  <option value="Student Inventor">Student Inventor</option>
+                  <option value="Educator &amp; Mentor">Educator &amp; Mentor</option>
+                  <option value="Independent Maker">Independent Maker</option>
+                </select>
+              </div>
+
+              <div class="field" id="authCampusGroup" style="display:none;">
+                <label for="authCampus">Campus / Focus</label>
+                <input id="authCampus" type="text" placeholder="e.g. Robotics &amp; Systems Engineering" />
+              </div>
+
+              <div class="field">
+                <label for="authPasscode">Passcode</label>
+                <div class="password-wrap">
+                  <input id="authPasscode" type="password" placeholder="Enter your passcode" autocomplete="current-password" />
+                  <button type="button" class="eye-btn" data-eye="authPasscode" aria-label="Toggle passcode visibility">&#128065;</button>
+                </div>
+                <div id="strengthBox" class="strength-track" style="display:none;">
+                  <div id="strengthBar" class="strength-bar"></div>
+                </div>
+                <ul id="reqChecklist" class="req-grid" style="display:none;">
+                  <li id="chkLen">&bull; 8+ characters</li>
+                  <li id="chkUpper">&bull; Uppercase letter</li>
+                  <li id="chkNum">&bull; Number (0-9)</li>
+                  <li id="chkSym">&bull; Symbol (!@#$...)</li>
+                </ul>
+              </div>
+
+              <div class="field" id="authConfirmGroup" style="display:none;">
+                <label for="authConfirmPasscode">Confirm Passcode</label>
+                <div class="password-wrap">
+                  <input id="authConfirmPasscode" type="password" placeholder="Re-enter passcode" autocomplete="new-password" />
+                  <button type="button" class="eye-btn" data-eye="authConfirmPasscode" aria-label="Toggle confirm passcode visibility">&#128065;</button>
+                </div>
+              </div>
+
+              <div class="btn-row">
+                <button id="loginSubmitBtn" class="btn-primary" type="button" disabled>Sign In</button>
+                <button id="switchAuthModeBtn" class="btn-secondary" type="button" disabled>Create Account</button>
+              </div>
+            </div>
+
+            <div id="accountLoggedInBox" style="display:none;">
+              <p style="font-size: 0.92rem; color: var(--text-soft); margin-bottom: 12px;">
+                Signed in as <strong id="loggedInHandle" style="color: var(--accent);">@inventor</strong> (<span id="loggedInRole">Student Inventor</span>).
+              </p>
+              <div class="btn-row">
+                <button id="jumpToPublishBtn" class="btn-primary btn-sm" type="button">Publish a Build</button>
+                <button id="jumpToLoungeBtn" class="btn-secondary btn-sm" type="button">Open Lounge</button>
+                <button id="signOutBtn" class="btn-danger" type="button">Sign Out</button>
+              </div>
+            </div>
+
+            <div id="accountNotice" class="notice" role="status" aria-live="polite"></div>
+          </div>
+
+          <div>
+            <div class="section-head" style="margin-bottom: 12px;">
+              <div>
+                <h3>Personal Cloud Storage</h3>
+                <p>Monitor your allocation and manage older data or plans</p>
+              </div>
+            </div>
+
+            <div class="quota-box">
+              <div class="quota-top">
+                <strong>Allocated Space</strong>
+                <span id="quotaPctText">0%</span>
+              </div>
+              <div class="quota-track">
+                <div id="quotaBarFill" class="quota-fill"></div>
+              </div>
+              <div class="quota-foot">
+                <span id="quotaSizeText">0 KB / 500 KB</span>
+                <button id="openQuotaModalBtn" class="link-btn" type="button" style="color: var(--accent); font-weight: 700;">Manage Plan &amp; Cleanup</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FULL PAGE 3: INVENTOR LOUNGE (WHATSAPP-INSPIRED LIVE CHAT) -->
+    <section id="pageLounge" class="page-view">
+      <div class="lounge-shell">
+        <aside class="roster-col">
+          <div class="roster-head">
+            <h3>Inventor Channels</h3>
+            <input id="rosterSearch" type="search" placeholder="Search channels or inventors..." />
+          </div>
+          <div id="rosterList" class="roster-scroll"></div>
+        </aside>
+
+        <div class="thread-col">
+          <div class="thread-head">
+            <div class="author-wrap">
+              <div class="avatar" id="threadAvatar">#</div>
+              <div class="author-meta">
+                <span class="author-name" id="threadTitle">Global Inventor Lounge</span>
+                <span class="author-sub" id="threadSub">Live collaboration room for students &amp; educators</span>
+              </div>
+            </div>
+            <span class="pill" id="loungeStatusPill">Sign in to chat</span>
+          </div>
+
+          <div id="threadMessages" class="thread-feed">
+            <div class="empty-msg">Select a channel or inventor on the left to read messages.</div>
+          </div>
+
+          <div id="replyBar" class="reply-bar">
+            <span id="replyBarLabel">Replying...</span>
+            <button id="cancelReplyBtn" class="link-btn" type="button">&#10005; Cancel</button>
+          </div>
+
+          <form id="loungeForm" class="thread-form">
+            <input id="loungeInput" type="text" placeholder="Write a message to fellow inventors..." autocomplete="off" />
+            <button id="sendLoungeBtn" class="btn-primary" type="submit" disabled>Send</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- FULL PAGE 4: SETTINGS & GOMUTION AI ASSISTANT -->
+    <section id="pageSettingsAi" class="page-view">
+      <div class="split-grid">
+        <div class="surface-card">
+          <div class="section-head" style="margin-bottom: 10px;">
+            <div>
+              <h3>Inventor Preferences</h3>
+              <p>Manage profile details, online presence, and display options</p>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="prefCampus">Campus / Focus Area</label>
+            <input id="prefCampus" type="text" placeholder="e.g. Robotics &amp; Systems Engineering" />
+          </div>
+
+          <div class="pref-row">
+            <div>
+              <strong style="font-size: 0.9rem;">Show Online Status</strong>
+              <p style="font-size: 0.78rem; color: var(--muted);">Display your active status to other inventors</p>
+            </div>
+            <input id="prefOnlineToggle" type="checkbox" checked style="width: auto; transform: scale(1.25);" />
+          </div>
+
+          <div class="pref-row">
+            <div>
+              <strong style="font-size: 0.9rem;">Compact Media Cards</strong>
+              <p style="font-size: 0.78rem; color: var(--muted);">Keep images and videos compact while scrolling</p>
+            </div>
+            <input id="prefCompactToggle" type="checkbox" style="width: auto; transform: scale(1.25);" />
+          </div>
+
+          <div class="btn-row" style="margin-top: 14px;">
+            <button id="savePrefsBtn" class="btn-primary" type="button">Save Preferences</button>
+            <button id="prefQuotaBtn" class="btn-secondary" type="button">Storage &amp; Plan</button>
+          </div>
+          <div id="prefsNotice" class="notice" role="status" aria-live="polite"></div>
+        </div>
+
+        <div class="surface-card">
+          <div class="section-head" style="margin-bottom: 10px;">
+            <div>
+              <h3>GoMotion AI</h3>
+              <p>Inspects active GOMUTION builds &amp; searches online references</p>
+            </div>
+            <span class="tag">Online Search Ready</span>
+          </div>
+
+          <div id="aiStream" class="ai-stream">
+            <div class="ai-bubble bot">Hello! I am GoMotion AI. Ask me about top builds on GOMUTION, online status counts, or engineering topics so I can look up clear web references for you.</div>
+          </div>
+
+          <form id="aiForm" style="display: flex; gap: 8px;">
+            <input id="aiInput" type="text" placeholder="Ask GoMotion AI about builds or web topics..." autocomplete="off" />
+            <button id="aiSubmitBtn" class="btn-primary" type="submit">Ask AI</button>
+          </form>
+        </div>
       </div>
     </section>
   </main>
+
+  <!-- STORAGE & PLAN MODAL -->
+  <div id="quotaModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="section-head" style="margin-bottom: 8px;">
+        <h3>Personal Storage &amp; Plan</h3>
+        <button id="closeQuotaModalBtn" class="link-btn" type="button" style="font-size: 1.1rem;">&#10005;</button>
+      </div>
+      <p style="font-size: 0.86rem; color: var(--muted);">
+        Free accounts start with a <strong>500 KB</strong> personal allocation. You can free space by clearing old chat messages or upgrade to <strong>Inventor Pro</strong>.
+      </p>
+
+      <div class="quota-box">
+        <div class="quota-top">
+          <span>Current Usage</span>
+          <strong id="modalQuotaLabel">0 KB / 500 KB</strong>
+        </div>
+        <div class="quota-track">
+          <div id="modalQuotaBar" class="quota-fill"></div>
+        </div>
+      </div>
+
+      <div class="plan-pair">
+        <div class="plan-box">
+          <strong>Student Free</strong>
+          <div style="font-size: 1.15rem; font-weight: 800; margin: 4px 0;">500 KB</div>
+          <p style="font-size: 0.76rem; color: var(--muted);">Publish builds, spark projects, chat, and use GoMotion AI.</p>
+        </div>
+        <div class="plan-box pro">
+          <strong style="color: var(--accent);">Inventor Pro</strong>
+          <div style="font-size: 1.15rem; font-weight: 800; margin: 4px 0;">10 MB</div>
+          <p style="font-size: 0.76rem; color: var(--muted);">Expanded personal storage for larger build logs and chats.</p>
+        </div>
+      </div>
+
+      <div class="btn-row" style="justify-content: flex-end;">
+        <button id="clearMyChatsBtn" class="btn-danger" type="button">Clear My Old Chats</button>
+        <button id="activateProBtn" class="btn-primary" type="button">Upgrade to Inventor Pro</button>
+      </div>
+      <div id="modalNotice" class="notice" role="status" aria-live="polite"></div>
+    </div>
+  </div>
 
   <script>
     (function () {
       "use strict";
 
-      // Strict policy: zero localStorage / browser storage usage.
-      let activeUser = null; // In-memory session only (resets on reload; never saved to localStorage)
-      let firebaseConfig = null;
-      let databaseURL = null;
-      let allPosts = [];
-      let isReady = false;
+      const FREE_QUOTA_BYTES = 500 * 1024;
+      const PRO_QUOTA_BYTES = 10 * 1024 * 1024;
+      const MAX_MEDIA_BYTES = 350 * 1024;
+      const ONLINE_WINDOW_MS = 90 * 1000;
 
-      const els = {
-        dbStatusPill: document.getElementById("dbStatusPill"),
-        sessionPill: document.getElementById("sessionPill"),
-        prodErrorBanner: document.getElementById("prodErrorBanner"),
-        prodErrorText: document.getElementById("prodErrorText"),
-        handleInput: document.getElementById("handleInput"),
-        passcodeInput: document.getElementById("passcodeInput"),
-        signInBtn: document.getElementById("signInBtn"),
-        createAccountBtn: document.getElementById("createAccountBtn"),
-        signOutBtn: document.getElementById("signOutBtn"),
-        authNotice: document.getElementById("authNotice"),
-        publishForm: document.getElementById("publishForm"),
-        projectTitleInput: document.getElementById("projectTitleInput"),
-        trackSelect: document.getElementById("trackSelect"),
-        mediaInput: document.getElementById("mediaInput"),
-        notesInput: document.getElementById("notesInput"),
-        publishBtn: document.getElementById("publishBtn"),
-        publishNotice: document.getElementById("publishNotice"),
-        searchInput: document.getElementById("searchInput"),
-        filterTrackSelect: document.getElementById("filterTrackSelect"),
-        sortSelect: document.getElementById("sortSelect"),
-        postsContainer: document.getElementById("postsContainer")
+      const ALLOWED_MIMES = {
+        image: ["image/jpeg", "image/png", "image/webp", "image/gif"],
+        video: ["video/mp4", "video/webm", "video/quicktime"],
+        pdf: ["application/pdf"]
       };
 
-      function showProdError(message) {
-        els.prodErrorText.textContent = message;
-        els.prodErrorBanner.classList.add("visible");
-        els.dbStatusPill.textContent = "RTDB Error";
-        els.dbStatusPill.className = "pill error";
+      let activeUser = null;
+      let databaseURL = null;
+      let isReady = false;
+      let isRegisterMode = false;
+
+      let allPosts = [];
+      let allUsers = {};
+      let activeChannel = "global";
+      let activeChannelTitle = "Global Inventor Lounge";
+      let channelMessages = [];
+      let replyTarget = null;
+
+      const els = {
+        onlineCountLabel: document.getElementById("onlineCountLabel"),
+        sessionBadge: document.getElementById("sessionBadge"),
+        errorBanner: document.getElementById("errorBanner"),
+        errorBannerText: document.getElementById("errorBannerText"),
+        navBtns: document.querySelectorAll(".nav-btn"),
+        pageViews: document.querySelectorAll(".page-view"),
+        subnavBtns: document.querySelectorAll(".subnav-btn"),
+        workspacePanels: document.querySelectorAll(".workspace-panel"),
+        homeBrand: document.getElementById("homeBrand"),
+        introCreateBtn: document.getElementById("introCreateBtn"),
+        introStreamBtn: document.getElementById("introStreamBtn"),
+        introSeeAllBtn: document.getElementById("introSeeAllBtn"),
+        metricBuilds: document.getElementById("metricBuilds"),
+        metricInventors: document.getElementById("metricInventors"),
+        metricSparks: document.getElementById("metricSparks"),
+        metricOnline: document.getElementById("metricOnline"),
+        hierarchyList: document.getElementById("hierarchyList"),
+        refreshStreamBtn: document.getElementById("refreshStreamBtn"),
+        streamSearchInput: document.getElementById("streamSearchInput"),
+        streamTrackFilter: document.getElementById("streamTrackFilter"),
+        streamSortSelect: document.getElementById("streamSortSelect"),
+        streamList: document.getElementById("streamList"),
+        publishAuthStatus: document.getElementById("publishAuthStatus"),
+        buildForm: document.getElementById("buildForm"),
+        buildTitle: document.getElementById("buildTitle"),
+        buildTrack: document.getElementById("buildTrack"),
+        buildMediaCategory: document.getElementById("buildMediaCategory"),
+        buildFileInput: document.getElementById("buildFileInput"),
+        buildComponents: document.getElementById("buildComponents"),
+        buildNotes: document.getElementById("buildNotes"),
+        submitBuildBtn: document.getElementById("submitBuildBtn"),
+        uploadSpinner: document.getElementById("uploadSpinner"),
+        uploadSpinnerText: document.getElementById("uploadSpinnerText"),
+        publishNotice: document.getElementById("publishNotice"),
+        accountTitle: document.getElementById("accountTitle"),
+        accountSubtitle: document.getElementById("accountSubtitle"),
+        accountPlanTag: document.getElementById("accountPlanTag"),
+        accountLoggedOutBox: document.getElementById("accountLoggedOutBox"),
+        accountLoggedInBox: document.getElementById("accountLoggedInBox"),
+        loggedInHandle: document.getElementById("loggedInHandle"),
+        loggedInRole: document.getElementById("loggedInRole"),
+        authHandle: document.getElementById("authHandle"),
+        authRoleGroup: document.getElementById("authRoleGroup"),
+        authRole: document.getElementById("authRole"),
+        authCampusGroup: document.getElementById("authCampusGroup"),
+        authCampus: document.getElementById("authCampus"),
+        authPasscode: document.getElementById("authPasscode"),
+        strengthBox: document.getElementById("strengthBox"),
+        strengthBar: document.getElementById("strengthBar"),
+        reqChecklist: document.getElementById("reqChecklist"),
+        chkLen: document.getElementById("chkLen"),
+        chkUpper: document.getElementById("chkUpper"),
+        chkNum: document.getElementById("chkNum"),
+        chkSym: document.getElementById("chkSym"),
+        authConfirmGroup: document.getElementById("authConfirmGroup"),
+        authConfirmPasscode: document.getElementById("authConfirmPasscode"),
+        loginSubmitBtn: document.getElementById("loginSubmitBtn"),
+        switchAuthModeBtn: document.getElementById("switchAuthModeBtn"),
+        jumpToPublishBtn: document.getElementById("jumpToPublishBtn"),
+        jumpToLoungeBtn: document.getElementById("jumpToLoungeBtn"),
+        signOutBtn: document.getElementById("signOutBtn"),
+        accountNotice: document.getElementById("accountNotice"),
+        quotaPctText: document.getElementById("quotaPctText"),
+        quotaBarFill: document.getElementById("quotaBarFill"),
+        quotaSizeText: document.getElementById("quotaSizeText"),
+        openQuotaModalBtn: document.getElementById("openQuotaModalBtn"),
+        rosterSearch: document.getElementById("rosterSearch"),
+        rosterList: document.getElementById("rosterList"),
+        threadAvatar: document.getElementById("threadAvatar"),
+        threadTitle: document.getElementById("threadTitle"),
+        threadSub: document.getElementById("threadSub"),
+        loungeStatusPill: document.getElementById("loungeStatusPill"),
+        threadMessages: document.getElementById("threadMessages"),
+        replyBar: document.getElementById("replyBar"),
+        replyBarLabel: document.getElementById("replyBarLabel"),
+        cancelReplyBtn: document.getElementById("cancelReplyBtn"),
+        loungeForm: document.getElementById("loungeForm"),
+        loungeInput: document.getElementById("loungeInput"),
+        sendLoungeBtn: document.getElementById("sendLoungeBtn"),
+        prefCampus: document.getElementById("prefCampus"),
+        prefOnlineToggle: document.getElementById("prefOnlineToggle"),
+        prefCompactToggle: document.getElementById("prefCompactToggle"),
+        savePrefsBtn: document.getElementById("savePrefsBtn"),
+        prefQuotaBtn: document.getElementById("prefQuotaBtn"),
+        prefsNotice: document.getElementById("prefsNotice"),
+        aiStream: document.getElementById("aiStream"),
+        aiForm: document.getElementById("aiForm"),
+        aiInput: document.getElementById("aiInput"),
+        aiSubmitBtn: document.getElementById("aiSubmitBtn"),
+        quotaModal: document.getElementById("quotaModal"),
+        closeQuotaModalBtn: document.getElementById("closeQuotaModalBtn"),
+        modalQuotaLabel: document.getElementById("modalQuotaLabel"),
+        modalQuotaBar: document.getElementById("modalQuotaBar"),
+        clearMyChatsBtn: document.getElementById("clearMyChatsBtn"),
+        activateProBtn: document.getElementById("activateProBtn"),
+        modalNotice: document.getElementById("modalNotice")
+      };
+
+      function openPage(pageId) {
+        els.pageViews.forEach((sec) => sec.classList.toggle("active", sec.id === pageId));
+        els.navBtns.forEach((btn) => btn.classList.toggle("active", btn.dataset.page === pageId));
+        window.scrollTo({ top: 0, behavior: "smooth" });
+
+        if (pageId === "pageLounge") {
+          renderRoster();
+          loadMessages();
+        } else if (pageId === "pageSettingsAi" && activeUser && allUsers[activeUser.handle]) {
+          els.prefCampus.value = allUsers[activeUser.handle].campus || "";
+          els.prefOnlineToggle.checked = allUsers[activeUser.handle].showOnline !== false;
+        }
       }
 
-      function clearProdError() {
-        els.prodErrorText.textContent = "";
-        els.prodErrorBanner.classList.remove("visible");
+      function openSubTab(subtabId) {
+        els.workspacePanels.forEach((panel) => panel.classList.toggle("active", panel.id === subtabId));
+        els.subnavBtns.forEach((btn) => btn.classList.toggle("active", btn.dataset.subtab === subtabId));
       }
 
-      function showNotice(targetEl, message) {
-        targetEl.textContent = message;
-        targetEl.classList.add("visible");
+      function showErrorBanner(msg) {
+        els.errorBannerText.textContent = msg;
+        els.errorBanner.classList.add("visible");
       }
 
-      function hideNotice(targetEl) {
-        targetEl.textContent = "";
-        targetEl.classList.remove("visible");
+      function clearErrorBanner() {
+        els.errorBannerText.textContent = "";
+        els.errorBanner.classList.remove("visible");
+      }
+
+      function showNotice(el, msg, isError = false) {
+        el.textContent = msg;
+        el.className = isError ? "notice visible error" : "notice visible";
+      }
+
+      function hideNotice(el) {
+        el.textContent = "";
+        el.className = "notice";
+      }
+
+      function setSpinner(visible, text = "Synchronizing with GOMUTION...") {
+        els.uploadSpinner.classList.toggle("visible", visible);
+        els.uploadSpinnerText.textContent = text;
       }
 
       function sanitizeHandle(raw) {
         return String(raw || "").trim().toLowerCase().replace(/[^a-z0-9_]/g, "");
       }
 
-      function updateSessionUI() {
-        if (activeUser) {
-          els.sessionPill.textContent = "Signed in as @" + activeUser.handle;
-          els.sessionPill.className = "pill live";
-          els.signOutBtn.style.display = "inline-block";
-          els.publishBtn.disabled = !isReady;
-        } else {
-          els.sessionPill.textContent = "Signed Out";
-          els.sessionPill.className = "pill";
-          els.signOutBtn.style.display = "none";
-          els.publishBtn.disabled = true;
+      function formatBytes(bytes) {
+        if (bytes < 1024) return bytes + " B";
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+        return (bytes / (1024 * 1024)).toFixed(2) + " MB";
+      }
+
+      function estimateBytes(val) {
+        try {
+          return new TextEncoder().encode(JSON.stringify(val)).length;
+        } catch (_e) {
+          return JSON.stringify(val || "").length;
         }
       }
 
-      // Parses FIREBASE_Config whether provided as a JSON string or JS object literal
-      // (without `const firebaseConfig =` or trailing semicolon).
-      function parseConfigValue(rawValue) {
-        if (!rawValue) {
-          throw new Error("FIREBASE_Config is empty in deployment environment variables.");
-        }
-
-        if (typeof rawValue === "object") {
-          return rawValue;
-        }
-
-        let cleaned = String(rawValue).trim();
-
-        // Strip optional `const firebaseConfig =` or `let/var firebaseConfig =` prefix if present
-        cleaned = cleaned.replace(/^(?:const|let|var)\s+firebaseConfig\s*=\s*/i, "");
-
-        // Strip leading JS comments or trailing semicolon
-        cleaned = cleaned.replace(/^\/\/[^\n]*\n?/gm, "").trim();
-        if (cleaned.endsWith(";")) {
-          cleaned = cleaned.slice(0, -1).trim();
-        }
-
-        // First attempt strict JSON.parse
-        try {
-          return JSON.parse(cleaned);
-        } catch (_jsonErr) {
-          // Normalize unquoted object keys (e.g., apiKey: "..." -> "apiKey": "...")
-          const normalized = cleaned.replace(/([{,]\s*)([A-Za-z0-9_]+)\s*:/g, '$1"$2":');
-          return JSON.parse(normalized);
-        }
+      function isOnline(u) {
+        if (!u || u.showOnline === false || !u.lastSeen) return false;
+        return Date.now() - Number(u.lastSeen) <= ONLINE_WINDOW_MS;
       }
 
-      async function loadRuntimeConfig() {
-        let response;
-        try {
-          response = await fetch("/config", { cache: "no-store" });
-        } catch (networkErr) {
-          throw new Error(
-            "Unable to reach /config endpoint on this deployment. Public database access is unavailable (" +
-              networkErr.message +
-              ")."
-          );
-        }
-
-        if (!response.ok) {
-          throw new Error(
-            "/config returned HTTP " +
-              response.status +
-              ". Ensure your server endpoint serves FIREBASE_Config for production traffic."
-          );
-        }
-
-        let payload;
-        try {
-          payload = await response.json();
-        } catch (_parseErr) {
-          throw new Error("/config did not return valid JSON.");
-        }
-
-        const rawConfig =
-          (payload && (payload.FIREBASE_Config ?? payload.FIREBASE_CONFIG ?? payload.firebaseConfig)) ||
-          null;
-
-        const parsed = parseConfigValue(rawConfig);
-
-        if (!parsed || typeof parsed !== "object" || !parsed.databaseURL) {
-          throw new Error(
-            "FIREBASE_Config is missing a valid databaseURL. Check your production environment settings."
-          );
-        }
-
-        const normalizedUrl = String(parsed.databaseURL).trim().replace(/\/+$/, "");
-        if (!/^https?:\/\//i.test(normalizedUrl)) {
-          throw new Error("databaseURL in FIREBASE_Config must start with https://.");
-        }
-
-        return { config: parsed, databaseURL: normalizedUrl };
+      function formatPresence(ts, showOnline = true) {
+        if (showOnline === false || !ts) return "Offline";
+        const diff = Date.now() - Number(ts);
+        if (diff <= ONLINE_WINDOW_MS) return "Online now";
+        const mins = Math.floor(diff / 60000);
+        if (mins < 60) return `Last seen ${mins}m ago`;
+        const hrs = Math.floor(mins / 60);
+        if (hrs < 24) return `Last seen ${hrs}h ago`;
+        return `Last seen ${new Date(ts).toLocaleDateString()}`;
       }
 
-      async function rtdbRequest(path, method = "GET", body = null) {
-        if (!databaseURL) {
-          throw new Error("Firebase Realtime Database URL is not initialized.");
-        }
-
-        const cleanPath = String(path).replace(/^\/+/, "");
-        const url = `${databaseURL}/${cleanPath}.json`;
-
-        const options = {
-          method,
-          headers: { "Content-Type": "application/json" }
+      function checkPasscode(pass) {
+        const rules = {
+          len: pass.length >= 8,
+          upper: /[A-Z]/.test(pass),
+          num: /[0-9]/.test(pass),
+          sym: /[^A-Za-z0-9]/.test(pass)
         };
+        const score = Object.values(rules).filter(Boolean).length;
+        return { rules, score, ok: rules.len && rules.upper && rules.num };
+      }
 
-        if (body !== null && method !== "GET") {
-          options.body = JSON.stringify(body);
+      function renderPassStrength() {
+        const { rules, score } = checkPasscode(els.authPasscode.value);
+        els.chkLen.classList.toggle("met", rules.len);
+        els.chkUpper.classList.toggle("met", rules.upper);
+        els.chkNum.classList.toggle("met", rules.num);
+        els.chkSym.classList.toggle("met", rules.sym);
+        const widths = ["0%", "25%", "50%", "75%", "100%"];
+        const colors = ["#ef4444", "#ef4444", "#f59e0b", "#38bdf8", "#10b981"];
+        els.strengthBar.style.width = widths[score];
+        els.strengthBar.style.background = colors[score];
+      }
+
+      function toggleRegisterUI(register) {
+        isRegisterMode = register;
+        hideNotice(els.accountNotice);
+        els.accountTitle.textContent = register ? "Create Inventor Account" : "Inventor Sign In";
+        els.accountSubtitle.textContent = register
+          ? "Register a handle to publish builds, spark projects, and chat"
+          : "Sign in to access your build workspace and personal quota";
+        els.authRoleGroup.style.display = register ? "flex" : "none";
+        els.authCampusGroup.style.display = register ? "flex" : "none";
+        els.strengthBox.style.display = register ? "block" : "none";
+        els.reqChecklist.style.display = register ? "grid" : "none";
+        els.authConfirmGroup.style.display = register ? "flex" : "none";
+        els.loginSubmitBtn.textContent = register ? "Register Account" : "Sign In";
+        els.switchAuthModeBtn.textContent = register ? "Back to Sign In" : "Create Account";
+        if (register) renderPassStrength();
+      }
+
+      function getQuotaStats() {
+        if (!activeUser) return { used: 0, limit: FREE_QUOTA_BYTES, pct: 0, plan: "free" };
+        const rec = allUsers[activeUser.handle] || {};
+        const plan = rec.plan === "pro" ? "pro" : "free";
+        const limit = plan === "pro" ? PRO_QUOTA_BYTES : FREE_QUOTA_BYTES;
+        const postBytes = allPosts
+          .filter((p) => p.author === activeUser.handle)
+          .reduce((acc, p) => acc + estimateBytes(p), 0);
+        const chatBytes = Number(rec.chatBytes || 0);
+        const used = postBytes + chatBytes;
+        const pct = Math.min(100, Math.round((used / limit) * 100));
+        return { used, limit, pct, plan };
+      }
+
+      function syncSessionUI() {
+        if (activeUser) {
+          const rec = allUsers[activeUser.handle] || {};
+          const stats = getQuotaStats();
+          els.sessionBadge.innerHTML = `<span class="dot pulse"></span>@${activeUser.handle} • Online`;
+          els.sessionBadge.className = "pill live";
+          els.publishAuthStatus.textContent = `@${activeUser.handle} • Ready`;
+          els.publishAuthStatus.className = "pill live";
+          els.accountLoggedOutBox.style.display = "none";
+          els.accountLoggedInBox.style.display = "block";
+          els.loggedInHandle.textContent = "@" + activeUser.handle;
+          els.loggedInRole.textContent = rec.role || "Student Inventor";
+          els.accountPlanTag.textContent = stats.plan === "pro" ? "Inventor Pro" : "Free Tier";
+          els.submitBuildBtn.disabled = !isReady;
+          els.sendLoungeBtn.disabled = !isReady;
+          els.loungeStatusPill.textContent = `Storage: ${stats.pct}% used`;
+          els.loungeStatusPill.className = stats.pct >= 85 ? "pill warn" : "pill live";
+
+          els.quotaPctText.textContent = stats.pct + "%";
+          els.quotaSizeText.textContent = `${formatBytes(stats.used)} / ${formatBytes(stats.limit)}`;
+          els.quotaBarFill.style.width = stats.pct + "%";
+          els.quotaBarFill.className =
+            stats.pct >= 90 ? "quota-fill danger" : stats.pct >= 75 ? "quota-fill warn" : "quota-fill";
+
+          els.modalQuotaLabel.textContent = `${formatBytes(stats.used)} / ${formatBytes(stats.limit)} (${stats.pct}%)`;
+          els.modalQuotaBar.style.width = stats.pct + "%";
+          els.modalQuotaBar.className = els.quotaBarFill.className;
+        } else {
+          els.sessionBadge.textContent = "Guest Explorer";
+          els.sessionBadge.className = "pill";
+          els.publishAuthStatus.textContent = "Sign in required";
+          els.publishAuthStatus.className = "pill";
+          els.accountLoggedOutBox.style.display = "block";
+          els.accountLoggedInBox.style.display = "none";
+          els.accountPlanTag.textContent = "Free Tier";
+          els.submitBuildBtn.disabled = true;
+          els.sendLoungeBtn.disabled = true;
+          els.loungeStatusPill.textContent = "Sign in to chat";
+          els.loungeStatusPill.className = "pill";
         }
+      }
 
-        const res = await fetch(url, options);
+      function parseRuntimeConfig(raw) {
+        if (!raw) throw new Error("Missing configuration payload.");
+        if (typeof raw === "object") return raw;
+        let text = String(raw).trim();
+        text = text.replace(/^(?:const|let|var)\s+firebaseConfig\s*=\s*/i, "");
+        text = text.replace(/^\/\/[^\n]*\n?/gm, "").trim();
+        if (text.endsWith(";")) text = text.slice(0, -1).trim();
+        try {
+          return JSON.parse(text);
+        } catch (_err) {
+          return JSON.parse(text.replace(/([{,]\s*)([A-Za-z0-9_]+)\s*:/g, '$1"$2":'));
+        }
+      }
+
+      async function fetchConfig() {
+        const res = await fetch("/config", { cache: "no-store" });
+        if (!res.ok) throw new Error("Configuration endpoint returned HTTP " + res.status);
+        const json = await res.json();
+        const raw = json && (json.FIREBASE_Config ?? json.FIREBASE_CONFIG ?? json.firebaseConfig);
+        const cfg = parseRuntimeConfig(raw);
+        if (!cfg || !cfg.databaseURL) throw new Error("Database URL missing in configuration.");
+        const cleanUrl = String(cfg.databaseURL).trim().replace(/\/+$/, "");
+        if (!/^https?:\/\//i.test(cleanUrl)) throw new Error("Invalid database URL.");
+        return cleanUrl;
+      }
+
+      async function dbCall(path, method = "GET", body = null) {
+        if (!databaseURL) throw new Error("Database is not initialized.");
+        const url = `${databaseURL}/${String(path).replace(/^\/+/, "")}.json`;
+        const opts = { method, headers: { "Content-Type": "application/json" } };
+        if (body !== null && method !== "GET") opts.body = JSON.stringify(body);
+        const res = await fetch(url, opts);
         let data = null;
-
         try {
           data = await res.json();
         } catch (_e) {
           data = null;
         }
-
-        if (!res.ok) {
-          const detail = data && data.error ? data.error : `HTTP ${res.status}`;
-          throw new Error(`Firebase Realtime Database rejected the ${method} request (${detail}).`);
-        }
-
+        if (!res.ok) throw new Error(data && data.error ? data.error : `HTTP ${res.status}`);
         if (data && typeof data === "object" && typeof data.error === "string") {
-          throw new Error(`Firebase Realtime Database error: ${data.error}`);
+          throw new Error(data.error);
         }
-
         return data;
       }
 
-      async function hashPasscode(handle, passcode) {
-        const enc = new TextEncoder();
-        const digest = await crypto.subtle.digest("SHA-256", enc.encode(`${handle}:${passcode}`));
-        return Array.from(new Uint8Array(digest))
-          .map((b) => b.toString(16).padStart(2, "0"))
-          .join("");
+      async function digestPasscode(handle, pass) {
+        const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(`${handle}:${pass}`));
+        return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, "0")).join("");
       }
 
-      async function handleCreateAccount() {
-        hideNotice(els.authNotice);
-        clearProdError();
+      async function heartbeat() {
+        if (!activeUser || !isReady) return;
+        const u = allUsers[activeUser.handle];
+        if (u && u.showOnline === false) return;
+        try {
+          await dbCall(`users/${activeUser.handle}/lastSeen`, "PUT", Date.now());
+          if (allUsers[activeUser.handle]) allUsers[activeUser.handle].lastSeen = Date.now();
+        } catch (_e) {}
+      }
 
-        const handle = sanitizeHandle(els.handleInput.value);
-        const passcode = els.passcodeInput.value;
+      async function submitAuth() {
+        hideNotice(els.accountNotice);
+        clearErrorBanner();
+
+        const handle = sanitizeHandle(els.authHandle.value);
+        const pass = els.authPasscode.value;
 
         if (handle.length < 3) {
-          showNotice(els.authNotice, "Handle must be at least 3 letters, numbers, or underscores.");
-          return;
-        }
-        if (passcode.length < 4) {
-          showNotice(els.authNotice, "Passcode must be at least 4 characters.");
+          showNotice(els.accountNotice, "Handle must be at least 3 letters, numbers, or underscores.", true);
           return;
         }
 
-        els.createAccountBtn.disabled = true;
-        els.signInBtn.disabled = true;
-
-        try {
-          const existing = await rtdbRequest(`users/${handle}`, "GET");
-          if (existing) {
-            showNotice(els.authNotice, `Handle @${handle} is already registered. Tap Sign In instead.`);
+        if (isRegisterMode) {
+          if (!checkPasscode(pass).ok) {
+            showNotice(els.accountNotice, "Use 8+ characters with an uppercase letter and a number.", true);
             return;
           }
+          if (pass !== els.authConfirmPasscode.value) {
+            showNotice(els.accountNotice, "Passcodes do not match.", true);
+            return;
+          }
+        } else if (!pass) {
+          showNotice(els.accountNotice, "Please enter your passcode.", true);
+          return;
+        }
 
-          const passHash = await hashPasscode(handle, passcode);
-          const userRecord = {
-            handle,
-            passHash,
-            createdAt: Date.now()
-          };
+        els.loginSubmitBtn.disabled = true;
+        els.switchAuthModeBtn.disabled = true;
 
-          await rtdbRequest(`users/${handle}`, "PUT", userRecord);
-          activeUser = { handle };
-          updateSessionUI();
-          showNotice(els.authNotice, `Account @${handle} created and active for this session.`);
+        try {
+          const existing = await dbCall(`users/${handle}`, "GET");
+          if (isRegisterMode) {
+            if (existing) {
+              showNotice(els.accountNotice, `Handle @${handle} already exists. Sign in instead.`, true);
+              return;
+            }
+            const record = {
+              handle,
+              passHash: await digestPasscode(handle, pass),
+              role: els.authRole.value || "Student Inventor",
+              campus: els.authCampus.value.trim() || "Global Inventor",
+              showOnline: true,
+              plan: "free",
+              chatBytes: 0,
+              createdAt: Date.now(),
+              lastSeen: Date.now()
+            };
+            await dbCall(`users/${handle}`, "PUT", record);
+            allUsers[handle] = record;
+            activeUser = { handle };
+            toggleRegisterUI(false);
+            syncSessionUI();
+            renderAllStreams();
+            renderRoster();
+            showNotice(els.accountNotice, `Account created for @${handle}!`);
+          } else {
+            if (!existing) {
+              showNotice(els.accountNotice, `No account found for @${handle}.`, true);
+              return;
+            }
+            if (existing.passHash !== (await digestPasscode(handle, pass))) {
+              showNotice(els.accountNotice, "Incorrect passcode.", true);
+              return;
+            }
+            if (existing.showOnline !== false) {
+              existing.lastSeen = Date.now();
+              await dbCall(`users/${handle}/lastSeen`, "PUT", existing.lastSeen);
+            }
+            allUsers[handle] = existing;
+            activeUser = { handle };
+            syncSessionUI();
+            renderAllStreams();
+            renderRoster();
+            showNotice(els.accountNotice, `Signed in as @${handle}.`);
+          }
         } catch (err) {
-          showProdError(
-            "Unable to register account in Firebase Realtime Database. " + err.message
-          );
+          showErrorBanner("Authentication error: " + err.message);
         } finally {
-          els.createAccountBtn.disabled = !isReady;
-          els.signInBtn.disabled = !isReady;
+          els.loginSubmitBtn.disabled = !isReady;
+          els.switchAuthModeBtn.disabled = !isReady;
         }
       }
 
-      async function handleSignIn() {
-        hideNotice(els.authNotice);
-        clearProdError();
-
-        const handle = sanitizeHandle(els.handleInput.value);
-        const passcode = els.passcodeInput.value;
-
-        if (!handle || !passcode) {
-          showNotice(els.authNotice, "Enter both your handle and passcode.");
-          return;
+      async function signOut() {
+        if (activeUser && isReady) {
+          try {
+            await dbCall(`users/${activeUser.handle}/lastSeen`, "PUT", 0);
+          } catch (_e) {}
         }
-
-        els.signInBtn.disabled = true;
-        els.createAccountBtn.disabled = true;
-
-        try {
-          const record = await rtdbRequest(`users/${handle}`, "GET");
-          if (!record) {
-            showNotice(els.authNotice, `No account found for @${handle}.`);
-            return;
-          }
-
-          const passHash = await hashPasscode(handle, passcode);
-          if (record.passHash !== passHash) {
-            showNotice(els.authNotice, "Incorrect passcode.");
-            return;
-          }
-
-          activeUser = { handle };
-          updateSessionUI();
-          showNotice(els.authNotice, `Signed in as @${handle}.`);
-        } catch (err) {
-          showProdError(
-            "Unable to sign in against Firebase Realtime Database. " + err.message
-          );
-        } finally {
-          els.signInBtn.disabled = !isReady;
-          els.createAccountBtn.disabled = !isReady;
-        }
-      }
-
-      function handleSignOut() {
         activeUser = null;
-        els.passcodeInput.value = "";
-        updateSessionUI();
-        showNotice(els.authNotice, "Signed out.");
+        els.authPasscode.value = "";
+        els.authConfirmPasscode.value = "";
+        syncSessionUI();
+        renderAllStreams();
+        renderRoster();
+        showNotice(els.accountNotice, "Signed out.");
       }
 
-      function readFileAsDataUrl(file) {
+      async function verifyAttachment(file, chosenType) {
+        const mime = String(file.type || "").toLowerCase();
+        const ext = (file.name.split(".").pop() || "").toLowerCase();
+
+        let type = chosenType;
+        if (type === "auto") {
+          if (ALLOWED_MIMES.image.includes(mime) || ["jpg", "jpeg", "png", "webp", "gif"].includes(ext)) {
+            type = "image";
+          } else if (ALLOWED_MIMES.video.includes(mime) || ["mp4", "webm", "mov"].includes(ext)) {
+            type = "video";
+          } else if (ALLOWED_MIMES.pdf.includes(mime) || ext === "pdf") {
+            type = "pdf";
+          } else {
+            throw new Error("Unsupported file type. Only Images, Videos, and PDFs are accepted.");
+          }
+        }
+
+        const validMimes = ALLOWED_MIMES[type] || [];
+        if (mime && !validMimes.includes(mime)) {
+          throw new Error(`File MIME (${mime}) does not match ${type.toUpperCase()} formats.`);
+        }
+
+        if (type === "pdf") {
+          if (file.size > MAX_MEDIA_BYTES) throw new Error("PDF must be 350 KB or smaller.");
+          const head = new TextDecoder().decode(await file.slice(0, 5).arrayBuffer());
+          if (head !== "%PDF-") throw new Error("Invalid PDF file header.");
+          return { mediaType: "pdf", mediaDataUrl: await readAsDataUrl(file), fileName: file.name };
+        }
+
+        if (type === "video") {
+          if (file.size > MAX_MEDIA_BYTES) throw new Error("Video must be 350 KB or smaller.");
+          return { mediaType: "video", mediaDataUrl: await readAsDataUrl(file), fileName: file.name };
+        }
+
+        return { mediaType: "image", mediaDataUrl: await squeezeImage(file), fileName: file.name };
+      }
+
+      function squeezeImage(file, maxW = 920, q = 0.74) {
         return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onload = () => resolve(String(reader.result || ""));
-          reader.onerror = () => reject(new Error("Failed to read selected media file."));
-          reader.readAsDataURL(file);
+          const fr = new FileReader();
+          fr.onerror = () => reject(new Error("Could not read image."));
+          fr.onload = (ev) => {
+            const img = new Image();
+            img.onerror = () => reject(new Error("Invalid image file."));
+            img.onload = () => {
+              let w = img.width;
+              let h = img.height;
+              if (w > maxW) {
+                h = Math.round((h * maxW) / w);
+                w = maxW;
+              }
+              const c = document.createElement("canvas");
+              c.width = w;
+              c.height = h;
+              c.getContext("2d").drawImage(img, 0, 0, w, h);
+              resolve(c.toDataURL("image/jpeg", q));
+            };
+            img.src = ev.target.result;
+          };
+          fr.readAsDataURL(file);
         });
       }
 
-      async function handlePublish(event) {
-        event.preventDefault();
+      function readAsDataUrl(file) {
+        return new Promise((resolve, reject) => {
+          const fr = new FileReader();
+          fr.onload = () => resolve(String(fr.result || ""));
+          fr.onerror = () => reject(new Error("Could not read file."));
+          fr.readAsDataURL(file);
+        });
+      }
+
+      async function publishBuild(e) {
+        e.preventDefault();
         hideNotice(els.publishNotice);
-        clearProdError();
+        clearErrorBanner();
 
         if (!activeUser) {
-          showNotice(els.publishNotice, "Sign in or create an account above before publishing.");
+          showNotice(els.publishNotice, "Sign in first on the Account & Storage tab.", true);
           return;
         }
 
-        const title = els.projectTitleInput.value.trim();
-        const track = els.trackSelect.value;
-        const notes = els.notesInput.value.trim();
-        const file = els.mediaInput.files && els.mediaInput.files[0] ? els.mediaInput.files[0] : null;
+        const title = els.buildTitle.value.trim();
+        const track = els.buildTrack.value;
+        const chosenType = els.buildMediaCategory.value;
+        const notes = els.buildNotes.value.trim();
+        const components = els.buildComponents.value
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean)
+          .slice(0, 8);
+        const file = els.buildFileInput.files && els.buildFileInput.files[0] ? els.buildFileInput.files[0] : null;
 
         if (!title || !notes) {
-          showNotice(els.publishNotice, "Project title and technical notes are required.");
+          showNotice(els.publishNotice, "Project title and technical notes are required.", true);
           return;
         }
 
-        let mediaDataUrl = "";
         let mediaType = "";
+        let mediaDataUrl = "";
+        let fileName = "";
+        els.submitBuildBtn.disabled = true;
 
         if (file) {
-          const isImage = file.type.startsWith("image/");
-          const isVideo = file.type.startsWith("video/");
-
-          if (!isImage && !isVideo) {
-            showNotice(els.publishNotice, "Only image or video files are supported.");
-            return;
-          }
-
-          const maxBytes = isImage ? 2 * 1024 * 1024 : 4 * 1024 * 1024;
-          if (file.size > maxBytes) {
-            showNotice(
-              els.publishNotice,
-              isImage
-                ? "Image must be 2 MB or smaller for Realtime Database storage."
-                : "Video must be 4 MB or smaller for Realtime Database storage."
-            );
-            return;
-          }
-
+          setSpinner(true, "Checking file format & synchronizing GOMUTION...");
           try {
-            mediaDataUrl = await readFileAsDataUrl(file);
-            mediaType = isImage ? "image" : "video";
-          } catch (fileErr) {
-            showProdError(fileErr.message);
+            const out = await verifyAttachment(file, chosenType);
+            mediaType = out.mediaType;
+            mediaDataUrl = out.mediaDataUrl;
+            fileName = out.fileName;
+          } catch (err) {
+            setSpinner(false);
+            els.submitBuildBtn.disabled = !isReady || !activeUser;
+            showNotice(els.publishNotice, err.message, true);
             return;
           }
+        } else {
+          setSpinner(true, "Synchronizing build to GOMUTION...");
         }
 
-        els.publishBtn.disabled = true;
+        const id = "post_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7);
+        const payload = {
+          id,
+          author: activeUser.handle,
+          title,
+          track,
+          components,
+          notes,
+          mediaType,
+          mediaDataUrl,
+          fileName,
+          sparksCount: 0,
+          createdAt: Date.now()
+        };
 
-        try {
-          const postId = "post_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7);
-          const postPayload = {
-            id: postId,
-            author: activeUser.handle,
-            title,
-            track,
-            notes,
-            mediaType,
-            mediaDataUrl,
-            createdAt: Date.now()
-          };
-
-          await rtdbRequest(`gomution/posts/${postId}`, "PUT", postPayload);
-
-          els.projectTitleInput.value = "";
-          els.notesInput.value = "";
-          els.mediaInput.value = "";
-          showNotice(els.publishNotice, "Build published directly to Firebase Realtime Database.");
-          await refreshPosts();
-        } catch (err) {
-          showProdError(
-            "Failed to publish project build to Firebase Realtime Database. " + err.message
-          );
-        } finally {
-          els.publishBtn.disabled = !isReady || !activeUser;
-        }
-      }
-
-      async function deletePost(postId) {
-        if (!activeUser) return;
-        clearProdError();
-
-        try {
-          await rtdbRequest(`gomution/posts/${postId}`, "DELETE");
-          await refreshPosts();
-        } catch (err) {
-          showProdError("Could not delete post from Firebase Realtime Database. " + err.message);
-        }
-      }
-
-      function renderPosts() {
-        const query = els.searchInput.value.trim().toLowerCase();
-        const trackFilter = els.filterTrackSelect.value;
-        const sortOrder = els.sortSelect.value;
-
-        let filtered = allPosts.filter((p) => {
-          const matchesTrack = trackFilter === "ALL" || p.track === trackFilter;
-          const haystack = `${p.title || ""} ${p.author || ""} ${p.notes || ""} ${p.track || ""}`.toLowerCase();
-          const matchesQuery = !query || haystack.includes(query);
-          return matchesTrack && matchesQuery;
-        });
-
-        filtered.sort((a, b) =>
-          sortOrder === "OLDEST" ? (a.createdAt || 0) - (b.createdAt || 0) : (b.createdAt || 0) - (a.createdAt || 0)
-        );
-
-        els.postsContainer.innerHTML = "";
-
-        if (filtered.length === 0) {
-          const empty = document.createElement("div");
-          empty.className = "empty-state";
-          empty.textContent = "No matching builds found in Firebase Realtime Database.";
-          els.postsContainer.appendChild(empty);
+        const stats = getQuotaStats();
+        if (stats.used + estimateBytes(payload) > stats.limit) {
+          setSpinner(false);
+          els.submitBuildBtn.disabled = !isReady || !activeUser;
+          showNotice(els.publishNotice, "Personal storage limit reached. Manage storage or upgrade.", true);
+          els.quotaModal.classList.add("visible");
           return;
         }
 
-        for (const post of filtered) {
-          const card = document.createElement("article");
-          card.className = "post-card";
+        try {
+          await dbCall(`gomution/posts/${id}`, "PUT", payload);
+          els.buildTitle.value = "";
+          els.buildComponents.value = "";
+          els.buildNotes.value = "";
+          els.buildFileInput.value = "";
+          setSpinner(false);
+          showNotice(els.publishNotice, "Build published to GOMUTION!");
+          await refreshAll();
+          openSubTab("subFeed");
+        } catch (err) {
+          setSpinner(false);
+          showErrorBanner("Publish failed: " + err.message);
+        } finally {
+          els.submitBuildBtn.disabled = !isReady || !activeUser;
+        }
+      }
+
+      async function toggleSpark(post) {
+        if (!activeUser) {
+          openPage("pageWorkspace");
+          openSubTab("subAccount");
+          showNotice(els.accountNotice, "Sign in to give sparks to builds.");
+          return;
+        }
+        const map = post.sparks && typeof post.sparks === "object" ? { ...post.sparks } : {};
+        const had = Boolean(map[activeUser.handle]);
+        try {
+          if (had) {
+            await dbCall(`gomution/posts/${post.id}/sparks/${activeUser.handle}`, "DELETE");
+            delete map[activeUser.handle];
+          } else {
+            await dbCall(`gomution/posts/${post.id}/sparks/${activeUser.handle}`, "PUT", true);
+            map[activeUser.handle] = true;
+          }
+          await dbCall(`gomution/posts/${post.id}/sparksCount`, "PUT", Object.keys(map).length);
+          await refreshAll();
+        } catch (err) {
+          showErrorBanner("Spark update failed: " + err.message);
+        }
+      }
+
+      async function removeBuild(postId) {
+        if (!activeUser) return;
+        try {
+          await dbCall(`gomution/posts/${postId}`, "DELETE");
+          await refreshAll();
+        } catch (err) {
+          showErrorBanner("Delete failed: " + err.message);
+        }
+      }
+
+      function createBuildCard(post, rank = null) {
+        const card = document.createElement("article");
+        card.className = "post-card";
+
+        const head = document.createElement("div");
+        head.className = "post-head";
+
+        const authorWrap = document.createElement("div");
+        authorWrap.className = "author-wrap";
+
+        const av = document.createElement("div");
+        av.className = "avatar";
+        const handle = post.author || "inventor";
+        av.textContent = handle.slice(0, 2).toUpperCase();
+
+        const uRec = allUsers[handle];
+        const online = isOnline(uRec);
+        const dot = document.createElement("span");
+        dot.className = online ? "presence online" : "presence";
+        av.appendChild(dot);
+
+        const meta = document.createElement("div");
+        meta.className = "author-meta";
+
+        const nEl = document.createElement("span");
+        nEl.className = "author-name";
+        nEl.textContent = `@${handle}` + (online ? " • Online" : "");
+
+        const sEl = document.createElement("span");
+        sEl.className = "author-sub";
+        const rolePart = uRec && uRec.role ? `${uRec.role} • ` : "";
+        sEl.textContent = rolePart + (post.createdAt ? new Date(post.createdAt).toLocaleString() : "Recent");
+
+        meta.appendChild(nEl);
+        meta.appendChild(sEl);
+        authorWrap.appendChild(av);
+        authorWrap.appendChild(meta);
+
+        const right = document.createElement("div");
+        right.style.display = "flex";
+        right.style.alignItems = "center";
+        right.style.gap = "6px";
+        right.style.flexWrap = "wrap";
+
+        if (rank !== null && rank < 5) {
+          const rTag = document.createElement("span");
+          rTag.className = "rank-tag";
+          rTag.textContent = `#${rank + 1} Top Rated`;
+          right.appendChild(rTag);
+        }
+
+        const tTag = document.createElement("span");
+        tTag.className = "tag";
+        tTag.textContent = post.track || "General Engineering";
+        right.appendChild(tTag);
+
+        head.appendChild(authorWrap);
+        head.appendChild(right);
+
+        const titleEl = document.createElement("h4");
+        titleEl.className = "post-title";
+        titleEl.textContent = post.title || "Untitled Build";
+
+        const notesEl = document.createElement("p");
+        notesEl.className = "post-notes";
+        notesEl.textContent = post.notes || "";
+
+        card.appendChild(head);
+        card.appendChild(titleEl);
+        card.appendChild(notesEl);
+
+        if (Array.isArray(post.components) && post.components.length > 0) {
+          const row = document.createElement("div");
+          row.className = "bom-list";
+          post.components.forEach((c) => {
+            const chip = document.createElement("span");
+            chip.className = "bom-pill";
+            chip.textContent = c;
+            chip.addEventListener("click", () => {
+              els.streamSearchInput.value = c;
+              openPage("pageWorkspace");
+              openSubTab("subFeed");
+              renderAllStreams();
+            });
+            row.appendChild(chip);
+          });
+          card.appendChild(row);
+        }
+
+        const compact = els.prefCompactToggle.checked;
+        if (post.mediaDataUrl && post.mediaType === "image") {
+          const img = document.createElement("img");
+          img.className = "post-media";
+          if (compact) img.style.maxHeight = "180px";
+          img.src = post.mediaDataUrl;
+          img.alt = post.title || "Build image";
+          img.loading = "lazy";
+          card.appendChild(img);
+        } else if (post.mediaDataUrl && post.mediaType === "video") {
+          const vid = document.createElement("video");
+          vid.className = "post-media";
+          if (compact) vid.style.maxHeight = "200px";
+          vid.src = post.mediaDataUrl;
+          vid.controls = true;
+          vid.playsInline = true;
+          card.appendChild(vid);
+        } else if (post.mediaDataUrl && post.mediaType === "pdf") {
+          const box = document.createElement("div");
+          box.className = "pdf-row";
+          const lbl = document.createElement("span");
+          lbl.style.fontSize = "0.85rem";
+          lbl.style.fontWeight = "700";
+          lbl.textContent = "PDF: " + (post.fileName || "schematic.pdf");
+          const a = document.createElement("a");
+          a.href = post.mediaDataUrl;
+          a.download = post.fileName || "gomution-build.pdf";
+          a.className = "btn-secondary btn-sm";
+          a.style.textDecoration = "none";
+          a.textContent = "Download PDF";
+          box.appendChild(lbl);
+          box.appendChild(a);
+          card.appendChild(box);
+        }
+
+        const foot = document.createElement("div");
+        foot.className = "post-foot";
+
+        const left = document.createElement("div");
+        left.className = "foot-actions";
+
+        const sMap = post.sparks && typeof post.sparks === "object" ? post.sparks : {};
+        const count = Object.keys(sMap).length || Number(post.sparksCount || 0);
+        const sparked = activeUser && Boolean(sMap[activeUser.handle]);
+
+        const sparkBtn = document.createElement("button");
+        sparkBtn.type = "button";
+        sparkBtn.className = sparked ? "spark-btn active" : "spark-btn";
+        sparkBtn.textContent = `⚡ ${count} Spark${count === 1 ? "" : "s"}`;
+        sparkBtn.addEventListener("click", () => toggleSpark(post));
+        left.appendChild(sparkBtn);
+
+        const threadBtn = document.createElement("button");
+        threadBtn.type = "button";
+        threadBtn.className = "btn-secondary btn-sm";
+        threadBtn.textContent = "Discuss Build";
+        threadBtn.addEventListener("click", () => {
+          activeChannel = "build_" + post.id;
+          activeChannelTitle = "Build Thread: " + post.title;
+          replyTarget = null;
+          els.replyBar.classList.remove("visible");
+          openPage("pageLounge");
+        });
+        left.appendChild(threadBtn);
+
+        if (!activeUser || activeUser.handle !== handle) {
+          const dmBtn = document.createElement("button");
+          dmBtn.type = "button";
+          dmBtn.className = "btn-secondary btn-sm";
+          dmBtn.textContent = `Message @${handle}`;
+          dmBtn.addEventListener("click", () => startDm(handle));
+          left.appendChild(dmBtn);
+        }
+
+        foot.appendChild(left);
+
+        if (activeUser && activeUser.handle === handle) {
+          const delBtn = document.createElement("button");
+          delBtn.type = "button";
+          delBtn.className = "btn-danger";
+          delBtn.textContent = "Delete Build";
+          delBtn.addEventListener("click", () => removeBuild(post.id));
+          foot.appendChild(delBtn);
+        }
+
+        card.appendChild(foot);
+        return card;
+      }
+
+      function renderAllStreams() {
+        const ranked = [...allPosts].sort((a, b) => {
+          const sa = a.sparks ? Object.keys(a.sparks).length : Number(a.sparksCount || 0);
+          const sb = b.sparks ? Object.keys(b.sparks).length : Number(b.sparksCount || 0);
+          return sb - sa || (b.createdAt || 0) - (a.createdAt || 0);
+        });
+
+        els.hierarchyList.innerHTML = "";
+        if (ranked.length === 0) {
+          els.hierarchyList.innerHTML = '<div class="empty-msg">No builds published yet. Be the first to publish in the Build Stream!</div>';
+        } else {
+          const frag = document.createDocumentFragment();
+          ranked.slice(0, 5).forEach((p, i) => frag.appendChild(createBuildCard(p, i)));
+          els.hierarchyList.appendChild(frag);
+        }
+
+        const q = els.streamSearchInput.value.trim().toLowerCase();
+        const trk = els.streamTrackFilter.value;
+        const sort = els.streamSortSelect.value;
+
+        let list = allPosts.filter((p) => {
+          const okTrack = trk === "ALL" || p.track === trk;
+          const comps = Array.isArray(p.components) ? p.components.join(" ") : "";
+          const hay = `${p.title || ""} ${p.author || ""} ${p.notes || ""} ${p.track || ""} ${comps}`.toLowerCase();
+          return okTrack && (!q || hay.includes(q));
+        });
+
+        list.sort((a, b) => {
+          if (sort === "OLDEST") return (a.createdAt || 0) - (b.createdAt || 0);
+          if (sort === "NEWEST") return (b.createdAt || 0) - (a.createdAt || 0);
+          const sa = a.sparks ? Object.keys(a.sparks).length : Number(a.sparksCount || 0);
+          const sb = b.sparks ? Object.keys(b.sparks).length : Number(b.sparksCount || 0);
+          return sb - sa || (b.createdAt || 0) - (a.createdAt || 0);
+        });
+
+        els.streamList.innerHTML = "";
+        if (list.length === 0) {
+          els.streamList.innerHTML = '<div class="empty-msg">No matching builds found.</div>';
+          return;
+        }
+
+        const f = document.createDocumentFragment();
+        list.forEach((p) => {
+          const r = ranked.findIndex((item) => item.id === p.id);
+          f.appendChild(createBuildCard(p, r >= 0 ? r : null));
+        });
+        els.streamList.appendChild(f);
+      }
+
+      function startDm(targetHandle) {
+        if (!activeUser) {
+          openPage("pageWorkspace");
+          openSubTab("subAccount");
+          showNotice(els.accountNotice, "Sign in to message @" + targetHandle + ".");
+          return;
+        }
+        if (targetHandle === activeUser.handle) {
+          activeChannel = "global";
+          activeChannelTitle = "Global Inventor Lounge";
+        } else {
+          activeChannel = "dm_" + [activeUser.handle, targetHandle].sort().join("__");
+          activeChannelTitle = "@" + targetHandle;
+        }
+        replyTarget = null;
+        els.replyBar.classList.remove("visible");
+        openPage("pageLounge");
+      }
+
+      function renderRoster() {
+        const filter = els.rosterSearch.value.trim().toLowerCase();
+        els.rosterList.innerHTML = "";
+        const frag = document.createDocumentFragment();
+
+        if (!filter || "global inventor lounge".includes(filter)) {
+          const g = document.createElement("div");
+          g.className = activeChannel === "global" ? "roster-row active" : "roster-row";
+          g.innerHTML = `<div class="avatar">#</div><div class="roster-info"><div class="roster-title">Global Inventor Lounge</div><div class="roster-sub online">Open community channel</div></div>`;
+          g.addEventListener("click", () => {
+            activeChannel = "global";
+            activeChannelTitle = "Global Inventor Lounge";
+            replyTarget = null;
+            els.replyBar.classList.remove("visible");
+            renderRoster();
+            loadMessages();
+          });
+          frag.appendChild(g);
+        }
+
+        const handles = Object.keys(allUsers).sort((a, b) => {
+          const oa = isOnline(allUsers[a]) ? 1 : 0;
+          const ob = isOnline(allUsers[b]) ? 1 : 0;
+          return ob - oa || a.localeCompare(b);
+        });
+
+        handles.forEach((h) => {
+          if (activeUser && h === activeUser.handle) return;
+          if (filter && !h.includes(filter)) return;
+          const u = allUsers[h];
+          const on = isOnline(u);
+          const ch = activeUser ? "dm_" + [activeUser.handle, h].sort().join("__") : "dm_" + h;
+
+          const row = document.createElement("div");
+          row.className = activeChannel === ch ? "roster-row active" : "roster-row";
+
+          const av = document.createElement("div");
+          av.className = "avatar";
+          av.textContent = h.slice(0, 2).toUpperCase();
+          const dot = document.createElement("span");
+          dot.className = on ? "presence online" : "presence";
+          av.appendChild(dot);
+
+          const info = document.createElement("div");
+          info.className = "roster-info";
+
+          const t = document.createElement("div");
+          t.className = "roster-title";
+          t.textContent = "@" + h;
+
+          const s = document.createElement("div");
+          s.className = on ? "roster-sub online" : "roster-sub";
+          s.textContent = on ? "Online now" : formatPresence(u && u.lastSeen, u && u.showOnline);
+
+          info.appendChild(t);
+          info.appendChild(s);
+          row.appendChild(av);
+          row.appendChild(info);
+          row.addEventListener("click", () => startDm(h));
+          frag.appendChild(row);
+        });
+
+        els.rosterList.appendChild(frag);
+      }
+
+      async function loadMessages() {
+        if (!isReady) return;
+        els.threadTitle.textContent = activeChannelTitle;
+        if (activeChannel === "global") {
+          els.threadAvatar.textContent = "#";
+          els.threadSub.textContent = "Live collaboration room for students & educators";
+        } else if (activeChannel.startsWith("dm_")) {
+          const peer = activeChannelTitle.replace(/^@/, "");
+          els.threadAvatar.textContent = peer.slice(0, 2).toUpperCase();
+          const u = allUsers[peer];
+          els.threadSub.textContent = isOnline(u)
+            ? "Online now • Direct chat"
+            : formatPresence(u && u.lastSeen, u && u.showOnline);
+        } else {
+          els.threadAvatar.textContent = "B";
+          els.threadSub.textContent = "Build discussion thread";
+        }
+
+        try {
+          const raw = await dbCall(`gomution/chats/${activeChannel}`, "GET");
+          channelMessages =
+            !raw || typeof raw !== "object"
+              ? []
+              : Object.entries(raw)
+                  .map(([k, v]) => ({ id: (v && v.id) || k, ...(v || {}) }))
+                  .sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
+          renderMessages();
+        } catch (_e) {}
+      }
+
+      function renderMessages() {
+        els.threadMessages.innerHTML = "";
+        if (channelMessages.length === 0) {
+          els.threadMessages.innerHTML = '<div class="empty-msg">No messages yet in this channel.</div>';
+          return;
+        }
+
+        const frag = document.createDocumentFragment();
+        channelMessages.forEach((m) => {
+          const isMe = activeUser && m.sender === activeUser.handle;
+          const b = document.createElement("div");
+          b.className = isMe ? "bubble me" : "bubble";
+
+          if (!isMe) {
+            const sd = document.createElement("div");
+            sd.className = "bubble-sender";
+            sd.textContent = "@" + (m.sender || "inventor");
+            b.appendChild(sd);
+          }
+
+          if (m.replyToText) {
+            const q = document.createElement("div");
+            q.className = "bubble-quote";
+            q.textContent = `@${m.replyToSender || "user"}: ${m.replyToText}`;
+            b.appendChild(q);
+          }
+
+          const txt = document.createElement("div");
+          txt.textContent = m.text || "";
+          b.appendChild(txt);
 
           const meta = document.createElement("div");
-          meta.className = "post-meta";
+          meta.className = "bubble-meta";
+          const tm = document.createElement("span");
+          tm.textContent = m.createdAt
+            ? new Date(m.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+            : "";
+          meta.appendChild(tm);
+          if (isMe) {
+            const tk = document.createElement("span");
+            tk.className = "ticks";
+            tk.textContent = "✓✓";
+            meta.appendChild(tk);
+          }
+          b.appendChild(meta);
 
-          const authorSpan = document.createElement("span");
-          const dateStr = post.createdAt ? new Date(post.createdAt).toLocaleString() : "Unknown date";
-          authorSpan.textContent = `@${post.author || "unknown"} • ${dateStr}`;
+          if (activeUser) {
+            const act = document.createElement("div");
+            act.className = "bubble-actions";
+            const rep = document.createElement("button");
+            rep.type = "button";
+            rep.className = "link-btn";
+            rep.textContent = "Reply";
+            rep.addEventListener("click", () => {
+              replyTarget = { sender: m.sender, text: String(m.text || "").slice(0, 70) };
+              els.replyBarLabel.textContent = `Replying to @${replyTarget.sender}: "${replyTarget.text}"`;
+              els.replyBar.classList.add("visible");
+              els.loungeInput.focus();
+            });
+            act.appendChild(rep);
 
-          const rightMeta = document.createElement("div");
-          rightMeta.style.display = "flex";
-          rightMeta.style.alignItems = "center";
-          rightMeta.style.gap = "8px";
-
-          const tag = document.createElement("span");
-          tag.className = "tag";
-          tag.textContent = post.track || "General Engineering";
-          rightMeta.appendChild(tag);
-
-          if (activeUser && activeUser.handle === post.author) {
-            const delBtn = document.createElement("button");
-            delBtn.type = "button";
-            delBtn.className = "btn-danger";
-            delBtn.textContent = "Delete";
-            delBtn.addEventListener("click", () => deletePost(post.id));
-            rightMeta.appendChild(delBtn);
+            if (isMe) {
+              const del = document.createElement("button");
+              del.type = "button";
+              del.className = "link-btn";
+              del.textContent = "Delete";
+              del.addEventListener("click", () => deleteMessage(m));
+              act.appendChild(del);
+            }
+            b.appendChild(act);
           }
 
-          meta.appendChild(authorSpan);
-          meta.appendChild(rightMeta);
+          frag.appendChild(b);
+        });
 
-          const titleEl = document.createElement("h3");
-          titleEl.className = "post-title";
-          titleEl.textContent = post.title || "Untitled Build";
-
-          const notesEl = document.createElement("p");
-          notesEl.className = "post-notes";
-          notesEl.textContent = post.notes || "";
-
-          card.appendChild(meta);
-          card.appendChild(titleEl);
-          card.appendChild(notesEl);
-
-          if (post.mediaDataUrl && post.mediaType === "image") {
-            const img = document.createElement("img");
-            img.className = "post-media";
-            img.src = post.mediaDataUrl;
-            img.alt = post.title || "Build image";
-            img.loading = "lazy";
-            card.appendChild(img);
-          } else if (post.mediaDataUrl && post.mediaType === "video") {
-            const vid = document.createElement("video");
-            vid.className = "post-media";
-            vid.src = post.mediaDataUrl;
-            vid.controls = true;
-            vid.playsInline = true;
-            card.appendChild(vid);
-          }
-
-          els.postsContainer.appendChild(card);
-        }
+        els.threadMessages.appendChild(frag);
+        els.threadMessages.scrollTop = els.threadMessages.scrollHeight;
       }
 
-      async function refreshPosts() {
-        const raw = await rtdbRequest("gomution/posts", "GET");
-        if (!raw || typeof raw !== "object") {
-          allPosts = [];
-        } else {
-          allPosts = Object.entries(raw).map(([key, val]) => ({
-            id: (val && val.id) || key,
-            ...(val || {})
-          }));
+      async function sendLoungeMessage(e) {
+        e.preventDefault();
+        if (!activeUser) {
+          openPage("pageWorkspace");
+          openSubTab("subAccount");
+          showNotice(els.accountNotice, "Sign in to chat in the Inventor Lounge.");
+          return;
         }
-        renderPosts();
-      }
+        const text = els.loungeInput.value.trim();
+        if (!text) return;
 
-      async function initApp() {
+        const id = "msg_" + Date.now() + "_" + Math.random().toString(36).slice(2, 6);
+        const payload = {
+          id,
+          sender: activeUser.handle,
+          text,
+          replyToSender: replyTarget ? replyTarget.sender : "",
+          replyToText: replyTarget ? replyTarget.text : "",
+          createdAt: Date.now()
+        };
+
+        const bytes = estimateBytes(payload);
+        const stats = getQuotaStats();
+        if (stats.used + bytes > stats.limit) {
+          els.quotaModal.classList.add("visible");
+          showNotice(els.modalNotice, "Storage full. Clear old chats or upgrade.", true);
+          return;
+        }
+
+        els.sendLoungeBtn.disabled = true;
         try {
-          const runtime = await loadRuntimeConfig();
-          firebaseConfig = runtime.config;
-          databaseURL = runtime.databaseURL;
+          await dbCall(`gomution/chats/${activeChannel}/${id}`, "PUT", payload);
+          const nextChat = Number((allUsers[activeUser.handle] && allUsers[activeUser.handle].chatBytes) || 0) + bytes;
+          await dbCall(`users/${activeUser.handle}/chatBytes`, "PUT", nextChat);
+          if (allUsers[activeUser.handle]) allUsers[activeUser.handle].chatBytes = nextChat;
+          els.loungeInput.value = "";
+          replyTarget = null;
+          els.replyBar.classList.remove("visible");
+          syncSessionUI();
+          await loadMessages();
+        } catch (err) {
+          showErrorBanner("Send failed: " + err.message);
+        } finally {
+          els.sendLoungeBtn.disabled = !isReady || !activeUser;
+        }
+      }
 
-          await refreshPosts();
+      async function deleteMessage(m) {
+        if (!activeUser || m.sender !== activeUser.handle) return;
+        try {
+          await dbCall(`gomution/chats/${activeChannel}/${m.id}`, "DELETE");
+          const cur = Number((allUsers[activeUser.handle] && allUsers[activeUser.handle].chatBytes) || 0);
+          const next = Math.max(0, cur - estimateBytes(m));
+          await dbCall(`users/${activeUser.handle}/chatBytes`, "PUT", next);
+          if (allUsers[activeUser.handle]) allUsers[activeUser.handle].chatBytes = next;
+          syncSessionUI();
+          await loadMessages();
+        } catch (err) {
+          showErrorBanner("Delete failed: " + err.message);
+        }
+      }
 
+      async function clearMyOldChats() {
+        if (!activeUser) return;
+        try {
+          const mine = channelMessages.filter((m) => m.sender === activeUser.handle);
+          for (const m of mine) {
+            await dbCall(`gomution/chats/${activeChannel}/${m.id}`, "DELETE");
+          }
+          await dbCall(`users/${activeUser.handle}/chatBytes`, "PUT", 0);
+          if (allUsers[activeUser.handle]) allUsers[activeUser.handle].chatBytes = 0;
+          syncSessionUI();
+          await loadMessages();
+          showNotice(els.modalNotice, "Old chats cleared and space freed.");
+        } catch (err) {
+          showNotice(els.modalNotice, err.message, true);
+        }
+      }
+
+      async function activatePro() {
+        if (!activeUser) return;
+        try {
+          await dbCall(`users/${activeUser.handle}/plan`, "PUT", "pro");
+          if (allUsers[activeUser.handle]) allUsers[activeUser.handle].plan = "pro";
+          syncSessionUI();
+          showNotice(els.modalNotice, "Upgraded to Inventor Pro (10 MB)!");
+        } catch (err) {
+          showNotice(els.modalNotice, err.message, true);
+        }
+      }
+
+      async function savePrefs() {
+        hideNotice(els.prefsNotice);
+        renderAllStreams();
+        renderRoster();
+        if (!activeUser) {
+          showNotice(els.prefsNotice, "Display settings applied for this session.");
+          return;
+        }
+        const campus = els.prefCampus.value.trim() || "Global Inventor";
+        const showOnline = els.prefOnlineToggle.checked;
+        try {
+          await dbCall(`users/${activeUser.handle}/campus`, "PUT", campus);
+          await dbCall(`users/${activeUser.handle}/showOnline`, "PUT", showOnline);
+          if (showOnline) await dbCall(`users/${activeUser.handle}/lastSeen`, "PUT", Date.now());
+          if (allUsers[activeUser.handle]) {
+            allUsers[activeUser.handle].campus = campus;
+            allUsers[activeUser.handle].showOnline = showOnline;
+            if (showOnline) allUsers[activeUser.handle].lastSeen = Date.now();
+          }
+          updateMetrics();
+          renderAllStreams();
+          renderRoster();
+          showNotice(els.prefsNotice, "Preferences saved.");
+        } catch (err) {
+          showNotice(els.prefsNotice, err.message, true);
+        }
+      }
+
+      function addAiBubble(text, role = "bot") {
+        const div = document.createElement("div");
+        div.className = `ai-bubble ${role}`;
+        div.textContent = text;
+        els.aiStream.appendChild(div);
+        els.aiStream.scrollTop = els.aiStream.scrollHeight;
+      }
+
+      async function lookupOnlineSummary(topic) {
+        try {
+          const r = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(topic.trim())}`);
+          if (!r.ok) return null;
+          const j = await r.json();
+          return j && j.extract ? `${j.title}: ${j.extract}` : null;
+        } catch (_e) {
+          return null;
+        }
+      }
+
+      async function askGoMotionAi(e) {
+        e.preventDefault();
+        const q = els.aiInput.value.trim();
+        if (!q) return;
+
+        addAiBubble(q, "user");
+        els.aiInput.value = "";
+        els.aiSubmitBtn.disabled = true;
+
+        const lower = q.toLowerCase();
+        const parts = [];
+        const onlineCount = Object.keys(allUsers).filter((h) => isOnline(allUsers[h])).length;
+
+        if (
+          lower.includes("panel") ||
+          lower.includes("build") ||
+          lower.includes("top") ||
+          lower.includes("online") ||
+          lower.includes("how many")
+        ) {
+          const top = [...allPosts].sort((a, b) => {
+            const sa = a.sparks ? Object.keys(a.sparks).length : Number(a.sparksCount || 0);
+            const sb = b.sparks ? Object.keys(b.sparks).length : Number(b.sparksCount || 0);
+            return sb - sa;
+          })[0];
+          parts.push(
+            `GOMUTION Status: ${allPosts.length} published build(s), ${Object.keys(allUsers).length} inventor(s), and ${onlineCount} online now.`
+          );
+          if (top) {
+            const sp = top.sparks ? Object.keys(top.sparks).length : Number(top.sparksCount || 0);
+            parts.push(`Top build: "${top.title}" by @${top.author} (${sp} sparks • ${top.track}).`);
+          }
+        }
+
+        const cleanTopic = q
+          .replace(/^(what is|who is|explain|tell me about|search|find|how does)\s+/i, "")
+          .replace(/[?.!]+$/, "")
+          .trim();
+
+        if (cleanTopic.length >= 2) {
+          const web = await lookupOnlineSummary(cleanTopic);
+          if (web) parts.push("Online Reference:\n" + web);
+        }
+
+        if (parts.length === 0) {
+          parts.push("Ask me about active GOMUTION builds or any engineering/science topic to look up online details.");
+        }
+
+        addAiBubble(parts.join("\n\n"), "bot");
+        els.aiSubmitBtn.disabled = false;
+      }
+
+      function updateMetrics() {
+        const keys = Object.keys(allUsers);
+        const sparks = allPosts.reduce((sum, p) => sum + (p.sparks ? Object.keys(p.sparks).length : Number(p.sparksCount || 0)), 0);
+        const on = Math.max(1, keys.filter((k) => isOnline(allUsers[k])).length);
+        els.metricBuilds.textContent = allPosts.length;
+        els.metricInventors.textContent = keys.length;
+        els.metricSparks.textContent = sparks;
+        els.metricOnline.textContent = on;
+        els.onlineCountLabel.textContent = `${on} Online`;
+      }
+
+      async function refreshAll() {
+        const [rawPosts, rawUsers] = await Promise.all([
+          dbCall("gomution/posts", "GET"),
+          dbCall("users", "GET")
+        ]);
+        allUsers = rawUsers && typeof rawUsers === "object" ? rawUsers : {};
+        allPosts =
+          !rawPosts || typeof rawPosts !== "object"
+            ? []
+            : Object.entries(rawPosts).map(([k, v]) => ({ id: (v && v.id) || k, ...(v || {}) }));
+        updateMetrics();
+        syncSessionUI();
+        renderAllStreams();
+        if (document.getElementById("pageLounge").classList.contains("active")) {
+          renderRoster();
+          await loadMessages();
+        }
+      }
+
+      async function boot() {
+        try {
+          databaseURL = await fetchConfig();
+          await refreshAll();
           isReady = true;
-          clearProdError();
-          els.dbStatusPill.textContent = "RTDB Connected";
-          els.dbStatusPill.className = "pill live";
-          els.signInBtn.disabled = false;
-          els.createAccountBtn.disabled = false;
-          updateSessionUI();
+          clearErrorBanner();
+          els.loginSubmitBtn.disabled = false;
+          els.switchAuthModeBtn.disabled = false;
+          syncSessionUI();
+
+          setInterval(async () => {
+            try {
+              await heartbeat();
+              await refreshAll();
+            } catch (_e) {}
+          }, 15000);
         } catch (err) {
           isReady = false;
-          els.signInBtn.disabled = true;
-          els.createAccountBtn.disabled = true;
-          els.publishBtn.disabled = true;
-          els.postsContainer.innerHTML =
-            '<div class="empty-state">Public build feed unavailable until configuration and Realtime Database connection succeed.</div>';
-          showProdError(
-            "GOMUTION cannot connect to the public database. " +
-              err.message +
-              " Please verify your deployment environment configuration and Firebase Realtime Database rules."
-          );
+          els.streamList.innerHTML = '<div class="empty-msg">Unable to load the build stream right now.</div>';
+          showErrorBanner("Service unavailable: " + err.message);
         }
       }
 
-      els.createAccountBtn.addEventListener("click", handleCreateAccount);
-      els.signInBtn.addEventListener("click", handleSignIn);
-      els.signOutBtn.addEventListener("click", handleSignOut);
-      els.publishForm.addEventListener("submit", handlePublish);
-      els.searchInput.addEventListener("input", renderPosts);
-      els.filterTrackSelect.addEventListener("change", renderPosts);
-      els.sortSelect.addEventListener("change", renderPosts);
+      // Wire events
+      els.navBtns.forEach((b) => b.addEventListener("click", () => openPage(b.dataset.page)));
+      els.subnavBtns.forEach((b) => b.addEventListener("click", () => openSubTab(b.dataset.subtab)));
+      els.homeBrand.addEventListener("click", () => openPage("pageIntro"));
+      els.introCreateBtn.addEventListener("click", () => {
+        toggleRegisterUI(true);
+        openPage("pageWorkspace");
+        openSubTab("subAccount");
+      });
+      els.introStreamBtn.addEventListener("click", () => {
+        openPage("pageWorkspace");
+        openSubTab("subFeed");
+      });
+      els.introSeeAllBtn.addEventListener("click", () => {
+        openPage("pageWorkspace");
+        openSubTab("subFeed");
+      });
 
-      initApp();
+      document.querySelectorAll("[data-eye]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const inp = document.getElementById(btn.dataset.eye);
+          if (inp) inp.type = inp.type === "password" ? "text" : "password";
+        });
+      });
+
+      els.authPasscode.addEventListener("input", () => {
+        if (isRegisterMode) renderPassStrength();
+      });
+      els.switchAuthModeBtn.addEventListener("click", () => toggleRegisterUI(!isRegisterMode));
+      els.loginSubmitBtn.addEventListener("click", submitAuth);
+      els.signOutBtn.addEventListener("click", signOut);
+      els.jumpToPublishBtn.addEventListener("click", () => openSubTab("subPublish"));
+      els.jumpToLoungeBtn.addEventListener("click", () => openPage("pageLounge"));
+
+      els.buildForm.addEventListener("submit", publishBuild);
+      els.refreshStreamBtn.addEventListener("click", refreshAll);
+      els.streamSearchInput.addEventListener("input", renderAllStreams);
+      els.streamTrackFilter.addEventListener("change", renderAllStreams);
+      els.streamSortSelect.addEventListener("change", renderAllStreams);
+
+      els.rosterSearch.addEventListener("input", renderRoster);
+      els.cancelReplyBtn.addEventListener("click", () => {
+        replyTarget = null;
+        els.replyBar.classList.remove("visible");
+      });
+      els.loungeForm.addEventListener("submit", sendLoungeMessage);
+
+      els.savePrefsBtn.addEventListener("click", savePrefs);
+      els.prefCompactToggle.addEventListener("change", renderAllStreams);
+      els.prefQuotaBtn.addEventListener("click", () => {
+        hideNotice(els.modalNotice);
+        els.quotaModal.classList.add("visible");
+      });
+      els.aiForm.addEventListener("submit", askGoMotionAi);
+
+      els.openQuotaModalBtn.addEventListener("click", () => {
+        hideNotice(els.modalNotice);
+        els.quotaModal.classList.add("visible");
+      });
+      els.closeQuotaModalBtn.addEventListener("click", () => els.quotaModal.classList.remove("visible"));
+      els.clearMyChatsBtn.addEventListener("click", clearMyOldChats);
+      els.activateProBtn.addEventListener("click", activatePro);
+
+      boot();
     })();
   </script>
 </body>
